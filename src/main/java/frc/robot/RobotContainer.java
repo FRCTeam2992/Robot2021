@@ -7,37 +7,29 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.StopIntake;
 import frc.robot.subsystems.Intake;
-
-
+import frc.robot.commands.StopSpindexer;
+import frc.robot.subsystems.Spindexer;
 
 public class RobotContainer {
-  //Subsystem
+  // Subsystem
   private final Intake mIntake;
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+  private final Spindexer mSpindexer;
+
   public RobotContainer() {
-    //Intake
+    // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new StopIntake(mIntake));
 
     // Configure the button bindings
+    mSpindexer = new Spindexer();
+    mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
     configureButtonBindings();
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by instantiating a {@link GenericHID} or one of its subclasses
-   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
-   * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() {
-
 
   }
 }
