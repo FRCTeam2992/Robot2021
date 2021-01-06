@@ -12,6 +12,7 @@ import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 
 public final class Constants {
+    public static final int teleClimbLimit = 4000;
 
     
 // Color Wheel Target Colors

@@ -7,18 +7,33 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
-  /**
-   * Creates a new Shooter.
-   */
-  public Shooter() {
+ //motors
+  private TalonSRX leadShooter;
+  private VictorSPX followShooter;
 
+  public Shooter() {
+    leadShooter = new TalonSRX(13);
+    leadShooter.setInverted(false);
+    leadShooter.setNeutralMode(NeutralMode.Coast);
+
+    followShooter = new VictorSPX(14);
+    followShooter.follow(leadShooter);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void setShooterSpeed(double speed) {
+    leadShooter.set(ControlMode.PercentOutput, speed);
   }
 }

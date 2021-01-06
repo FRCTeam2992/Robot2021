@@ -8,13 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.TelescopeClimb;
 
 public class StopTelescopeClimb extends CommandBase {
-  /**
-   * Creates a new StopTelescopeClimb.
-   */
-  public StopTelescopeClimb() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  //Subsystem instance
+  private TelescopeClimb mTelescopeClimb;
+
+  public StopTelescopeClimb(TelescopeClimb subsystem) {
+    mTelescopeClimb = subsystem;
+
+    addRequirements(mTelescopeClimb);
   }
 
   // Called when the command is initially scheduled.
@@ -25,6 +28,7 @@ public class StopTelescopeClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    mTelescopeClimb.setClimbSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.

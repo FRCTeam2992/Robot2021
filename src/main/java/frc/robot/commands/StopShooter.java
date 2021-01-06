@@ -8,20 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimeSlide;
+import frc.robot.subsystems.Shooter;
 
-public class MoveClimSlide extends CommandBase {
-    private ClimeSlide mClimeSlide;
-    private double mCLimeSpeed;
+public class StopShooter extends CommandBase {
   /**
-   * Creates a new MoveClimSlide.
+   * Creates a new StopShooter.
    */
-  public MoveClimSlide(ClimeSlide subsystem, double climeSpeed) {
-    mClimeSlide = subsystem;
+  private Shooter mShooter;
+  
+  public StopShooter(Shooter subsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    mShooter = subsystem; 
 
-    mCLimeSpeed = climeSpeed;
-
-    addRequirements(mClimeSlide);
+    addRequirements(mShooter);
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +31,7 @@ public class MoveClimSlide extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mClimeSlide.SetClimeSpeed(mCLimeSpeed);
+    mShooter.setShooterSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.

@@ -13,25 +13,25 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ClimeSlide extends SubsystemBase {
+public class ClimbSlide extends SubsystemBase {
 
-  private VictorSPX climeMotor;
+  private VictorSPX climbMotor;
   /**
-   * Creates a new ClimeSlide.
+   * Creates a new ClimbSlide.
    */
-  public ClimeSlide() {
-    climeMotor = new VictorSPX(12);
-    climeMotor.setInverted(false);
-    climeMotor.setNeutralMode(NeutralMode.Coast);
+  public ClimbSlide() {
+    climbMotor = new VictorSPX(12);
+    climbMotor.setInverted(false);
+    climbMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void SetClimeSpeed(double speed) {
+  public void SetClimbSpeed(double speed) {
 
-    climeMotor.set(ControlMode.PercentOutput, speed);
+    climbMotor.set(ControlMode.PercentOutput, speed);
 
   }
 }

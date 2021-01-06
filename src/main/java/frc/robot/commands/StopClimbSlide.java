@@ -8,17 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimeSlide;
+import frc.robot.subsystems.ClimbSlide;
 
-public class StopClimeSlide extends CommandBase {
-  private ClimeSlide mClimeSlide;
+public class StopClimbSlide extends CommandBase {
+  private ClimbSlide mClimbSlide;
   /**
-   * Creates a new StopClimeSlide.
+   * Creates a new StopClimbSlide.
    */
-  public StopClimeSlide(ClimeSlide subsystem) {
-    mClimeSlide = subsystem;
+  public StopClimbSlide(ClimbSlide subsystem) {
+    mClimbSlide = subsystem;
 
-    addRequirements(mClimeSlide);
+    addRequirements(mClimbSlide);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +29,7 @@ public class StopClimeSlide extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mClimeSlide.SetClimeSpeed(0.0);
+    mClimbSlide.SetClimbSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.
