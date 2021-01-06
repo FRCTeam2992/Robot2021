@@ -8,6 +8,10 @@
 package frc.robot;
 
 public final class Constants {
+    //teleclimb
     public static final int teleClimbLimit = 4000;
 
+    //shooter
+    public static final int defaultShooterSpeed = 5200;
+    public static final int shooterEncoderPulses = 2048;
 }
