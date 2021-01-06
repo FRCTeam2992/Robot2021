@@ -8,13 +8,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BarClimb;
 
 public class MoveBarClimb extends CommandBase {
-  /**
-   * Creates a new MoveBarClimb.
-   */
-  public MoveBarClimb() {
-    // Use addRequirements() here to declare subsystem dependencies.
+   //subsystem instance
+   private BarClimb mBarClimb;
+
+   // varibles
+   private double mBarSpeed;
+   private boolean mToggleClimb;
+   private boolean mToggleLock;
+  public MoveBarClimb(BarClimb subsystem, double barSpeed, boolean toogleClimb, boolean toggleLock) {
+    mBarClimb = subsystem;
+    mBarSpeed = barSpeed;
+
+    addRequirements(mBarClimb);
   }
 
   // Called when the command is initially scheduled.
@@ -25,6 +33,9 @@ public class MoveBarClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    mBarClimb.barClimbSpeed(mBarSpeed);
+    mBarClimb.deployClimb(mToggleClimb);
+    mBarClimb.deployLock(mToggleLock);
   }
 
   // Called once the command ends or is interrupted.

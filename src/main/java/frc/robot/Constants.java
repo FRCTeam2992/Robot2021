@@ -8,5 +8,6 @@
 package frc.robot;
 
 public final class Constants {
+    public static final int teleClimbLimit = 4000;
 
 }

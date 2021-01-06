@@ -25,8 +25,7 @@ public class Shooter extends SubsystemBase {
     leadShooter.setNeutralMode(NeutralMode.Coast);
 
     followShooter = new VictorSPX(14);
-    followShooter.setInverted(false);
-    followShooter.setNeutralMode(NeutralMode.Coast);
+    followShooter.follow(leadShooter);
   }
 
   @Override
