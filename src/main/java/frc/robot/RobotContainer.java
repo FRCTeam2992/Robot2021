@@ -7,9 +7,9 @@
 
 package frc.robot;
 
-import frc.robot.commands.StopClimeSlide;
+import frc.robot.commands.StopClimbSlide;
 import frc.robot.commands.StopIntake;
-import frc.robot.subsystems.ClimeSlide;
+import frc.robot.subsystems.ClimbSlide;
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.StopSpindexer;
 import frc.robot.commands.StopTurret;
@@ -21,7 +21,7 @@ public class RobotContainer {
   private final Intake mIntake;
   private final Spindexer mSpindexer;
   private final Turret mTurret;
-  private final ClimeSlide mClimeSlide;
+  private final ClimbSlide mClimeSlide;
 
   public RobotContainer() {
     // Intake
@@ -33,8 +33,8 @@ public class RobotContainer {
     mTurret.setDefaultCommand(new StopTurret(mTurret));
 
     //ClimeSlide
-    mClimeSlide = new ClimeSlide();
-    mClimeSlide.setDefaultCommand(new StopClimeSlide(mClimeSlide));
+    mClimeSlide = new ClimbSlide();
+    mClimeSlide.setDefaultCommand(new StopClimbSlide(mClimeSlide));
     
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));

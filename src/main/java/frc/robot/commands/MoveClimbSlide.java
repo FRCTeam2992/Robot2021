@@ -8,20 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimeSlide;
+import frc.robot.subsystems.ClimbSlide;
 
-public class MoveClimSlide extends CommandBase {
-    private ClimeSlide mClimeSlide;
-    private double mCLimeSpeed;
+public class MoveClimbSlide extends CommandBase {
+    private ClimbSlide mClimbSlide;
+    private double mClimbSpeed;
   /**
    * Creates a new MoveClimSlide.
    */
-  public MoveClimSlide(ClimeSlide subsystem, double climeSpeed) {
-    mClimeSlide = subsystem;
+  public MoveClimbSlide(ClimbSlide subsystem, double climbSpeed) {
+    mClimbSlide = subsystem;
 
-    mCLimeSpeed = climeSpeed;
+    mClimbSpeed = climbSpeed;
 
-    addRequirements(mClimeSlide);
+    addRequirements(mClimbSlide);
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +32,7 @@ public class MoveClimSlide extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mClimeSlide.SetClimeSpeed(mCLimeSpeed);
+    mClimbSlide.SetClimbSpeed(mClimbSpeed);
   }
 
   // Called once the command ends or is interrupted.
