@@ -33,7 +33,7 @@ public class MoveColorWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mColorWheel.setColorWheel(mColorWheelSpeed);
+    mColorWheel.setColorWheelSpeed(mColorWheelSpeed);
   }
 
   // Called once the command ends or is interrupted.
