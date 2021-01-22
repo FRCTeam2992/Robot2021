@@ -19,9 +19,9 @@ public class MoveSpindexer extends CommandBase {
   private double mSpinnerSpeed;
   private double mKickerSpeed;
 
-  public MoveSpindexer(Spindexer subsystem, double spinnerSpeed, double kickerSpeed) {
+  public MoveSpindexer(Spindexer mSpindexer2, double spinnerSpeed, double kickerSpeed) {
     //Subsystem
-    mSpindexer = subsystem;
+    mSpindexer = mSpindexer2;
     //Varibles 
     mSpinnerSpeed = spinnerSpeed;
     mKickerSpeed = kickerSpeed;
