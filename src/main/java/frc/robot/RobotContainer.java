@@ -22,6 +22,7 @@ public class RobotContainer {
   private final Spindexer mSpindexer;
   private final Turret mTurret;
   private final ClimbSlide mClimeSlide;
+  private final ColorWheel mColorWheel;
 
   public RobotContainer() {
     // Intake
@@ -38,6 +39,11 @@ public class RobotContainer {
     
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
+
+    // ColorWheel
+    mColorWheel = new ColorWheel();
+    mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
+
     configureButtonBindings();
   }
 
