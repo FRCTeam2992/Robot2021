@@ -17,7 +17,7 @@ import frc.robot.subsystems.Spindexer;
 public class AutoIntake extends ParallelCommandGroup {
   /** Creates a new AutoIntake. */
   public AutoIntake(Intake mIntake, Spindexer mSpindexer) {
-    addCommands(new DeployIntake(mIntake, true),new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .75, .75));
+    addCommands(new DeployIntake(mIntake, true),new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .75));
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
