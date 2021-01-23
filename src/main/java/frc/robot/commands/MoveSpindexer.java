@@ -17,14 +17,12 @@ public class MoveSpindexer extends CommandBase {
 
   //Varibles
   private double mSpinnerSpeed;
-  private double mKickerSpeed;
 
-  public MoveSpindexer(Spindexer mSpindexer2, double spinnerSpeed, double kickerSpeed) {
+  public MoveSpindexer(Spindexer mSpindexer2, double spinnerSpeed) {
     //Subsystem
     mSpindexer = mSpindexer2;
     //Varibles 
     mSpinnerSpeed = spinnerSpeed;
-    mKickerSpeed = kickerSpeed;
 
     addRequirements(mSpindexer);
   }
@@ -38,7 +36,6 @@ public class MoveSpindexer extends CommandBase {
   @Override
   public void execute() {
     mSpindexer.setSpinnerSpeed(mSpinnerSpeed);
-    mSpindexer.setKickerSpeed(mKickerSpeed);
   }
 
   // Called once the command ends or is interrupted.
