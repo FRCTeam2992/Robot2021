@@ -7,13 +7,20 @@
 
 package frc.robot;
 
+import frc.robot.commands.StopBarClimb;
 import frc.robot.commands.StopClimbSlide;
+import frc.robot.commands.StopColorWheel;
+import frc.robot.commands.StopEjector;
 import frc.robot.commands.StopIntake;
+import frc.robot.commands.StopShooter;
 import frc.robot.subsystems.BarClimb;
 import frc.robot.subsystems.ClimbSlide;
+import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.Ejector;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.commands.StopSpindexer;
+import frc.robot.commands.StopTelescopeClimb;
 import frc.robot.commands.StopTurret;
 import frc.robot.subsystems.Spindexer;
 import frc.robot.subsystems.TelescopeClimb;
@@ -29,39 +36,44 @@ public class RobotContainer {
   private final BarClimb mBarClimb;
   private final Shooter mShooter;
   private final TelescopeClimb mTelescopeClimb;
+  private final Ejector mEjector;
 
   public RobotContainer() {
-    // Intake
+  // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new StopIntake(mIntake));
 
-    //Turret
+  //Turret
     mTurret = new Turret();
     mTurret.setDefaultCommand(new StopTurret(mTurret));
 
-    //ClimeSlide
+  //ClimeSlide
     mClimeSlide = new ClimbSlide();
     mClimeSlide.setDefaultCommand(new StopClimbSlide(mClimeSlide));
     
-    //Spindexer
+  //Spindexer
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
 
-    //ColorWheel
+  //ColorWheel
     mColorWheel = new ColorWheel();
     mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
 
-    //BarClimb
+  //BarClimb
     mBarClimb = new BarClimb();
     mBarClimb.setDefaultCommand(new StopBarClimb(mBarClimb));
 
-    //Shooter
+  //Shooter
     mShooter = new Shooter();
     mShooter.setDefaultCommand(new StopShooter(mShooter));
 
-    //TelescopeClimb
-    mTelescopeClimb = TelescopeClimb();
+  //TelescopeClimb
+    mTelescopeClimb = new TelescopeClimb();
     mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
+
+  //Ejector
+    mEjector = new Ejector();
+    mEjector.setDefaultCommand(new StopEjector(mEjector));
     
     configureButtonBindings();
   }

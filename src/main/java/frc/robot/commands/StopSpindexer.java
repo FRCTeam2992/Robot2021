@@ -32,7 +32,6 @@ public class StopSpindexer extends CommandBase {
   @Override
   public void execute() {
     mSpindexer.setSpinnerSpeed(0.0);
-    mSpindexer.setKickerSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.

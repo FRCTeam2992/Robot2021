@@ -6,8 +6,10 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DeployIntake;
+import frc.robot.commands.MoveEjector;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveSpindexer;
+import frc.robot.subsystems.Ejector;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Spindexer;
 
@@ -16,8 +18,8 @@ import frc.robot.subsystems.Spindexer;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoIntake extends ParallelCommandGroup {
   /** Creates a new AutoIntake. */
-  public AutoIntake(Intake mIntake, Spindexer mSpindexer) {
-    addCommands(new DeployIntake(mIntake, true),new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .75));
+  public AutoIntake(Intake mIntake, Spindexer mSpindexer, Ejector mEjector) {
+    addCommands(new DeployIntake(mIntake, true),new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .5), new MoveEjector(mEjector, -.5));
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());

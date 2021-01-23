@@ -17,17 +17,13 @@ public class Spindexer extends SubsystemBase {
   
   //Motors
   private VictorSPX spinnerMotor;
-  private VictorSPX kickerMotor;
+  
 
   public Spindexer() {
 
    spinnerMotor = new VictorSPX(9);
    spinnerMotor.setInverted(false);
    spinnerMotor.setNeutralMode(NeutralMode.Coast);
-
-   kickerMotor = new VictorSPX(10);
-   kickerMotor.setInverted(false);
-   kickerMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override
@@ -38,7 +34,4 @@ public class Spindexer extends SubsystemBase {
     spinnerMotor.set(ControlMode.PercentOutput, speed);
   }
   
-  public void setKickerSpeed(double speed){
-    kickerMotor.set(ControlMode.PercentOutput, speed);
-  }
 }
