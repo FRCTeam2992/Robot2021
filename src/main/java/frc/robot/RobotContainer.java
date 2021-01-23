@@ -9,11 +9,14 @@ package frc.robot;
 
 import frc.robot.commands.StopClimbSlide;
 import frc.robot.commands.StopIntake;
+import frc.robot.subsystems.BarClimb;
 import frc.robot.subsystems.ClimbSlide;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.commands.StopSpindexer;
 import frc.robot.commands.StopTurret;
 import frc.robot.subsystems.Spindexer;
+import frc.robot.subsystems.TelescopeClimb;
 import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
@@ -22,6 +25,10 @@ public class RobotContainer {
   private final Spindexer mSpindexer;
   private final Turret mTurret;
   private final ClimbSlide mClimeSlide;
+  private final ColorWheel mColorWheel;
+  private final BarClimb mBarClimb;
+  private final Shooter mShooter;
+  private final TelescopeClimb mTelescopeClimb;
 
   public RobotContainer() {
     // Intake
@@ -36,8 +43,26 @@ public class RobotContainer {
     mClimeSlide = new ClimbSlide();
     mClimeSlide.setDefaultCommand(new StopClimbSlide(mClimeSlide));
     
+    //Spindexer
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
+
+    //ColorWheel
+    mColorWheel = new ColorWheel();
+    mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
+
+    //BarClimb
+    mBarClimb = new BarClimb();
+    mBarClimb.setDefaultCommand(new StopBarClimb(mBarClimb));
+
+    //Shooter
+    mShooter = new Shooter();
+    mShooter.setDefaultCommand(new StopShooter(mShooter));
+
+    //TelescopeClimb
+    mTelescopeClimb = TelescopeClimb();
+    mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
+    
     configureButtonBindings();
   }
 

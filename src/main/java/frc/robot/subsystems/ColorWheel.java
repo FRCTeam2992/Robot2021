@@ -37,7 +37,8 @@ public class ColorWheel extends SubsystemBase {
   private final ColorMatch colorMatcher = new ColorMatch();
 
 public enum TargetColor {
-   Blue, Green, Red, Yellow, Unknown, Corrupt
+    Blue, Green, Red, Yellow, Unknown, Corrupt
+    
 }
 
   public ColorWheel() {
