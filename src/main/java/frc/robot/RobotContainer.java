@@ -8,12 +8,16 @@
 package frc.robot;
 
 import frc.robot.commands.StopClimbSlide;
+import frc.robot.commands.StopColorWheel;
 import frc.robot.commands.StopIntake;
+import frc.robot.commands.StopShooter;
 import frc.robot.subsystems.BarClimb;
 import frc.robot.subsystems.ClimbSlide;
+import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.commands.StopSpindexer;
+import frc.robot.commands.StopTelescopeClimb;
 import frc.robot.commands.StopTurret;
 import frc.robot.subsystems.Spindexer;
 import frc.robot.subsystems.TelescopeClimb;
