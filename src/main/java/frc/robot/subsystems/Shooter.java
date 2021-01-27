@@ -48,4 +48,8 @@ public class Shooter extends SubsystemBase {
   public void setShooterVelocity(double velocity){
     leadShooter.set(ControlMode.Velocity, velocity);
   }
+
+  public double getShooterRPM() {
+    return (leadShooter.getSelectedSensorVelocity() * 600) / (Constants.shooterEncoderPulses * 4);
+  }
 }

@@ -1,15 +1,17 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Shooter;
 
 public class ShooterAtSetSpeed extends CommandBase {
-  /** Creates a new ShooterAtSetSpeed. */
-  public ShooterAtSetSpeed() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  //varibles
+  private int mToleranceValue;
+  // Subsystem Instance
+  private Shooter mShooter;
+
+  public ShooterAtSetSpeed(Shooter subsystem, int toleranceValue) {
+    mShooter = subsystem;
+    toleranceValue = mToleranceValue;
   }
 
   // Called when the command is initially scheduled.
@@ -27,6 +29,7 @@ public class ShooterAtSetSpeed extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(mShooter.shooterSetSpeed - mShooter.getShooterRPM()) <= mToleranceValue;
   }
+  
 }
