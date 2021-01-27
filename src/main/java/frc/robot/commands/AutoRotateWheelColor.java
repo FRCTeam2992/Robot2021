@@ -60,12 +60,12 @@ public class AutoRotateWheelColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mColorWheel.setColorWheelPostion(encoderSetValue);
+    mColorWheel.setColorWheelPosition(encoderSetValue);
   }
 
   @Override
   public boolean isFinished() {
-    return isDone || Math.abs(encoderSetValue - mColorWheel.getMotorPostion()) <= 50
+    return isDone || Math.abs(encoderSetValue - mColorWheel.getMotorPosition()) <= 50
                 || timeoutTimer.get() >= mTimeout;
   }
   // Called once the command ends or is interrupted.
@@ -75,10 +75,6 @@ public class AutoRotateWheelColor extends CommandBase {
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean iSnterrupted() {
-    mColorWheel.stopColorWheel();
-  }
   private int getColorID(TargetColor targetColor) {
     switch (targetColor) {
     case Green:
@@ -92,4 +88,5 @@ public class AutoRotateWheelColor extends CommandBase {
     default:
         return 0;
   }
+}
 }
