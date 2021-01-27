@@ -4,9 +4,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.ColorWheel.TargetColor;
 
 public class AutoRotateWheelColor extends CommandBase {
+
+  private ColorWheel mColorWheel;
 
   private boolean isDone = false;
 
@@ -19,9 +26,9 @@ public class AutoRotateWheelColor extends CommandBase {
   private double mTimeout = 0;
   private Timer timeoutTimer;
   /** Creates a new AutoRotateWheelColor. */
-  public AutoRotateWheelColor(double timeout) {
-    requires(Robot.colorWheel);
-    requires(Robot.topLift);
+  public AutoRotateWheelColor(ColorWheel subsystem, double timeout) {
+    
+    mColorWheel = subsystem;
 
     mTimeout = timeout;
     timeoutTimer = new Timer();
@@ -30,8 +37,8 @@ public class AutoRotateWheelColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    detectedPosition = getColorID(Robot.colorWheel.getDetectedColor());
-        targetPosition = getColorID(Robot.colorWheel.getFMSColorData());
+    detectedPosition = getColorID(mColorWheel.getDetectedColor());
+        targetPosition = getColorID(mColorWheel.getFMSColorData());
 
         if (detectedPosition == 0 || targetPosition == 0) {
             isDone = true;
@@ -43,7 +50,7 @@ public class AutoRotateWheelColor extends CommandBase {
             rotations += detectedPosition;
         }
 
-        Robot.colorWheel.zeroMotorPosition();
+        mColorWheel.zeroMotorPosition();
         encoderSetValue = ((rotations / 8) * Constants.colorWheelSpinRatio) * (Constants.colorWheelEncoderPulses * 4);
 
         timeoutTimer.reset();
@@ -53,25 +60,21 @@ public class AutoRotateWheelColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.colorWheel.setColorWheelPostion(encoderSetValue);
+    mColorWheel.setColorWheelPosition(encoderSetValue);
   }
 
   @Override
   public boolean isFinished() {
-    return isDone || Math.abs(encoderSetValue - Robot.colorWheel.getMotorPostion()) <= 50
+    return isDone || Math.abs(encoderSetValue - mColorWheel.getMotorPosition()) <= 50
                 || timeoutTimer.get() >= mTimeout;
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.colorWheel.stopColorWheel();
+    mColorWheel.stopColorWheel();
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean interrupted() {
-    Robot.colorWheel.stopColorWheel();
-  }
   private int getColorID(TargetColor targetColor) {
     switch (targetColor) {
     case Green:
@@ -85,4 +88,5 @@ public class AutoRotateWheelColor extends CommandBase {
     default:
         return 0;
   }
+}
 }
