@@ -160,8 +160,6 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrivePID.setD(Constants.driveD);
     rearRightDrivePID.setFF(Constants.driveF);
 
-    //
-
   }
 
   @Override
