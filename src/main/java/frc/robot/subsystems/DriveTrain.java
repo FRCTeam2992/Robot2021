@@ -13,8 +13,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drive.swerve.SwerveModule;
 import frc.robot.Constants;
@@ -160,10 +162,75 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrivePID.setD(Constants.driveD);
     rearRightDrivePID.setFF(Constants.driveF);
 
+    //Swerve Modules
+    frontLeftModule = new SwerveModule(frontLeftDrive, frontLeftTurn, frontLeftEncoder, Constants.frontLeftOffset, frontLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+
+    frontRightModule = new SwerveModule(frontRightDrive, frontRightTurn, frontRightEncoder, Constants.frontRightOffset, frontRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+
+    rearLeftModule = new SwerveModule(rearLeftDrive, frontLeftTurn, rearLeftEncoder, Constants.rearLeftOffset, rearLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+
+    rearRightModule = new SwerveModule(rearRightDrive, frontRightTurn, rearRightEncoder, Constants.rearRightOffset, rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+
+    //Robot Gyro
+    navx = new AHRS(SPI.port.kMXP);
+
+    // Swerve Drive Kinematics
+    swerveDriveKinematics = new SwerveDriveKinematics(Constants.frontLeftLocation,
+    Constants.frontRightLocation, Constants.rearLeftLocation,
+    Constants.rearRightLocation);
+
+    // Serve Drive Odometry
+    swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics,
+    Rotation2d.fromDegrees(-navx.getYaw()), new Pose2d(0.0, 0.0, new Rotation2d()));
+
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+   // Display Encoder Angle\
+   SmartDashboard.putNumber("Front Left Encoder Angle", frontLeftModule.getEncoderAngle());
+   SmartDashboard.putNumber("Front Right Encoder Angle", frontRightModule.getEncoderAngle());
+   SmartDashboard.putNumber("Rear Left Encoder Angle", rearLeftModule.getEncoderAngle());
+   SmartDashboard.putNumber("Rear Right Encoder Angle", rearRightModule.getEncoderAngle());
+
+   // Display Wheel Velocities
+   SmartDashboard.putNumber("Front Left Velocity", frontLeftModule.getWheelSpeedMeters());
+   SmartDashboard.putNumber("Front Right Velocity", frontRightModule.getWheelSpeedMeters());
+   SmartDashboard.putNumber("Rear Left Velocity", rearLeftModule.getWheelSpeedMeters());
+   SmartDashboard.putNumber("Rear Right Velocity", rearRightModule.getWheelSpeedMeters());
+
+  // Display Gyro Angle
+  SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+
+  // Update the Odometry
+  latestSwervPose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(), frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
+
+  // Display Odometry
+  SmartDashboard.putNumber("Odometry Rotation", latestSwervPose.getRotation().getDegrees());
+  SmartDashboard.putNumber("Odometry X", latestSwervPose.getX());
+  SmartDashboard.putNumber("Odometry Y", latestSwervPose.getY());
+  }
+
+  public void setTurnIdelMode(IdleMode mode) {
+    frontLeftTurn.setIdleMode(mode);
+    frontRightTurn.setIdleMode(mode);
+    rearLeftTurn.setIdleMode(mode);
+    rearRightTurn.setIdleMode(mode);
+  }
+
+  public void setDriveIdelMode(IdleMode mode) {
+    frontLeftDrive.setIdleMode(mode);
+    frontRightDrive.setIdleMode(mode);
+    rearLeftDrive.setIdleMode(mode);
+    rearRightDrive.setIdleMode(mode);
+  }
+  public void stopDrive() {
+    frontLeftModule.stop();
+    frontRightModule.stop();
+    rearLeftModule.stop();
+    rearRightModule.stop();
+  }
+  public void resetOdometry() {
+    swerveDriveOdometry.resetPosition(new Pose2d(0.0, 0.0, new Rotation2d()), Rotation2d.fromDegrees(-navx.getYaw()));
   }
 }
