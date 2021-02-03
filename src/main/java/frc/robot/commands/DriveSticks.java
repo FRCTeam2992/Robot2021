@@ -117,16 +117,30 @@ public class DriveSticks extends CommandBase {
     SwerveModule rearLeft = mDriveTrain.rearLeftModule;
     SwerveModule rearRight = mDriveTrain.rearRightModule;
 
-    
-  }
-  }
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+ // Command the Swerve Modules
+ if (Constants.isVelocityControlled) {
+  frontLeft.calculateDriveVelocity(frontLeftSpeed, frontLeftAngle);
+  frontRight.calculateDriveVelocity(frontLeftSpeed, frontRightAngle);
+  rearLeft.calculateDriveVelocity(rearLeftSpeed, rearLeftAngle);
+  rearRight.calculateDriveVelocity(rearRightSpeed, rearRightAngle);
+} else {
+  frontLeft.calculateDrive(frontLeftSpeed, frontLeftAngle);
+  frontRight.calculateDrive(frontLeftSpeed, frontRightAngle);
+  rearLeft.calculateDrive(rearLeftSpeed, rearLeftAngle);
+  rearRight.calculateDrive(rearRightSpeed, rearRightAngle);
+}
+} else {
+mDriveTrain.stopDrive();
+}
+}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+@Override
+public boolean isFinished() {
+return false;
+}
+
+@Override
+public void end(boolean interrupted) {
+mDriveTrain.stopDrive();
+}
 }
