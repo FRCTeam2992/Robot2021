@@ -7,6 +7,12 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.lib.drive.swerve.SwerveModule;
+import frc.lib.oi.mhController;
+import frc.robot.commands.DriveSticks;
 import frc.robot.commands.StopBarClimb;
 import frc.robot.commands.StopClimbSlide;
 import frc.robot.commands.StopColorWheel;
@@ -16,6 +22,7 @@ import frc.robot.commands.StopShooter;
 import frc.robot.subsystems.BarClimb;
 import frc.robot.subsystems.ClimbSlide;
 import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Ejector;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -37,8 +44,19 @@ public class RobotContainer {
   private final Shooter mShooter;
   private final TelescopeClimb mTelescopeClimb;
   private final Ejector mEjector;
+  private final DriveTrain mDriveTrain;
+
+  // Controllers 
+  public mhController controller;
 
   public RobotContainer() {
+
+  // DriveTrain
+  mDriveTrain = new DriveTrain();
+  mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
+  
+  SwerveModule module = mDriveTrain.frontLeftModule; 
+
   // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new StopIntake(mIntake));
@@ -75,10 +93,32 @@ public class RobotContainer {
     mEjector = new Ejector();
     mEjector.setDefaultCommand(new StopEjector(mEjector));
     
+    configureController();
     configureButtonBindings();
+
+  }
+
+  private void configureController(){
+    controller = new mhController(0);
   }
 
   private void configureButtonBindings() {
+
+  }
+
+  public void setDriveTrainIdleMode(IdleMode turnMode, IdleMode driveMode){
+    mDriveTrain.setTurnIdleMode(turnMode);
+    mDriveTrain.setDriveIdleMode(driveMode);
+    
+  }
+
+  public void zeroGyro(){
+    mDriveTrain.navx.zeroYaw();
+
+  }
+
+  public void resetOdometry(){
+    mDriveTrain.resetOdometry();
 
   }
 }
