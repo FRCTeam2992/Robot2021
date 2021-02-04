@@ -12,19 +12,24 @@ public class MoveAdjustableShooterHood extends CommandBase {
   // Subsystem Instance
   private AdjustabeShooterHood mAdjustabeShooterHood;
 
-  // varibles
+  // Saved Variables
   private double mAdjustableShooterHoodSpeed;
 
   public MoveAdjustableShooterHood(AdjustabeShooterHood subsystem, double adjustabeShooterHoodSpeed) {
+    // Subsystem Instance
     mAdjustabeShooterHood = subsystem;
-    mAdjustableShooterHoodSpeed = adjustabeShooterHoodSpeed;
 
+    // Set the Subsystem Requirement
     addRequirements(mAdjustabeShooterHood);
+
+    // Saved Variables
+    mAdjustableShooterHoodSpeed = adjustabeShooterHoodSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +41,7 @@ public class MoveAdjustableShooterHood extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
   }
 
   // Returns true when the command should end.

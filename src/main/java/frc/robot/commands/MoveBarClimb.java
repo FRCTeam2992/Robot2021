@@ -12,19 +12,25 @@ import frc.robot.subsystems.BarClimb;
 
 public class MoveBarClimb extends CommandBase {
 
-  // subsystem instance
+  // Subsystem Instance
   private BarClimb mBarClimb;
 
-  // varibles
+  // Saved Variables
   private double mBarSpeed;
   private boolean mToggleClimb;
   private boolean mToggleLock;
 
-  public MoveBarClimb(BarClimb subsystem, double barSpeed, boolean toogleClimb, boolean toggleLock) {
+  public MoveBarClimb(BarClimb subsystem, double barSpeed, boolean toggleClimb, boolean toggleLock) {
+    // Subsystem Instance
     mBarClimb = subsystem;
-    mBarSpeed = barSpeed;
 
+    // Set the Subsystem Requirement
     addRequirements(mBarClimb);
+
+    // Saved Variables
+    mBarSpeed = barSpeed;
+    mToggleClimb = toggleClimb;
+    mToggleLock = toggleLock;
   }
 
   // Called when the command is initially scheduled.
@@ -43,6 +49,7 @@ public class MoveBarClimb extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mBarClimb.setBarSpeed(0.0);
   }
 
   // Returns true when the command should end.

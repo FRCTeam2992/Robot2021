@@ -12,20 +12,24 @@ import frc.robot.subsystems.ColorWheel;
 
 public class DeployColorWheel extends CommandBase {
 
+  // Subsystem Instance
   private ColorWheel mColorWheel;
 
+  // Saved Variables
   private boolean mToggle;
 
   public DeployColorWheel(ColorWheel subsystem, boolean toggle) {
-    // Use addRequirements() here to declare subsystem dependencies.
-
+    // Subsystem Instance
     mColorWheel = subsystem;
+
+    // Saved Variables
     mToggle = toggle;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +41,7 @@ public class DeployColorWheel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

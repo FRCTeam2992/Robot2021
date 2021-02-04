@@ -63,10 +63,6 @@ public class ColorWheel extends SubsystemBase {
 
   }
 
-  public void stopColorWheel() {
-    colorWheelMotor.set(ControlMode.PercentOutput, 0);
-  }
-
   public void setColorWheelSpeed(double speed) {
     colorWheelMotor.set(ControlMode.PercentOutput, speed);
   }

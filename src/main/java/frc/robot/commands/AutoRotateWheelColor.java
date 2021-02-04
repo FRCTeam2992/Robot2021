@@ -12,7 +12,14 @@ import frc.robot.subsystems.ColorWheel.TargetColor;
 
 public class AutoRotateWheelColor extends CommandBase {
 
+  // Subsystem Instance
   private ColorWheel mColorWheel;
+
+  // Saved Variables
+  private double mTimeout;
+
+  // Timer
+  private Timer timeoutTimer;
 
   private boolean isDone = false;
 
@@ -22,14 +29,17 @@ public class AutoRotateWheelColor extends CommandBase {
   private int rotations = 0;
   private double encoderSetValue = 0;
 
-  private double mTimeout = 0;
-  private Timer timeoutTimer;
-
   public AutoRotateWheelColor(ColorWheel subsystem, double timeout) {
-
+    // Subsystem Instance
     mColorWheel = subsystem;
 
+    // Set the Subsystem Requirement
+    addRequirements(mColorWheel);
+
+    // Saved Variables
     mTimeout = timeout;
+
+    // Timer
     timeoutTimer = new Timer();
   }
 
@@ -62,6 +72,7 @@ public class AutoRotateWheelColor extends CommandBase {
     mColorWheel.setColorWheelPosition(encoderSetValue);
   }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return isDone || Math.abs(encoderSetValue - mColorWheel.getMotorPosition()) <= 50 || timeoutTimer.get() >= mTimeout;
@@ -70,10 +81,9 @@ public class AutoRotateWheelColor extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mColorWheel.stopColorWheel();
+    mColorWheel.setColorWheelSpeed(0.0);
   }
 
-  // Returns true when the command should end.
   private int getColorID(TargetColor targetColor) {
     switch (targetColor) {
       case Green:

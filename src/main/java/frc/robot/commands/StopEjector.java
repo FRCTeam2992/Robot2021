@@ -9,17 +9,21 @@ import frc.robot.subsystems.Ejector;
 
 public class StopEjector extends CommandBase {
 
+  // Subsystem Instance
   private Ejector mEjector;
 
   public StopEjector(Ejector subsystem) {
+    // Subsystem Instance
     mEjector = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mEjector);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,6 +35,7 @@ public class StopEjector extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

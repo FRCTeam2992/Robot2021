@@ -9,22 +9,27 @@ import frc.robot.subsystems.Ejector;
 
 public class MoveEjector extends CommandBase {
 
-  // subsystem Instance
+  // Subsystem Instance
   private Ejector mEjector;
 
-  // varibles
+  // Saved Variables
   private double mEjectorSpeed;
 
   public MoveEjector(Ejector subsystem, double ejectorSpeed) {
+    // Subsystem Instance
     mEjector = subsystem;
-    mEjectorSpeed = ejectorSpeed;
 
-    addRequirements(subsystem);
+    // Set the Subsytem Requirement
+    addRequirements(mEjector);
+
+    // Saved Variables
+    mEjectorSpeed = ejectorSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +41,7 @@ public class MoveEjector extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mEjector.setEjectorSpeed(0.0);
   }
 
   // Returns true when the command should end.
@@ -43,5 +49,4 @@ public class MoveEjector extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-
 }

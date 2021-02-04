@@ -13,27 +13,28 @@ import frc.robot.subsystems.Shooter;
 
 public class StartShooter extends CommandBase {
 
-  // Varible
-  private double mShooterSpeed = 0;
-
-  // subsystem instance
+  // Subsystem Instance
   private Shooter mShooter;
 
-  public StartShooter(Shooter subsystem) {
-    subsystem = mShooter;
+  private double mShooterSpeed;
 
+  public StartShooter(Shooter subsystem) {
+    // Subsystem Instance
+    mShooter = subsystem;
+
+    // Set the Subsystem Requirement
     addRequirements(mShooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /////// Convert RPM to ticks per 100 milliseconds
     mShooterSpeed = mShooter.shooterSetSpeed;
 
     mShooterSpeed = (mShooterSpeed / 600.0) * (Constants.shooterEncoderPulses * 4.0);
@@ -44,6 +45,7 @@ public class StartShooter extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mShooter.setShooterSpeed(0.0);
   }
 
   // Returns true when the command should end.

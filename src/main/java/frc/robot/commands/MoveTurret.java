@@ -12,22 +12,27 @@ import frc.robot.subsystems.Turret;
 
 public class MoveTurret extends CommandBase {
 
+  // Subsystem Instance
   private Turret mTurret;
+
+  // Saved Variables
   private double mTurretSpeed;
 
   public MoveTurret(Turret subsystem, double turretSpeed) {
-    // Subsystem
+    // Subsystem Instance
     mTurret = subsystem;
 
-    // Speed
-    mTurretSpeed = turretSpeed;
-
+    // Set the Subsystem Requirement
     addRequirements(mTurret);
+
+    // Saved Variables
+    mTurretSpeed = turretSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +44,7 @@ public class MoveTurret extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mTurret.setTurretSpeed(0.0);
   }
 
   // Returns true when the command should end.

@@ -12,20 +12,27 @@ import frc.robot.subsystems.ColorWheel;
 
 public class MoveColorWheel extends CommandBase {
 
+  // Subsystem Instance
   private ColorWheel mColorWheel;
+
+  // Saved Variables
   private double mColorWheelSpeed;
 
   public MoveColorWheel(ColorWheel subsystem, double ColorWheelSpeed) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    // Subsystem Instance
     mColorWheel = subsystem;
-    mColorWheelSpeed = ColorWheelSpeed;
 
+    // Set the Subsystem Requirement
     addRequirements(mColorWheel);
+
+    // Saved Variables
+    mColorWheelSpeed = ColorWheelSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +44,7 @@ public class MoveColorWheel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mColorWheel.setColorWheelSpeed(0.0);
   }
 
   // Returns true when the command should end.

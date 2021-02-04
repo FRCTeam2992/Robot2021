@@ -9,17 +9,21 @@ import frc.robot.subsystems.BarClimb;
 
 public class StopBarClimb extends CommandBase {
 
-  // subsystem instance
+  // Subsystem Instance
   private BarClimb mBarClimb;
 
   public StopBarClimb(BarClimb subsystem) {
+    // Subsystem Instance
     mBarClimb = subsystem;
+
+    // Set the Subsystem Requirement
     addRequirements(mBarClimb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,6 +35,7 @@ public class StopBarClimb extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

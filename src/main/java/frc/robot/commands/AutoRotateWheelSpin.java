@@ -11,34 +11,41 @@ import frc.robot.subsystems.ColorWheel;
 
 public class AutoRotateWheelSpin extends CommandBase {
 
-  private double encoderSetValue;
-
-  private double mRotations = 0;
-
-  private double mTimeout = 0;
-  private Timer timeoutTimer;
+  // Subsystem Instance
   private ColorWheel mColorWheel;
 
-  /** Creates a new AutoRotateWheelSpin. */
+  // Saved Variables
+  private double mRotations;
+  private double mTimeout;
+
+  // Timer
+  private Timer timeoutTimer;
+
+  private double encoderSetValue;
+
   public AutoRotateWheelSpin(ColorWheel subsystem, double rotations, double timeout) {
+    // Subsystem Instance
+    mColorWheel = subsystem;
+
+    // Set the Subsystem Requirement
     addRequirements(mColorWheel);
 
+    // Saved Variables
     mRotations = rotations;
     mTimeout = timeout;
-    mColorWheel = subsystem;
-    timeoutTimer = new Timer();
 
+    // Timer
+    timeoutTimer = new Timer();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    mColorWheel.zeroMotorPosition();
+    encoderSetValue = (mRotations * Constants.colorWheelSpinRatio) * (Constants.colorWheelEncoderPulses * 4);
 
-        mColorWheel.zeroMotorPosition();
-        encoderSetValue = (mRotations * Constants.colorWheelSpinRatio) * (Constants.colorWheelEncoderPulses * 4);
-
-        timeoutTimer.reset();
-        timeoutTimer.start();
+    timeoutTimer.reset();
+    timeoutTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,13 +54,15 @@ public class AutoRotateWheelSpin extends CommandBase {
     mColorWheel.setColorWheelPosition(encoderSetValue);
   }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return Math.abs(encoderSetValue - mColorWheel.getMotorPosition()) <= 50 || timeoutTimer.get() >= mTimeout;
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mColorWheel.stopColorWheel();
+    mColorWheel.setColorWheelSpeed(0.0);
   }
 }

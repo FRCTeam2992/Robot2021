@@ -12,17 +12,21 @@ import frc.robot.subsystems.ClimbSlide;
 
 public class StopClimbSlide extends CommandBase {
 
+  // Subsystem Instance
   private ClimbSlide mClimbSlide;
 
   public StopClimbSlide(ClimbSlide subsystem) {
+    // Subsystem Instance
     mClimbSlide = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mClimbSlide);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +38,7 @@ public class StopClimbSlide extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

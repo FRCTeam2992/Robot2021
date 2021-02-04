@@ -16,39 +16,41 @@ public class MoveTelescopeClimb extends CommandBase {
   // Subsystem Intance
   private TelescopeClimb mTelescopeClimb;
 
-  // Subsystem
-  private double mTeleSpeed;
+  // Saved Variables
+  private double mTelescopeSpeed;
 
-  public MoveTelescopeClimb(TelescopeClimb subsystem, double teleSpeed) {
-    // subsystem
+  public MoveTelescopeClimb(TelescopeClimb subsystem, double telescopeSpeed) {
+    // Subsystem Instance
     mTelescopeClimb = subsystem;
-    // varibles
-    mTeleSpeed = teleSpeed;
 
+    // Set the Subsystem Requirement
     addRequirements(mTelescopeClimb);
+
+    // Saved Variables
+    mTelescopeSpeed = telescopeSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mTelescopeClimb.setTelescopeSpeed(mTeleSpeed);
-
-    // stop motor if going up and past the climb limit
-    if (mTelescopeClimb.getTelescopePosition() >= Constants.teleClimbLimit && mTeleSpeed > 0.0) {
+    // Encoder Limit Switch
+    if (mTelescopeClimb.getTelescopePosition() >= Constants.teleClimbLimit && mTelescopeSpeed > 0.0) {
       mTelescopeClimb.setTelescopeSpeed(0.0);
     } else {
-      mTelescopeClimb.setTelescopeSpeed(mTeleSpeed);
+      mTelescopeClimb.setTelescopeSpeed(mTelescopeSpeed);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mTelescopeClimb.setTelescopeSpeed(0.0);
   }
 
   // Returns true when the command should end.

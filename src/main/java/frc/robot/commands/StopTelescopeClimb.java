@@ -12,18 +12,21 @@ import frc.robot.subsystems.TelescopeClimb;
 
 public class StopTelescopeClimb extends CommandBase {
 
-  // Subsystem instance
+  // Subsystem Instance
   private TelescopeClimb mTelescopeClimb;
 
   public StopTelescopeClimb(TelescopeClimb subsystem) {
+    // Subsystem Instance
     mTelescopeClimb = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mTelescopeClimb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +38,7 @@ public class StopTelescopeClimb extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

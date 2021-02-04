@@ -12,17 +12,21 @@ import frc.robot.subsystems.Intake;
 
 public class StopIntake extends CommandBase {
 
+  // Subsystem Instance
   private Intake mIntake;
 
   public StopIntake(Intake subsystem) {
+    // Subsystem Instance
     mIntake = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mIntake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +38,7 @@ public class StopIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

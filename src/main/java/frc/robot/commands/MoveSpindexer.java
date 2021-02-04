@@ -15,21 +15,24 @@ public class MoveSpindexer extends CommandBase {
   // Subsystem Instance
   private Spindexer mSpindexer;
 
-  // Varibles
+  // Saved Variables
   private double mSpinnerSpeed;
 
-  public MoveSpindexer(Spindexer mSpindexer2, double spinnerSpeed) {
-    // Subsystem
-    mSpindexer = mSpindexer2;
-    // Varibles
-    mSpinnerSpeed = spinnerSpeed;
+  public MoveSpindexer(Spindexer subsystem, double spinnerSpeed) {
+    // Subsystem Instance
+    mSpindexer = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mSpindexer);
+
+    // Saved Variables
+    mSpinnerSpeed = spinnerSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +44,7 @@ public class MoveSpindexer extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mSpindexer.setSpinnerSpeed(0.0);
   }
 
   // Returns true when the command should end.

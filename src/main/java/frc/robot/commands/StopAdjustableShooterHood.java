@@ -9,18 +9,21 @@ import frc.robot.subsystems.AdjustabeShooterHood;
 
 public class StopAdjustableShooterHood extends CommandBase {
 
-  // subsystem instance
+  // Subsystem Instance
   private AdjustabeShooterHood mAdjustabeShooterHood;
 
   public StopAdjustableShooterHood(AdjustabeShooterHood subsystem) {
+    // Subsystem Instance
     mAdjustabeShooterHood = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mAdjustabeShooterHood);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,6 +35,7 @@ public class StopAdjustableShooterHood extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

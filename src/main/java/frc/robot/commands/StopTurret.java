@@ -12,21 +12,21 @@ import frc.robot.subsystems.Turret;
 
 public class StopTurret extends CommandBase {
 
+  // Subsystem Instance
   private Turret mTurret;
 
-  /**
-   * Creates a new StopTurret.
-   */
   public StopTurret(Turret subsystem) {
-    // Subsystem
+    // Subsystem Instance
     mTurret = subsystem;
 
+    // Set the Subsystem Requirement
     addRequirements(mTurret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +38,7 @@ public class StopTurret extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

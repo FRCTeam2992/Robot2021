@@ -12,20 +12,27 @@ import frc.robot.subsystems.ClimbSlide;
 
 public class MoveClimbSlide extends CommandBase {
 
+  // Subsystem Instance
   private ClimbSlide mClimbSlide;
+
+  // Saved Variables
   private double mClimbSpeed;
 
   public MoveClimbSlide(ClimbSlide subsystem, double climbSpeed) {
+    // Subsystem Instance
     mClimbSlide = subsystem;
 
-    mClimbSpeed = climbSpeed;
-
+    // Set the Subsystem Requirement
     addRequirements(mClimbSlide);
+
+    // Saved Variables
+    mClimbSpeed = climbSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +44,7 @@ public class MoveClimbSlide extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mClimbSlide.setSlideSpeed(0.0);
   }
 
   // Returns true when the command should end.

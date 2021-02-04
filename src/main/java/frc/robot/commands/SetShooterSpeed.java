@@ -12,39 +12,41 @@ import frc.robot.subsystems.Shooter;
 
 public class SetShooterSpeed extends CommandBase {
 
-  // varibles
-  private int mShooterSpeed;
-
-  // subsystem instance
+  // Subsystem Instance
   private Shooter mShooter;
 
-  public SetShooterSpeed(Shooter subsystem, int shooterSpeed) {
-    // varibles
-    mShooterSpeed = shooterSpeed;
+  // Saved Variables
+  private int mShooterSpeed;
 
-    // subsystem
+  public SetShooterSpeed(Shooter subsystem, int shooterSpeed) {
+    // Subsystem Instance
     subsystem = mShooter;
+
+    // Saved Variables
+    mShooterSpeed = shooterSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    mShooter.shooterSetSpeed += mShooterSpeed;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mShooter.shooterSetSpeed += mShooterSpeed;
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
