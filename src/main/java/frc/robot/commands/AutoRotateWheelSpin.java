@@ -17,7 +17,6 @@ public class AutoRotateWheelSpin extends CommandBase {
 
   private double mTimeout = 0;
   private Timer timeoutTimer;
-  private Constants mConstants;
   private ColorWheel mColorWheel;
 
   /** Creates a new AutoRotateWheelSpin. */
@@ -36,7 +35,7 @@ public class AutoRotateWheelSpin extends CommandBase {
   public void initialize() {
 
         mColorWheel.zeroMotorPosition();
-        encoderSetValue = (mRotations * mConstants.colorWheelSpinRatio) * (mConstants.colorWheelEncoderPulses * 4);
+        encoderSetValue = (mRotations * Constants.colorWheelSpinRatio) * (Constants.colorWheelEncoderPulses * 4);
 
         timeoutTimer.reset();
         timeoutTimer.start();

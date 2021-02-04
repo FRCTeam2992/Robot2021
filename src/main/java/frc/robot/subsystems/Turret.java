@@ -21,7 +21,6 @@ public class Turret extends SubsystemBase {
     turretMotor = new TalonSRX(17);
     turretMotor.setInverted(false);
     turretMotor.setNeutralMode(NeutralMode.Coast);
-
   }
 
   @Override

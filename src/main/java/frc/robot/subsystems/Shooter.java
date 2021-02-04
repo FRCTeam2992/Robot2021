@@ -37,7 +37,6 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-
     SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
   }
 

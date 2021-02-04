@@ -22,9 +22,6 @@ public class Intake extends SubsystemBase {
   // Intake Solenod
   private Solenoid intakeDeploySol;
 
-  /**
-   * Creates a new Intake.
-   */
   public Intake() {
     // Intake Motor
     intakeMotor = new CANSparkMax(16, MotorType.kBrushless);
@@ -33,7 +30,6 @@ public class Intake extends SubsystemBase {
 
     // Intake Solenoid
     intakeDeploySol = new Solenoid(1);
-
   }
 
   @Override
@@ -44,7 +40,6 @@ public class Intake extends SubsystemBase {
   public void setIntakeSpeed(double Speed) {
     // Intake Speed
     intakeMotor.set(Speed);
-
   }
 
   public void deployIntake(Boolean toggle) {
