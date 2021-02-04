@@ -26,38 +26,41 @@ public class ColorWheel extends SubsystemBase {
   // Color Wheel Motors
   private TalonSRX colorWheelMotor;
 
-  // Color Wheel Soleniod
-  private Solenoid colorWheelSol;
+  // Color Wheel Soleniods
+  private Solenoid colorWheelSolenoid;
 
   // Color Sensor
   private final ColorSensorV3 colorSensor;
   private final I2C.Port sensor = I2C.Port.kOnboard;
   private final ColorMatch colorMatcher = new ColorMatch();
 
+  // Target Color States
   public enum TargetColor {
     Blue, Green, Red, Yellow, Unknown, Corrupt
   }
 
   public ColorWheel() {
+    // Color Wheel Motors
     colorWheelMotor = new TalonSRX(15);
     colorWheelMotor.setInverted(false);
     colorWheelMotor.setNeutralMode(NeutralMode.Coast);
 
-    colorWheelSol = new Solenoid(3);
+    // Color Wheel Solenoids
+    colorWheelSolenoid = new Solenoid(3);
 
     // Color Sensor
     colorSensor = new ColorSensorV3(sensor);
 
+    // Add Colors to the Matcher
     colorMatcher.addColorMatch(Constants.kBlueTarget);
     colorMatcher.addColorMatch(Constants.kGreenTarget);
     colorMatcher.addColorMatch(Constants.kRedTarget);
     colorMatcher.addColorMatch(Constants.kYellowTarget);
-
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
   public void stopColorWheel() {
@@ -81,7 +84,7 @@ public class ColorWheel extends SubsystemBase {
   }
 
   public void deployColorWheel(boolean toggle) {
-    colorWheelSol.set(toggle);
+    colorWheelSolenoid.set(toggle);
   }
 
   public TargetColor getDetectedColor() {

@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Spindexer extends SubsystemBase {
 
-  // Motors
+  // Spindexer Motors
   private VictorSPX spinnerMotor;
 
   public Spindexer() {
+    // Spindexer Motors
     spinnerMotor = new VictorSPX(9);
     spinnerMotor.setInverted(false);
     spinnerMotor.setNeutralMode(NeutralMode.Coast);
@@ -26,11 +27,10 @@ public class Spindexer extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
   public void setSpinnerSpeed(double speed) {
     spinnerMotor.set(ControlMode.PercentOutput, speed);
   }
-
 }

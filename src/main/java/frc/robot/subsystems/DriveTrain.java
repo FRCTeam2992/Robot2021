@@ -24,7 +24,7 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
-  // Drive Motor
+  // Drive Motors
   private final CANSparkMax frontLeftDrive;
   private final CANSparkMax frontLeftTurn;
 
@@ -43,7 +43,7 @@ public class DriveTrain extends SubsystemBase {
   private final AnalogInput rearLeftEncoder;
   private final AnalogInput rearRightEncoder;
 
-  // Turn PID controller
+  // Turn PID Controllers
   private final PIDController frontLeftController;
   private final PIDController frontRightController;
   private final PIDController rearLeftController;
@@ -55,22 +55,20 @@ public class DriveTrain extends SubsystemBase {
   public final SwerveModule rearLeftModule;
   public final SwerveModule rearRightModule;
 
-  // Robot gyro
+  // Robot Gyro
   public AHRS navx;
 
-  // Swerve drive kinematics
+  // Swerve Drive Kinematics
   public final SwerveDriveKinematics swerveDriveKinematics;
 
-  // Swerve drive odometry
+  // Swerve Drive Odometry
   public final SwerveDriveOdometry swerveDriveOdometry;
 
-  // swerve pose
-  public Pose2d latestSwervPose;
+  // Swerve Pose
+  public Pose2d latestSwervePose;
 
-  /** Creates a new DriveTrain. */
   public DriveTrain() {
-    // Drive motors
-    // Front Left
+    // Drive Motors
     frontLeftDrive = new CANSparkMax(1, MotorType.kBrushless);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.setIdleMode(IdleMode.kCoast);
@@ -82,7 +80,6 @@ public class DriveTrain extends SubsystemBase {
     frontLeftTurn.setIdleMode(IdleMode.kCoast);
     frontLeftTurn.setSmartCurrentLimit(30);
 
-    // Front Right
     frontRightDrive = new CANSparkMax(3, MotorType.kBrushless);
     frontRightDrive.setInverted(false);
     frontRightDrive.setIdleMode(IdleMode.kCoast);
@@ -94,7 +91,6 @@ public class DriveTrain extends SubsystemBase {
     frontRightTurn.setIdleMode(IdleMode.kCoast);
     frontRightTurn.setSmartCurrentLimit(30);
 
-    // Rear Left
     rearLeftDrive = new CANSparkMax(5, MotorType.kBrushless);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.setIdleMode(IdleMode.kCoast);
@@ -106,14 +102,13 @@ public class DriveTrain extends SubsystemBase {
     rearLeftTurn.setIdleMode(IdleMode.kCoast);
     rearLeftTurn.setSmartCurrentLimit(30);
 
-    // Rear Right
     rearRightDrive = new CANSparkMax(7, MotorType.kBrushless);
     rearRightDrive.setInverted(false);
     rearRightDrive.setIdleMode(IdleMode.kCoast);
     rearRightDrive.setSmartCurrentLimit(30);
     rearRightDrive.setOpenLoopRampRate(0.2);
 
-    rearRightTurn = new CANSparkMax(4, MotorType.kBrushless);
+    rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
     rearRightTurn.setIdleMode(IdleMode.kCoast);
     rearRightTurn.setSmartCurrentLimit(30);
@@ -124,7 +119,7 @@ public class DriveTrain extends SubsystemBase {
     rearLeftEncoder = new AnalogInput(2);
     rearRightEncoder = new AnalogInput(3);
 
-    // Turn PID controller
+    // Turn PID Controllers
     frontLeftController = new PIDController(Constants.turnP, Constants.turnI, Constants.turnD);
     frontLeftController.enableContinuousInput(-180.0, 180.0);
 
@@ -137,7 +132,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightController = new PIDController(Constants.turnP, Constants.turnI, Constants.turnD);
     rearRightController.enableContinuousInput(-180.0, 180.0);
 
-    // Set drive pid controllers
+    // Set the Drive PID Controllers
     CANPIDController frontLeftDrivePID = frontLeftDrive.getPIDController();
     frontLeftDrivePID.setP(Constants.driveP);
     frontLeftDrivePID.setI(Constants.driveI);
@@ -185,34 +180,33 @@ public class DriveTrain extends SubsystemBase {
     // Serve Drive Odometry
     swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics, Rotation2d.fromDegrees(-navx.getYaw()),
         new Pose2d(0.0, 0.0, new Rotation2d()));
-
   }
 
   @Override
   public void periodic() {
-    // Display Encoder Angle\
-    SmartDashboard.putNumber("Front Left Encoder Angle", frontLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Front Right Encoder Angle", frontRightModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Left Encoder Angle", rearLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Right Encoder Angle", rearRightModule.getEncoderAngle());
+    // Display Module Angles
+    SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
-    SmartDashboard.putNumber("Front Left Velocity", frontLeftModule.getWheelSpeedMeters());
-    SmartDashboard.putNumber("Front Right Velocity", frontRightModule.getWheelSpeedMeters());
-    SmartDashboard.putNumber("Rear Left Velocity", rearLeftModule.getWheelSpeedMeters());
-    SmartDashboard.putNumber("Rear Right Velocity", rearRightModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Front Left Module Velocity", frontLeftModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Front Right Module Velocity", frontRightModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Rear Left Module Velocity", rearLeftModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Rear Right Module Velocity", rearRightModule.getWheelSpeedMeters());
 
     // Display Gyro Angle
     SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
     // Update the Odometry
-    latestSwervPose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
+    latestSwervePose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
         frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
 
     // Display Odometry
-    SmartDashboard.putNumber("Odometry Rotation", latestSwervPose.getRotation().getDegrees());
-    SmartDashboard.putNumber("Odometry X", latestSwervPose.getX());
-    SmartDashboard.putNumber("Odometry Y", latestSwervPose.getY());
+    SmartDashboard.putNumber("Odometry Rotation", latestSwervePose.getRotation().getDegrees());
+    SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
+    SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
   }
 
   public void setTurnIdleMode(IdleMode mode) {

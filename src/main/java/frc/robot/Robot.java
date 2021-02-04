@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -19,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
-  // Robot Container Instance
+  // Saved Instances
   public static RobotContainer mRobotContainer;
 
   /**
@@ -28,83 +30,95 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
+    /// Initialize the Robot Container
     mRobotContainer = new RobotContainer();
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
-   * teleoperated and test.
-   *
-   * <p>
-   * This runs after the mode specific periodic functions, but before LiveWindow
-   * and SmartDashboard integrated updating.
+   * This function is run every robot packet, no matter the mode.
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler. This is responsible for polling buttons, adding
-    // newly-scheduled
-    // commands, running already-scheduled commands, removing finished or
-    // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
-    // block in order for anything in the Command-based framework to work.
+    // Run the Scheduler
     CommandScheduler.getInstance().run();
   }
 
   /**
-   * This function is called once each time the robot enters Disabled mode.
+   * Initialize Function for the Disabled Mode
    */
   @Override
   public void disabledInit() {
-
+    // Set the Drive Train to Coast
+    mRobotContainer.mDriveTrain.setDriveIdleMode(IdleMode.kCoast);
+    mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kCoast);
   }
 
+  /**
+   * Periodic Function for the Disabled Mode
+   */
   @Override
   public void disabledPeriodic() {
 
   }
 
   /**
-   * This autonomous runs the autonomous command selected by your
-   * {@link RobotContainer} class.
+   * Initialize Function for the Autonomous Mode
    */
   @Override
   public void autonomousInit() {
+    // Set the Drive Train to Brake
+    mRobotContainer.mDriveTrain.setDriveIdleMode(IdleMode.kBrake);
+    mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
+    // Reset the Gyro
+    mRobotContainer.mDriveTrain.navx.zeroYaw();
+
+    // Reset the Odometry
+    mRobotContainer.mDriveTrain.resetOdometry();
   }
 
   /**
-   * This function is called periodically during autonomous.
+   * Periodic Function for the Autonomous Mode
    */
   @Override
   public void autonomousPeriodic() {
   }
 
+  /**
+   * Initialize Function for the Teleop Mode
+   */
   @Override
   public void teleopInit() {
+    // Set the Drive Train to Brake
+    mRobotContainer.mDriveTrain.setDriveIdleMode(IdleMode.kBrake);
+    mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
+    // Reset the Gyro
+    mRobotContainer.mDriveTrain.navx.zeroYaw();
+
+    // Reset the Odometry
+    mRobotContainer.mDriveTrain.resetOdometry();
   }
 
   /**
-   * This function is called periodically during operator control.
+   * Periodic Function for the Teleop Mode
    */
   @Override
   public void teleopPeriodic() {
 
   }
 
+  /**
+   * Initialize Function for the Test Mode
+   */
   @Override
   public void testInit() {
-    // Cancels all running commands at the start of test mode.
+    // Cancel the Running Commands
     CommandScheduler.getInstance().cancelAll();
   }
 
   /**
-   * This function is called periodically during test mode.
+   * Periodic Function for the Test Mode
    */
   @Override
   public void testPeriodic() {

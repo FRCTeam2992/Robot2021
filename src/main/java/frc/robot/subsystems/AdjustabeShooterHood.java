@@ -12,18 +12,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AdjustabeShooterHood extends SubsystemBase {
 
-  // Motors
+  // Shooter Hood Motors
   private CANSparkMax hoodMotor;
 
   public AdjustabeShooterHood() {
+    // Shooter Hood Motors
     hoodMotor = new CANSparkMax(69, MotorType.kBrushless);
     hoodMotor.setInverted(false);
-    hoodMotor.setIdleMode(IdleMode.kCoast);
+    hoodMotor.setIdleMode(IdleMode.kBrake);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
   public void setAdjustableShooterHoodSpeed(double speed) {

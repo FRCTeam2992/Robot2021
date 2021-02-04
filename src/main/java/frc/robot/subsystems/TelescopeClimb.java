@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TelescopeClimb extends SubsystemBase {
 
-  // Motors
+  // Telescope Climb Motors
   private TalonSRX teleClimbMotor;
 
   public TelescopeClimb() {
+    // Telescope Climb Motors
     teleClimbMotor = new TalonSRX(11);
     teleClimbMotor.setNeutralMode(NeutralMode.Brake);
     teleClimbMotor.setInverted(false);
@@ -26,14 +27,14 @@ public class TelescopeClimb extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
-  public void setClimbSpeed(double speed) {
+  public void setTelescopeSpeed(double speed) {
     teleClimbMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public double getTelePosition() {
+  public double getTelescopePosition() {
     return teleClimbMotor.getSelectedSensorPosition();
   }
 }

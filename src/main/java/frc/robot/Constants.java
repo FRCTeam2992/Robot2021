@@ -13,12 +13,20 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.util.Color;
 
 public final class Constants {
-    // teleclimb
+
+    // Telescope Climb Variables
     public static final int teleClimbLimit = 4000;
 
-    // shooter
+    // Shooter Variables
     public static final int defaultShooterSpeed = 5200;
     public static final int shooterEncoderPulses = 2048;
+
+    // Color Wheel Variables
+    public static final int colorWheelEncoderPulses = 1024;
+    public static final double colorWheelSpinRatio = 8.0;
+    public static final double colorSensorMinAngle = 0.0;
+    public static final double colorSensorMaxAngle = 180.0;
+    public static final double colorWheelSpinRotations = 4.0;
 
     // Color Wheel Target Colors
     public static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
@@ -26,15 +34,9 @@ public final class Constants {
     public static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
     public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-    public static final int colorWheelEncoderPulses = 1024;
-    public static final double colorWheelSpinRatio = 8.0;
-    public static final double colorSensorMinAngle = 0.0;
-    public static final double colorSensorMaxAngle = 180.0;
-    public static final double colorWheelSpinRotations = 4.0;
-
     // Drive Variables
     public static boolean isFieldCentric = true;
-    public static boolean isVelocityControlled = true;
+    public static boolean isVelocityControlled = false;
 
     // Length and Width of the Robot in Meters (Inches: 24.5 x 22.0)
     public static final double swerveWidth = 0.6223;
@@ -92,5 +94,4 @@ public final class Constants {
     public static final double thetaCorrectionP = 1.0;
     public static final double thetaCorrectionI = 0.0;
     public static final double thetaCorrectionD = 0.0;
-
 }

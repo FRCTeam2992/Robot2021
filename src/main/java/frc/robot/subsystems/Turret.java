@@ -15,9 +15,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
 
+  // Turret Motors
   private TalonSRX turretMotor;
 
   public Turret() {
+    // Turret Motors
     turretMotor = new TalonSRX(17);
     turretMotor.setInverted(false);
     turretMotor.setNeutralMode(NeutralMode.Coast);
@@ -25,10 +27,10 @@ public class Turret extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
-  public void SetTurretSpeed(double speed) {
+  public void setTurretSpeed(double speed) {
     turretMotor.set(ControlMode.PercentOutput, speed);
   }
 }

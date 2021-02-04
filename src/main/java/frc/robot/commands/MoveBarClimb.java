@@ -35,7 +35,7 @@ public class MoveBarClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mBarClimb.barClimbSpeed(mBarSpeed);
+    mBarClimb.setBarSpeed(mBarSpeed);
     mBarClimb.deployClimb(mToggleClimb);
     mBarClimb.deployLock(mToggleLock);
   }

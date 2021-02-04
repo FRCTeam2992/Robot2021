@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Ejector extends SubsystemBase {
 
+  // Ejector Motors
   private VictorSPX ejectorMotor;
 
   public Ejector() {
+    // Ejector Motors
     ejectorMotor = new VictorSPX(79);
     ejectorMotor.setInverted(false);
     ejectorMotor.setNeutralMode(NeutralMode.Coast);
@@ -22,6 +24,7 @@ public class Ejector extends SubsystemBase {
 
   @Override
   public void periodic() {
+
   }
 
   public void setEjectorSpeed(double speed) {

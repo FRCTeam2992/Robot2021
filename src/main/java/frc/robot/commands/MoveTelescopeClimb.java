@@ -36,13 +36,13 @@ public class MoveTelescopeClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mTelescopeClimb.setClimbSpeed(mTeleSpeed);
+    mTelescopeClimb.setTelescopeSpeed(mTeleSpeed);
 
     // stop motor if going up and past the climb limit
-    if (mTelescopeClimb.getTelePosition() >= Constants.teleClimbLimit && mTeleSpeed > 0.0) {
-      mTelescopeClimb.setClimbSpeed(0.0);
+    if (mTelescopeClimb.getTelescopePosition() >= Constants.teleClimbLimit && mTeleSpeed > 0.0) {
+      mTelescopeClimb.setTelescopeSpeed(0.0);
     } else {
-      mTelescopeClimb.setClimbSpeed(mTeleSpeed);
+      mTelescopeClimb.setTelescopeSpeed(mTeleSpeed);
     }
   }
 

@@ -16,28 +16,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BarClimb extends SubsystemBase {
 
-  // Motors
+  // Bar Climb Motors
   private VictorSPX barClimbMotor;
 
-  // Solenoid
+  // Bar Climb Solenoids
   private Solenoid lockSolenoid;
   private Solenoid deploySolenoid;
 
   public BarClimb() {
+    // Bar Climb Motors
     barClimbMotor = new VictorSPX(16);
     barClimbMotor.setInverted(false);
     barClimbMotor.setNeutralMode(NeutralMode.Brake);
 
+    // Bar Climb Solenoids
     lockSolenoid = new Solenoid(2);
     deploySolenoid = new Solenoid(3);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
-  public void barClimbSpeed(double speed) {
+  public void setBarSpeed(double speed) {
     barClimbMotor.set(ControlMode.PercentOutput, speed);
   }
 

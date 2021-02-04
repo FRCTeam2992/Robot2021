@@ -18,14 +18,15 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
 
-  // motors
+  // Shooter Motors
   private TalonSRX leadShooter;
   private VictorSPX followShooter;
 
-  // shooter set speed
+  // Shooter Set Speed
   public int shooterSetSpeed = Constants.defaultShooterSpeed;
 
   public Shooter() {
+    // Shooter Motors
     leadShooter = new TalonSRX(13);
     leadShooter.setInverted(false);
     leadShooter.setNeutralMode(NeutralMode.Coast);
@@ -37,7 +38,9 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // Display the Shooter Set Speed and Current RPM
     SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
+    SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
   }
 
   public void setShooterSpeed(double speed) {
