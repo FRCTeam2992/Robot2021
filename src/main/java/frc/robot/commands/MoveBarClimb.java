@@ -17,10 +17,8 @@ public class MoveBarClimb extends CommandBase {
 
   // Saved Variables
   private double mBarSpeed;
-  private boolean mToggleClimb;
-  private boolean mToggleLock;
 
-  public MoveBarClimb(BarClimb subsystem, double barSpeed, boolean toggleClimb, boolean toggleLock) {
+  public MoveBarClimb(BarClimb subsystem, double barSpeed) {
     // Subsystem Instance
     mBarClimb = subsystem;
 
@@ -29,21 +27,18 @@ public class MoveBarClimb extends CommandBase {
 
     // Saved Variables
     mBarSpeed = barSpeed;
-    mToggleClimb = toggleClimb;
-    mToggleLock = toggleLock;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     mBarClimb.setBarSpeed(mBarSpeed);
-    mBarClimb.deployClimb(mToggleClimb);
-    mBarClimb.deployLock(mToggleLock);
   }
 
   // Called once the command ends or is interrupted.
