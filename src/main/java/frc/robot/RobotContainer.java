@@ -9,8 +9,6 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.lib.drive.swerve.SwerveModule;
 import frc.lib.oi.mhController;
 import frc.robot.commands.DriveSticks;
 import frc.robot.commands.StopBarClimb;
@@ -54,8 +52,6 @@ public class RobotContainer {
   // DriveTrain
   mDriveTrain = new DriveTrain();
   mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
-  
-  SwerveModule module = mDriveTrain.frontLeftModule; 
 
   // Intake
     mIntake = new Intake();
@@ -109,7 +105,6 @@ public class RobotContainer {
   public void setDriveTrainIdleMode(IdleMode turnMode, IdleMode driveMode){
     mDriveTrain.setTurnIdleMode(turnMode);
     mDriveTrain.setDriveIdleMode(driveMode);
-    
   }
 
   public void zeroGyro(){

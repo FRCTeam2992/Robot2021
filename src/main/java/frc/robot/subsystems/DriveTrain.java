@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -23,7 +24,7 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
-  //Drive Motor
+  // Drive Motor
   private final CANSparkMax frontLeftDrive;
   private final CANSparkMax frontLeftTurn;
 
@@ -36,41 +37,40 @@ public class DriveTrain extends SubsystemBase {
   private final CANSparkMax rearRightDrive;
   private final CANSparkMax rearRightTurn;
 
-  //Drive Encoders
+  // Drive Encoders
   private final AnalogInput frontLeftEncoder;
   private final AnalogInput frontRightEncoder;
   private final AnalogInput rearLeftEncoder;
   private final AnalogInput rearRightEncoder;
 
-  //Turn PID controller
-  private final PIDController frontLeftController; 
+  // Turn PID controller
+  private final PIDController frontLeftController;
   private final PIDController frontRightController;
   private final PIDController rearLeftController;
   private final PIDController rearRightController;
 
-  //Swerve Modules
-  private final SwerveModule frontLeftModule;
-  private final SwerveModule frontRightModule;
-  private final SwerveModule rearLeftModule;
-  private final SwerveModule rearRightModule;
+  // Swerve Modules
+  public final SwerveModule frontLeftModule;
+  public final SwerveModule frontRightModule;
+  public final SwerveModule rearLeftModule;
+  public final SwerveModule rearRightModule;
 
-  //Robot gyro
+  // Robot gyro
   public AHRS navx;
 
-  //Swerve drive kinematics
+  // Swerve drive kinematics
   public final SwerveDriveKinematics swerveDriveKinematics;
 
-  //Swerve drive odometry
+  // Swerve drive odometry
   public final SwerveDriveOdometry swerveDriveOdometry;
 
-  //swerve pose
+  // swerve pose
   public Pose2d latestSwervPose;
-
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    //Drive motors
-    //Front Left
+    // Drive motors
+    // Front Left
     frontLeftDrive = new CANSparkMax(1, MotorType.kBrushless);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.setIdleMode(IdleMode.kCoast);
@@ -82,7 +82,7 @@ public class DriveTrain extends SubsystemBase {
     frontLeftTurn.setIdleMode(IdleMode.kCoast);
     frontLeftTurn.setSmartCurrentLimit(30);
 
-    //Front Right
+    // Front Right
     frontRightDrive = new CANSparkMax(3, MotorType.kBrushless);
     frontRightDrive.setInverted(false);
     frontRightDrive.setIdleMode(IdleMode.kCoast);
@@ -94,7 +94,7 @@ public class DriveTrain extends SubsystemBase {
     frontRightTurn.setIdleMode(IdleMode.kCoast);
     frontRightTurn.setSmartCurrentLimit(30);
 
-    //Rear Left
+    // Rear Left
     rearLeftDrive = new CANSparkMax(5, MotorType.kBrushless);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.setIdleMode(IdleMode.kCoast);
@@ -106,25 +106,25 @@ public class DriveTrain extends SubsystemBase {
     rearLeftTurn.setIdleMode(IdleMode.kCoast);
     rearLeftTurn.setSmartCurrentLimit(30);
 
-    //Rear Right
+    // Rear Right
     rearRightDrive = new CANSparkMax(7, MotorType.kBrushless);
     rearRightDrive.setInverted(false);
     rearRightDrive.setIdleMode(IdleMode.kCoast);
     rearRightDrive.setSmartCurrentLimit(30);
     rearRightDrive.setOpenLoopRampRate(0.2);
-  
+
     rearRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
     rearRightTurn.setIdleMode(IdleMode.kCoast);
     rearRightTurn.setSmartCurrentLimit(30);
 
-    //Drive Encoders
+    // Drive Encoders
     frontLeftEncoder = new AnalogInput(0);
     frontRightEncoder = new AnalogInput(1);
     rearLeftEncoder = new AnalogInput(2);
     rearRightEncoder = new AnalogInput(3);
 
-    //Turn PID controller
+    // Turn PID controller
     frontLeftController = new PIDController(Constants.turnP, Constants.turnI, Constants.turnD);
     frontLeftController.enableContinuousInput(-180.0, 180.0);
 
@@ -137,7 +137,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightController = new PIDController(Constants.turnP, Constants.turnI, Constants.turnD);
     rearRightController.enableContinuousInput(-180.0, 180.0);
 
-    //Set drive pid controllers
+    // Set drive pid controllers
     CANPIDController frontLeftDrivePID = frontLeftDrive.getPIDController();
     frontLeftDrivePID.setP(Constants.driveP);
     frontLeftDrivePID.setI(Constants.driveI);
@@ -162,74 +162,80 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrivePID.setD(Constants.driveD);
     rearRightDrivePID.setFF(Constants.driveF);
 
-    //Swerve Modules
-    frontLeftModule = new SwerveModule(frontLeftDrive, frontLeftTurn, frontLeftEncoder, Constants.frontLeftOffset, frontLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    // Swerve Modules
+    frontLeftModule = new SwerveModule(frontLeftDrive, frontLeftTurn, frontLeftEncoder, Constants.frontLeftOffset,
+        frontLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    frontRightModule = new SwerveModule(frontRightDrive, frontRightTurn, frontRightEncoder, Constants.frontRightOffset, frontRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    frontRightModule = new SwerveModule(frontRightDrive, frontRightTurn, frontRightEncoder, Constants.frontRightOffset,
+        frontRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    rearLeftModule = new SwerveModule(rearLeftDrive, frontLeftTurn, rearLeftEncoder, Constants.rearLeftOffset, rearLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    rearLeftModule = new SwerveModule(rearLeftDrive, frontLeftTurn, rearLeftEncoder, Constants.rearLeftOffset,
+        rearLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    rearRightModule = new SwerveModule(rearRightDrive, frontRightTurn, rearRightEncoder, Constants.rearRightOffset, rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    rearRightModule = new SwerveModule(rearRightDrive, frontRightTurn, rearRightEncoder, Constants.rearRightOffset,
+        rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    //Robot Gyro
-    navx = new AHRS(SPI.port.kMXP);
+    // Robot Gyro
+    navx = new AHRS(SPI.Port.kMXP);
 
     // Swerve Drive Kinematics
-    swerveDriveKinematics = new SwerveDriveKinematics(Constants.frontLeftLocation,
-    Constants.frontRightLocation, Constants.rearLeftLocation,
-    Constants.rearRightLocation);
+    swerveDriveKinematics = new SwerveDriveKinematics(Constants.frontLeftLocation, Constants.frontRightLocation,
+        Constants.rearLeftLocation, Constants.rearRightLocation);
 
     // Serve Drive Odometry
-    swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics,
-    Rotation2d.fromDegrees(-navx.getYaw()), new Pose2d(0.0, 0.0, new Rotation2d()));
+    swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics, Rotation2d.fromDegrees(-navx.getYaw()),
+        new Pose2d(0.0, 0.0, new Rotation2d()));
 
   }
 
   @Override
   public void periodic() {
-   // Display Encoder Angle\
-   SmartDashboard.putNumber("Front Left Encoder Angle", frontLeftModule.getEncoderAngle());
-   SmartDashboard.putNumber("Front Right Encoder Angle", frontRightModule.getEncoderAngle());
-   SmartDashboard.putNumber("Rear Left Encoder Angle", rearLeftModule.getEncoderAngle());
-   SmartDashboard.putNumber("Rear Right Encoder Angle", rearRightModule.getEncoderAngle());
+    // Display Encoder Angle\
+    SmartDashboard.putNumber("Front Left Encoder Angle", frontLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Right Encoder Angle", frontRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Left Encoder Angle", rearLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Right Encoder Angle", rearRightModule.getEncoderAngle());
 
-   // Display Wheel Velocities
-   SmartDashboard.putNumber("Front Left Velocity", frontLeftModule.getWheelSpeedMeters());
-   SmartDashboard.putNumber("Front Right Velocity", frontRightModule.getWheelSpeedMeters());
-   SmartDashboard.putNumber("Rear Left Velocity", rearLeftModule.getWheelSpeedMeters());
-   SmartDashboard.putNumber("Rear Right Velocity", rearRightModule.getWheelSpeedMeters());
+    // Display Wheel Velocities
+    SmartDashboard.putNumber("Front Left Velocity", frontLeftModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Front Right Velocity", frontRightModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Rear Left Velocity", rearLeftModule.getWheelSpeedMeters());
+    SmartDashboard.putNumber("Rear Right Velocity", rearRightModule.getWheelSpeedMeters());
 
-  // Display Gyro Angle
-  SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+    // Display Gyro Angle
+    SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
-  // Update the Odometry
-  latestSwervPose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(), frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
+    // Update the Odometry
+    latestSwervPose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
+        frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
 
-  // Display Odometry
-  SmartDashboard.putNumber("Odometry Rotation", latestSwervPose.getRotation().getDegrees());
-  SmartDashboard.putNumber("Odometry X", latestSwervPose.getX());
-  SmartDashboard.putNumber("Odometry Y", latestSwervPose.getY());
+    // Display Odometry
+    SmartDashboard.putNumber("Odometry Rotation", latestSwervPose.getRotation().getDegrees());
+    SmartDashboard.putNumber("Odometry X", latestSwervPose.getX());
+    SmartDashboard.putNumber("Odometry Y", latestSwervPose.getY());
   }
 
-  public void setTurnIdelMode(IdleMode mode) {
+  public void setTurnIdleMode(IdleMode mode) {
     frontLeftTurn.setIdleMode(mode);
     frontRightTurn.setIdleMode(mode);
     rearLeftTurn.setIdleMode(mode);
     rearRightTurn.setIdleMode(mode);
   }
 
-  public void setDriveIdelMode(IdleMode mode) {
+  public void setDriveIdleMode(IdleMode mode) {
     frontLeftDrive.setIdleMode(mode);
     frontRightDrive.setIdleMode(mode);
     rearLeftDrive.setIdleMode(mode);
     rearRightDrive.setIdleMode(mode);
   }
+
   public void stopDrive() {
     frontLeftModule.stop();
     frontRightModule.stop();
     rearLeftModule.stop();
     rearRightModule.stop();
   }
+
   public void resetOdometry() {
     swerveDriveOdometry.resetPosition(new Pose2d(0.0, 0.0, new Rotation2d()), Rotation2d.fromDegrees(-navx.getYaw()));
   }

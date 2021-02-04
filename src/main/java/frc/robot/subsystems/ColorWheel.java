@@ -74,7 +74,8 @@ public enum TargetColor {
   public void setColorWheelPosition(double position) {
     colorWheelMotor.set(ControlMode.PercentOutput, position);
   }
-  public int getMotorPosition() {
+
+  public double getMotorPosition() {
     return colorWheelMotor.getSelectedSensorPosition();
   }
 

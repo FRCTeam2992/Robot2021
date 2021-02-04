@@ -42,20 +42,21 @@ public class DriveSticks extends CommandBase {
   @Override
   public void execute() {
   // Joystick Inputs (x1 = strafe, y1= Speed, x2 = rotaion)
-  averageX1.add(-Robot.RobotContainer.controller.smoothGetX(Hand.kLeft));
-  averageY1.add(-Robot.RobotContainer.controller.smoothGetX(Hand.kLeft));
-  averageX2.add(-Robot.RobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0));
+  averageX1.add(-Robot.mRobotContainer.controller.smoothGetX(Hand.kLeft));
+  averageY1.add(-Robot.mRobotContainer.controller.smoothGetX(Hand.kLeft));
+  averageX2.add(-Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0));
 
   double x1 = averageX1.getAverage();
   double y1 = averageY1.getAverage();
   double x2 = averageX2.getAverage();
 
-  if (Robot.RobotContainer.controller.getBumperReleased(Hand.kLeft)){
+  if (Robot.mRobotContainer.controller.getBumperReleased(Hand.kLeft)){
     slowMode = !slowMode;
     toggleButtonPressed = true;
-  } else if (Robot.RobotContainer.controller.getBumperReleased(Hand.kLeft)){
+  } else if (Robot.mRobotContainer.controller.getBumperReleased(Hand.kLeft)){
     toggleButtonPressed = false;
   }
+
   if (slowMode) {
     x1 /= 2;
     y1 /= 2;
