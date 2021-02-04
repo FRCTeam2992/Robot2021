@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AdjustabeShooterHood;
 
 public class StopAdjustableShooterHood extends CommandBase {
-//subsystem instance
-private AdjustabeShooterHood mAdjustabeShooterHood;
+
+  // subsystem instance
+  private AdjustabeShooterHood mAdjustabeShooterHood;
+
   public StopAdjustableShooterHood(AdjustabeShooterHood subsystem) {
     mAdjustabeShooterHood = subsystem;
 
@@ -18,7 +20,8 @@ private AdjustabeShooterHood mAdjustabeShooterHood;
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -28,7 +31,8 @@ private AdjustabeShooterHood mAdjustabeShooterHood;
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

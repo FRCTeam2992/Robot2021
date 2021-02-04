@@ -1,5 +1,4 @@
 
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -7,22 +6,18 @@ import frc.robot.subsystems.Intake;
 
 public class DeployIntake extends CommandBase {
 
-  //Subsystem Instance
+  // Subsystem Instance
   private Intake mIntake;
 
   // Vaeiables
   private boolean mToggle;
 
-  /**
-   * Creates a new DeployIntake.
-   */
   public DeployIntake(Intake subsystem, boolean toggle) {
-    //Subsystem Instance
+    // Subsystem Instance
     mIntake = subsystem;
 
     // Variables
     mToggle = toggle;
-
   }
 
   // Called when the command is initially scheduled.

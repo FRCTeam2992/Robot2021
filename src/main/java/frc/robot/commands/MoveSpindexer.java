@@ -12,16 +12,16 @@ import frc.robot.subsystems.Spindexer;
 
 public class MoveSpindexer extends CommandBase {
 
-  //Subsystem Instance
+  // Subsystem Instance
   private Spindexer mSpindexer;
 
-  //Varibles
+  // Varibles
   private double mSpinnerSpeed;
 
   public MoveSpindexer(Spindexer mSpindexer2, double spinnerSpeed) {
-    //Subsystem
+    // Subsystem
     mSpindexer = mSpindexer2;
-    //Varibles 
+    // Varibles
     mSpinnerSpeed = spinnerSpeed;
 
     addRequirements(mSpindexer);

@@ -11,15 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class MoveIntake extends CommandBase {
+  
   private Intake mIntake;
-  //Variables
+
+  // Variables
   private double mIntakeSpeed;
 
-  /**
-   * Creates a new IntakeSpeed.
-   */
   public MoveIntake(Intake subsystem, double IntakeSpeed) {
-   
+
     mIntake = subsystem;
     mIntakeSpeed = IntakeSpeed;
 

@@ -12,16 +12,17 @@ import frc.robot.Constants;
 import frc.robot.subsystems.TelescopeClimb;
 
 public class MoveTelescopeClimb extends CommandBase {
-  //Subsystem Intance
+
+  // Subsystem Intance
   private TelescopeClimb mTelescopeClimb;
 
-  //Subsystem
+  // Subsystem
   private double mTeleSpeed;
 
   public MoveTelescopeClimb(TelescopeClimb subsystem, double teleSpeed) {
-    //subsystem
+    // subsystem
     mTelescopeClimb = subsystem;
-    //varibles
+    // varibles
     mTeleSpeed = teleSpeed;
 
     addRequirements(mTelescopeClimb);
@@ -37,15 +38,13 @@ public class MoveTelescopeClimb extends CommandBase {
   public void execute() {
     mTelescopeClimb.setClimbSpeed(mTeleSpeed);
 
-    //stop motor if going up and past the climb limit
-    if(mTelescopeClimb.getTelePosition() >= Constants.teleClimbLimit && mTeleSpeed > 0.0){
+    // stop motor if going up and past the climb limit
+    if (mTelescopeClimb.getTelePosition() >= Constants.teleClimbLimit && mTeleSpeed > 0.0) {
       mTelescopeClimb.setClimbSpeed(0.0);
-    }
-    else{
+    } else {
       mTelescopeClimb.setClimbSpeed(mTeleSpeed);
     }
- }
-  
+  }
 
   // Called once the command ends or is interrupted.
   @Override

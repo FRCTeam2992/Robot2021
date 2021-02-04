@@ -11,16 +11,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Spindexer;
 
 public class StopSpindexer extends CommandBase {
-  //Subsystem
+
+  // Subsystem
   private Spindexer mSpindexer;
 
-
-
   public StopSpindexer(Spindexer subsystem) {
-  //Subsystem
-  mSpindexer = subsystem;
+    // Subsystem
+    mSpindexer = subsystem;
 
-  addRequirements(mSpindexer);
+    addRequirements(mSpindexer);
   }
 
   // Called when the command is initially scheduled.

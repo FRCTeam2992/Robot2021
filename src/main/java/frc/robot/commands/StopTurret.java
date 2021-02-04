@@ -11,13 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
 
 public class StopTurret extends CommandBase {
+
   private Turret mTurret;
 
   /**
    * Creates a new StopTurret.
    */
   public StopTurret(Turret subsystem) {
-    //Subsystem
+    // Subsystem
     mTurret = subsystem;
 
     addRequirements(mTurret);

@@ -15,13 +15,11 @@ public class MoveTurret extends CommandBase {
   private Turret mTurret;
   private double mTurretSpeed;
 
-  /**
-   * Creates a new MoveTurret.
-   */
   public MoveTurret(Turret subsystem, double turretSpeed) {
-    //Subsystem
+    // Subsystem
     mTurret = subsystem;
-    //Speed
+
+    // Speed
     mTurretSpeed = turretSpeed;
 
     addRequirements(mTurret);

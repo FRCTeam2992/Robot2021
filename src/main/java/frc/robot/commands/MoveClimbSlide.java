@@ -11,11 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClimbSlide;
 
 public class MoveClimbSlide extends CommandBase {
-    private ClimbSlide mClimbSlide;
-    private double mClimbSpeed;
-  /**
-   * Creates a new MoveClimSlide.
-   */
+
+  private ClimbSlide mClimbSlide;
+  private double mClimbSpeed;
+
   public MoveClimbSlide(ClimbSlide subsystem, double climbSpeed) {
     mClimbSlide = subsystem;
 

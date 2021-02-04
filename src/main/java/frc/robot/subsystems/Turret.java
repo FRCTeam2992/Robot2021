@@ -14,11 +14,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-  
+
   private TalonSRX turretMotor;
 
   public Turret() {
-
     turretMotor = new TalonSRX(17);
     turretMotor.setInverted(false);
     turretMotor.setNeutralMode(NeutralMode.Coast);
@@ -29,6 +28,7 @@ public class Turret extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void SetTurretSpeed(double speed) {
     turretMotor.set(ControlMode.PercentOutput, speed);
   }

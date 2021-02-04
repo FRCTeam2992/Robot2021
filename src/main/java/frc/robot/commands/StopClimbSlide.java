@@ -11,10 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClimbSlide;
 
 public class StopClimbSlide extends CommandBase {
+
   private ClimbSlide mClimbSlide;
-  /**
-   * Creates a new StopClimbSlide.
-   */
+
   public StopClimbSlide(ClimbSlide subsystem) {
     mClimbSlide = subsystem;
 

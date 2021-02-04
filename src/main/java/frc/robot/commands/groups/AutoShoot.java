@@ -10,13 +10,10 @@ import frc.robot.commands.MoveSpindexer;
 import frc.robot.subsystems.Ejector;
 import frc.robot.subsystems.Spindexer;
 
-
 public class AutoShoot extends ParallelCommandGroup {
 
-
   public AutoShoot(Spindexer mSpindexer, Ejector mEjector) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+    // Add Commands
     addCommands(new MoveEjector(mEjector, .5), new MoveSpindexer(mSpindexer, -.5));
   }
 }

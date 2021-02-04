@@ -24,9 +24,9 @@ public class AutoRotateWheelColor extends CommandBase {
 
   private double mTimeout = 0;
   private Timer timeoutTimer;
-  /** Creates a new AutoRotateWheelColor. */
+
   public AutoRotateWheelColor(ColorWheel subsystem, double timeout) {
-    
+
     mColorWheel = subsystem;
 
     mTimeout = timeout;
@@ -37,23 +37,23 @@ public class AutoRotateWheelColor extends CommandBase {
   @Override
   public void initialize() {
     detectedPosition = getColorID(mColorWheel.getDetectedColor());
-        targetPosition = getColorID(mColorWheel.getFMSColorData());
+    targetPosition = getColorID(mColorWheel.getFMSColorData());
 
-        if (detectedPosition == 0 || targetPosition == 0) {
-            isDone = true;
-        }
+    if (detectedPosition == 0 || targetPosition == 0) {
+      isDone = true;
+    }
 
-        rotations = targetPosition - detectedPosition;
+    rotations = targetPosition - detectedPosition;
 
-        if (Math.abs(rotations) > 2) {
-            rotations += detectedPosition;
-        }
+    if (Math.abs(rotations) > 2) {
+      rotations += detectedPosition;
+    }
 
-        mColorWheel.zeroMotorPosition();
-        encoderSetValue = ((rotations / 8) * Constants.colorWheelSpinRatio) * (Constants.colorWheelEncoderPulses * 4);
+    mColorWheel.zeroMotorPosition();
+    encoderSetValue = ((rotations / 8) * Constants.colorWheelSpinRatio) * (Constants.colorWheelEncoderPulses * 4);
 
-        timeoutTimer.reset();
-        timeoutTimer.start();
+    timeoutTimer.reset();
+    timeoutTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -64,9 +64,9 @@ public class AutoRotateWheelColor extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return isDone || Math.abs(encoderSetValue - mColorWheel.getMotorPosition()) <= 50
-                || timeoutTimer.get() >= mTimeout;
+    return isDone || Math.abs(encoderSetValue - mColorWheel.getMotorPosition()) <= 50 || timeoutTimer.get() >= mTimeout;
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -76,16 +76,16 @@ public class AutoRotateWheelColor extends CommandBase {
   // Returns true when the command should end.
   private int getColorID(TargetColor targetColor) {
     switch (targetColor) {
-    case Green:
+      case Green:
         return 1;
-    case Blue:
+      case Blue:
         return 2;
-    case Yellow:
+      case Yellow:
         return 3;
-    case Red:
+      case Red:
         return 4;
-    default:
+      default:
         return 0;
+    }
   }
-}
 }

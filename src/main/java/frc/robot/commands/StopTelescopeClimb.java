@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TelescopeClimb;
 
 public class StopTelescopeClimb extends CommandBase {
-  //Subsystem instance
+
+  // Subsystem instance
   private TelescopeClimb mTelescopeClimb;
 
   public StopTelescopeClimb(TelescopeClimb subsystem) {

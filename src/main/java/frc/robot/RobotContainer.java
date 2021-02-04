@@ -44,57 +44,57 @@ public class RobotContainer {
   private final Ejector mEjector;
   private final DriveTrain mDriveTrain;
 
-  // Controllers 
+  // Controllers
   public mhController controller;
 
   public RobotContainer() {
 
-  // DriveTrain
-  mDriveTrain = new DriveTrain();
-  mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
+    // DriveTrain
+    mDriveTrain = new DriveTrain();
+    mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
 
-  // Intake
+    // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new StopIntake(mIntake));
 
-  //Turret
+    // Turret
     mTurret = new Turret();
     mTurret.setDefaultCommand(new StopTurret(mTurret));
 
-  //ClimeSlide
+    // ClimeSlide
     mClimeSlide = new ClimbSlide();
     mClimeSlide.setDefaultCommand(new StopClimbSlide(mClimeSlide));
-    
-  //Spindexer
+
+    // Spindexer
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
 
-  //ColorWheel
+    // ColorWheel
     mColorWheel = new ColorWheel();
     mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
 
-  //BarClimb
+    // BarClimb
     mBarClimb = new BarClimb();
     mBarClimb.setDefaultCommand(new StopBarClimb(mBarClimb));
 
-  //Shooter
+    // Shooter
     mShooter = new Shooter();
     mShooter.setDefaultCommand(new StopShooter(mShooter));
 
-  //TelescopeClimb
+    // TelescopeClimb
     mTelescopeClimb = new TelescopeClimb();
     mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
 
-  //Ejector
+    // Ejector
     mEjector = new Ejector();
     mEjector.setDefaultCommand(new StopEjector(mEjector));
-    
+
     configureController();
     configureButtonBindings();
 
   }
 
-  private void configureController(){
+  private void configureController() {
     controller = new mhController(0);
   }
 
@@ -102,17 +102,17 @@ public class RobotContainer {
 
   }
 
-  public void setDriveTrainIdleMode(IdleMode turnMode, IdleMode driveMode){
+  public void setDriveTrainIdleMode(IdleMode turnMode, IdleMode driveMode) {
     mDriveTrain.setTurnIdleMode(turnMode);
     mDriveTrain.setDriveIdleMode(driveMode);
   }
 
-  public void zeroGyro(){
+  public void zeroGyro() {
     mDriveTrain.navx.zeroYaw();
 
   }
 
-  public void resetOdometry(){
+  public void resetOdometry() {
     mDriveTrain.resetOdometry();
 
   }

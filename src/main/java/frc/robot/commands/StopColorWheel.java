@@ -11,9 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorWheel;
 
 public class StopColorWheel extends CommandBase {
-  /**
-   * Creates a new StopColorWheel.
-   */
+
   private ColorWheel mColorWheel;
 
   public StopColorWheel(ColorWheel subsystem) {

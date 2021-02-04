@@ -11,12 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorWheel;
 
 public class DeployColorWheel extends CommandBase {
-  /**
-   * Creates a new DeployColorWheel.
-   */
-    private ColorWheel mColorWheel;
 
-    private boolean mToggle;
+  private ColorWheel mColorWheel;
+
+  private boolean mToggle;
 
   public DeployColorWheel(ColorWheel subsystem, boolean toggle) {
     // Use addRequirements() here to declare subsystem dependencies.

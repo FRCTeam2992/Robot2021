@@ -11,14 +11,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class StopShooter extends CommandBase {
-  /**
-   * Creates a new StopShooter.
-   */
+
   private Shooter mShooter;
-  
+
   public StopShooter(Shooter subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    mShooter = subsystem; 
+    mShooter = subsystem;
 
     addRequirements(mShooter);
   }

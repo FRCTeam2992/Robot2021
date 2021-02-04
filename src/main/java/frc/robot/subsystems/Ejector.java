@@ -11,18 +11,20 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Ejector extends SubsystemBase {
-private VictorSPX ejectorMotor;
+
+  private VictorSPX ejectorMotor;
 
   public Ejector() {
     ejectorMotor = new VictorSPX(79);
     ejectorMotor.setInverted(false);
     ejectorMotor.setNeutralMode(NeutralMode.Coast);
-}
+  }
 
   @Override
-  public void periodic() {  }
+  public void periodic() {
+  }
 
-  public void setEjectorSpeed(double speed){
+  public void setEjectorSpeed(double speed) {
     ejectorMotor.set(ControlMode.PercentOutput, speed);
   }
 }

@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BarClimb;
 
 public class StopBarClimb extends CommandBase {
-  //subsystem instance
+
+  // subsystem instance
   private BarClimb mBarClimb;
 
   public StopBarClimb(BarClimb subsystem) {
@@ -18,7 +19,8 @@ public class StopBarClimb extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -28,7 +30,8 @@ public class StopBarClimb extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

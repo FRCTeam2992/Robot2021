@@ -11,11 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorWheel;
 
 public class MoveColorWheel extends CommandBase {
-  /**
-   * Creates a new MoveColorWheel.
-   */
-   private ColorWheel mColorWheel;
-   private double mColorWheelSpeed;
+
+  private ColorWheel mColorWheel;
+  private double mColorWheelSpeed;
 
   public MoveColorWheel(ColorWheel subsystem, double ColorWheelSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.

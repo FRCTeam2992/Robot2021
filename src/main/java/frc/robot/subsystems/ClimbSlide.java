@@ -16,9 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ClimbSlide extends SubsystemBase {
 
   private VictorSPX climbMotor;
-  /**
-   * Creates a new ClimbSlide.
-   */
+
   public ClimbSlide() {
     climbMotor = new VictorSPX(12);
     climbMotor.setInverted(false);
@@ -29,6 +27,7 @@ public class ClimbSlide extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void SetClimbSpeed(double speed) {
 
     climbMotor.set(ControlMode.PercentOutput, speed);

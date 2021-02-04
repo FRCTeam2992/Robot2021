@@ -15,22 +15,23 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-  //Intake Motor
+
+  // Intake Motor
   private CANSparkMax intakeMotor;
 
-  //Intake Solenod
+  // Intake Solenod
   private Solenoid intakeDeploySol;
 
   /**
    * Creates a new Intake.
    */
   public Intake() {
-    //Intake Motor 
+    // Intake Motor
     intakeMotor = new CANSparkMax(16, MotorType.kBrushless);
     intakeMotor.setInverted(false);
     intakeMotor.setIdleMode(IdleMode.kCoast);
 
-    //Intake Solenoid
+    // Intake Solenoid
     intakeDeploySol = new Solenoid(1);
 
   }
@@ -39,14 +40,16 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void setIntakeSpeed(double Speed) {
     // Intake Speed
     intakeMotor.set(Speed);
 
   }
+
   public void deployIntake(Boolean toggle) {
-    //Intake Deploy
+    // Intake Deploy
     intakeDeploySol.set(toggle);
-    
+
   }
 }

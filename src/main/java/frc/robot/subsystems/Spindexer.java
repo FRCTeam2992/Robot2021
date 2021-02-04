@@ -14,24 +14,23 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Spindexer extends SubsystemBase {
-  
-  //Motors
+
+  // Motors
   private VictorSPX spinnerMotor;
-  
 
   public Spindexer() {
-
-   spinnerMotor = new VictorSPX(9);
-   spinnerMotor.setInverted(false);
-   spinnerMotor.setNeutralMode(NeutralMode.Coast);
+    spinnerMotor = new VictorSPX(9);
+    spinnerMotor.setInverted(false);
+    spinnerMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void setSpinnerSpeed(double speed){
+
+  public void setSpinnerSpeed(double speed) {
     spinnerMotor.set(ControlMode.PercentOutput, speed);
   }
-  
+
 }

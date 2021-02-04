@@ -11,13 +11,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BarClimb;
 
 public class MoveBarClimb extends CommandBase {
-   //subsystem instance
-   private BarClimb mBarClimb;
 
-   // varibles
-   private double mBarSpeed;
-   private boolean mToggleClimb;
-   private boolean mToggleLock;
+  // subsystem instance
+  private BarClimb mBarClimb;
+
+  // varibles
+  private double mBarSpeed;
+  private boolean mToggleClimb;
+  private boolean mToggleLock;
+
   public MoveBarClimb(BarClimb subsystem, double barSpeed, boolean toogleClimb, boolean toggleLock) {
     mBarClimb = subsystem;
     mBarSpeed = barSpeed;

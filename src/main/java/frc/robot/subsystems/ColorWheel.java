@@ -22,24 +22,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ColorWheel extends SubsystemBase {
-  /**
-   * Creates a new ColorWheel.
-   */
-  //Color Wheel Motors
+
+  // Color Wheel Motors
   private TalonSRX colorWheelMotor;
 
-  //Color Wheel Soleniod
+  // Color Wheel Soleniod
   private Solenoid colorWheelSol;
 
-  //Color Sensor
+  // Color Sensor
   private final ColorSensorV3 colorSensor;
   private final I2C.Port sensor = I2C.Port.kOnboard;
   private final ColorMatch colorMatcher = new ColorMatch();
 
-public enum TargetColor {
+  public enum TargetColor {
     Blue, Green, Red, Yellow, Unknown, Corrupt
-    
-}
+  }
 
   public ColorWheel() {
     colorWheelMotor = new TalonSRX(15);
@@ -63,11 +60,11 @@ public enum TargetColor {
     // This method will be called once per scheduler run
   }
 
-  public void stopColorWheel(){
+  public void stopColorWheel() {
     colorWheelMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public void setColorWheelSpeed(double speed){
+  public void setColorWheelSpeed(double speed) {
     colorWheelMotor.set(ControlMode.PercentOutput, speed);
   }
 
@@ -84,43 +81,45 @@ public enum TargetColor {
   }
 
   public void deployColorWheel(boolean toggle) {
-  colorWheelSol.set(toggle);
+    colorWheelSol.set(toggle);
   }
+
   public TargetColor getDetectedColor() {
     Color detectedColor = colorSensor.getColor();
 
     ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == Constants.kBlueTarget) {
-        return TargetColor.Blue;
+      return TargetColor.Blue;
     } else if (match.color == Constants.kRedTarget) {
-        return TargetColor.Red;
+      return TargetColor.Red;
     } else if (match.color == Constants.kGreenTarget) {
-        return TargetColor.Green;
+      return TargetColor.Green;
     } else if (match.color == Constants.kYellowTarget) {
-        return TargetColor.Yellow;
+      return TargetColor.Yellow;
     } else {
-        return TargetColor.Unknown;
-           }
+      return TargetColor.Unknown;
     }
-    public TargetColor getFMSColorData() {
-      String gameData = DriverStation.getInstance().getGameSpecificMessage();
+  }
 
-      if (gameData.length() > 0) {
-          switch (gameData.charAt(0)) {
-          case 'B':
-              return TargetColor.Blue;
-          case 'G':
-              return TargetColor.Green;
-          case 'R':
-              return TargetColor.Red;
-          case 'Y':
-              return TargetColor.Yellow;
-          default:
-             return TargetColor.Corrupt;
-          }
-      } else {
-          return TargetColor.Unknown;
+  public TargetColor getFMSColorData() {
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
+
+    if (gameData.length() > 0) {
+      switch (gameData.charAt(0)) {
+        case 'B':
+          return TargetColor.Blue;
+        case 'G':
+          return TargetColor.Green;
+        case 'R':
+          return TargetColor.Red;
+        case 'Y':
+          return TargetColor.Yellow;
+        default:
+          return TargetColor.Corrupt;
+      }
+    } else {
+      return TargetColor.Unknown;
     }
   }
 }

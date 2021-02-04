@@ -11,16 +11,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class SetShooterSpeed extends CommandBase {
-  //varibles
+
+  // varibles
   private int mShooterSpeed;
 
-  //subsystem instance
+  // subsystem instance
   private Shooter mShooter;
 
   public SetShooterSpeed(Shooter subsystem, int shooterSpeed) {
-    //varibles
+    // varibles
     mShooterSpeed = shooterSpeed;
-    //subsystem
+
+    // subsystem
     subsystem = mShooter;
   }
 

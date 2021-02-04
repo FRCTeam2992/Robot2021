@@ -11,8 +11,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AdjustabeShooterHood extends SubsystemBase {
-//Motors
-private CANSparkMax hoodMotor;
+
+  // Motors
+  private CANSparkMax hoodMotor;
+
   public AdjustabeShooterHood() {
     hoodMotor = new CANSparkMax(69, MotorType.kBrushless);
     hoodMotor.setInverted(false);

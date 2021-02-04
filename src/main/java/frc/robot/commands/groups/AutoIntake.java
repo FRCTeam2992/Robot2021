@@ -13,18 +13,11 @@ import frc.robot.subsystems.Ejector;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Spindexer;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoIntake extends ParallelCommandGroup {
-  /** Creates a new AutoIntake. */
+
   public AutoIntake(Intake mIntake, Spindexer mSpindexer, Ejector mEjector) {
-    addCommands(new DeployIntake(mIntake, true),new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .5), new MoveEjector(mEjector, -.5));
-
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    // Add Commands
+    addCommands(new DeployIntake(mIntake, true), new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .5),
+        new MoveEjector(mEjector, -.5));
   }
-
- 
 }

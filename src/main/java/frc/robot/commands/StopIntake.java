@@ -13,9 +13,7 @@ import frc.robot.subsystems.Intake;
 public class StopIntake extends CommandBase {
 
   private Intake mIntake;
-  /**
-   * Creates a new StopIntake.
-   */
+
   public StopIntake(Intake subsystem) {
     mIntake = subsystem;
 

@@ -17,11 +17,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
- //motors
+
+  // motors
   private TalonSRX leadShooter;
   private VictorSPX followShooter;
 
-  //shooter set speed
+  // shooter set speed
   public int shooterSetSpeed = Constants.defaultShooterSpeed;
 
   public Shooter() {
@@ -37,7 +38,6 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
-
     SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
   }
 
@@ -45,7 +45,7 @@ public class Shooter extends SubsystemBase {
     leadShooter.set(ControlMode.PercentOutput, speed);
   }
 
-  public void setShooterVelocity(double velocity){
+  public void setShooterVelocity(double velocity) {
     leadShooter.set(ControlMode.Velocity, velocity);
   }
 

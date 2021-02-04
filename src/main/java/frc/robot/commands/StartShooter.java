@@ -12,11 +12,12 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class StartShooter extends CommandBase {
-  //Varible
-    private double mShooterSpeed = 0;
 
-  //subsystem instance
-    private Shooter mShooter;
+  // Varible
+  private double mShooterSpeed = 0;
+
+  // subsystem instance
+  private Shooter mShooter;
 
   public StartShooter(Shooter subsystem) {
     subsystem = mShooter;
@@ -32,7 +33,7 @@ public class StartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ///////Convert RPM to ticks per 100 milliseconds
+    /////// Convert RPM to ticks per 100 milliseconds
     mShooterSpeed = mShooter.shooterSetSpeed;
 
     mShooterSpeed = (mShooterSpeed / 600.0) * (Constants.shooterEncoderPulses * 4.0);
