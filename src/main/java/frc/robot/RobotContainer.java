@@ -32,7 +32,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    // Subsytem Instances
+    // Subsystem Instances
     mDriveTrain = new DriveTrain();
     mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
 
@@ -48,7 +48,7 @@ public class RobotContainer {
     mEjector = new Ejector();
     mEjector.setDefaultCommand(new StopEjector(mEjector));
 
-    // Subsytem Instances (Disabled)
+    // Subsystem Instances (Disabled)
     // mTurret = new Turret();
     // mTurret.setDefaultCommand(new StopTurret(mTurret));
 
