@@ -24,7 +24,6 @@ public class RobotContainer {
   // private final Turret mTurret;
   // private final ClimbSlide mClimeSlide;
   // private final TelescopeClimb mTelescopeClimb;
-  // private final BarClimb mBarClimb;
   // private final ColorWheel mColorWheel;
 
   // Controllers
@@ -57,9 +56,6 @@ public class RobotContainer {
 
     // mColorWheel = new ColorWheel();
     // mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
-
-    // mBarClimb = new BarClimb();
-    // mBarClimb.setDefaultCommand(new StopBarClimb(mBarClimb));
 
     // mTelescopeClimb = new TelescopeClimb();
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
