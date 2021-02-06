@@ -22,7 +22,7 @@ public class SwerveModule {
 
     public SwerveModule(CANSparkMax driveMotor, CANSparkMax turnMotor, AnalogInput encoderInput, double encoderOffset,
             PIDController turnPID, double wheelDiameter, double wheelGearRatio, double maxDriveSpeed) {
-        // Save the Variables
+        // Saved Variables
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
         this.encoderInput = encoderInput;
