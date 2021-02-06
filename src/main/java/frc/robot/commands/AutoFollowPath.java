@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import javax.xml.crypto.dsig.Transform;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.HolonomicDriveController;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -17,31 +15,31 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.lib.drive.swerve.SwerveModule;
 import frc.lib.drive.swerve.trajectory.SwerveTrajectory;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
-import jdk.vm.ci.meta.Constant;
 
 public class AutoFollowPath extends CommandBase {
 
   // Subsystem Instance
-  private final DriveTrain mDriveTrain;
+  private DriveTrain mDriveTrain;
 
   // Trajectory Instance
-  private final SwerveTrajectory mSwerveyTrajectory;
-  private final Trajectory mTrajectory;
+  private SwerveTrajectory mSwerveyTrajectory;
+  private Trajectory mTrajectory;
 
   // Drive Controller Instance
-  private final HolonomicDriveController controller;
+  private HolonomicDriveController controller;
 
-  // Variables
-  private final Timer elapsedTimer;
+  // Timer
+  private Timer elapsedTimer;
 
-  /** Creates a new AutoFollowPath. */
   public AutoFollowPath(DriveTrain subsystem, SwerveTrajectory swerveTrajectory) {
-    // Save the Subsystem Instance
+    // Subsystem Instance
     mDriveTrain = subsystem;
+
+    // Set the Subsystem Requirement
+    addRequirements(mDriveTrain);
 
     // Save the Swerve Trajectory
     mSwerveyTrajectory = swerveTrajectory;
@@ -49,19 +47,16 @@ public class AutoFollowPath extends CommandBase {
     // Get the Trajectory
     mTrajectory = mSwerveyTrajectory.getTrajectory();
 
-    // set the Subsystem Requirement
-    addRequirements(mDriveTrain);
-
     // Initialize the Drive Controller
     controller = new HolonomicDriveController(
-      new PIDController(Constants.xCorrectionP, Constants.xCorrectionI, Constants.xCorrectionD),
-      new PIDController(Constants.yCorrectionP, Constants.yCorrectionI, Constants.yCorrectionD),
-      new ProfiledPIDController(Constants.thetaCorrectionP, Constants.thetaCorrectionI, Constants.thetaCorrectionD,
-      new TrapezoidProfile.Constraints(Constants.maxThetaVelocity, Constants.maxThetaAcceleration)));
+        new PIDController(Constants.xCorrectionP, Constants.xCorrectionI, Constants.xCorrectionD),
+        new PIDController(Constants.yCorrectionP, Constants.yCorrectionI, Constants.yCorrectionD),
+        new ProfiledPIDController(Constants.thetaCorrectionP, Constants.thetaCorrectionI, Constants.thetaCorrectionD,
+            new TrapezoidProfile.Constraints(Constants.maxThetaVelocity, Constants.maxThetaAcceleration)));
 
-      // Initialize the Path Timer
-      elapsedTimer = new Timer();
-    }
+    // Timer
+    elapsedTimer = new Timer();
+  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -70,7 +65,7 @@ public class AutoFollowPath extends CommandBase {
     Transform2d transform = mDriveTrain.latestSwervePose.minus(mTrajectory.getInitialPose());
     mTrajectory.transformBy(transform);
 
-    // Reset and Start Elapsed Timer
+    // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
     elapsedTimer.start();
   }
@@ -87,8 +82,9 @@ public class AutoFollowPath extends CommandBase {
     // Get the Desired Heading
     double heading = mSwerveyTrajectory.getDesiredHeading(currentTime);
 
-    //Get the Ajusted Speeds
-    ChassisSpeeds adjustSpeeds = controller.calculate(mDriveTrain.latestSwervePose, latestState, Rotation2d.fromDegrees(heading));
+    // Get the Ajusted Speeds
+    ChassisSpeeds adjustSpeeds = controller.calculate(mDriveTrain.latestSwervePose, latestState,
+        Rotation2d.fromDegrees(heading));
 
     // Get the Module States
     SwerveModuleState[] moduleStates = mDriveTrain.swerveDriveKinematics.toSwerveModuleStates(adjustSpeeds);
