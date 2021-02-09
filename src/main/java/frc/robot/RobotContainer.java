@@ -15,10 +15,10 @@ public class RobotContainer {
 
   // Subsystem Instances
   public final DriveTrain mDriveTrain;
-  private final Intake mIntake;
-  private final Spindexer mSpindexer;
-  private final Shooter mShooter;
-  private final Ejector mEjector;
+  // private final Intake mIntake;
+  // private final Spindexer mSpindexer;
+  // private final Shooter mShooter;
+  // private final Ejector mEjector;
 
   // Subsytem Instances (Disabled)
   // private final Turret mTurret;
@@ -35,17 +35,17 @@ public class RobotContainer {
     mDriveTrain = new DriveTrain();
     mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
 
-    mIntake = new Intake();
-    mIntake.setDefaultCommand(new StopIntake(mIntake));
+    // mIntake = new Intake();
+    // mIntake.setDefaultCommand(new StopIntake(mIntake));
 
-    mSpindexer = new Spindexer();
-    mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
+    // mSpindexer = new Spindexer();
+    // mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
 
-    mShooter = new Shooter();
-    mShooter.setDefaultCommand(new StopShooter(mShooter));
+    // mShooter = new Shooter();
+    // mShooter.setDefaultCommand(new StopShooter(mShooter));
 
-    mEjector = new Ejector();
-    mEjector.setDefaultCommand(new StopEjector(mEjector));
+    // mEjector = new Ejector();
+    // mEjector.setDefaultCommand(new StopEjector(mEjector));
 
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();

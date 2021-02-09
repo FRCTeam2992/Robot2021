@@ -24,8 +24,6 @@ public final class Constants {
     // Color Wheel Variables
     public static final int colorWheelEncoderPulses = 1024;
     public static final double colorWheelSpinRatio = 8.0;
-    public static final double colorSensorMinAngle = 0.0;
-    public static final double colorSensorMaxAngle = 180.0;
     public static final double colorWheelSpinRotations = 4.0;
 
     // Color Wheel Target Colors
@@ -38,36 +36,36 @@ public final class Constants {
     public static boolean isFieldCentric = true;
     public static boolean isVelocityControlled = false;
 
-    // Length and Width of the Robot in Meters (Inches: 24.5 x 22.0)
-    public static final double swerveWidth = 0.6223;
-    public static final double swerveLength = 0.5588;
+    // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
+    public static final double swerveWidth = 0.5588;
+    public static final double swerveLength = 0.6223;
 
     // Max Swerve Speed (Velocity Control)
     public static final double swerveMaxSpeed = 3.5; // (Meters per Second)
 
     // Max Path Following Drive Speeds
-    public static final double maxPathFollowingVelocity = 3.5; // (Meters per Second)
-    public static final double maxPathFollowingAcceleration = 1.5; // (Meters per Second Squared)
+    public static final double maxPathFollowingVelocity = 1.5; // (Meters per Second)
+    public static final double maxPathFollowingAcceleration = 0.5; // (Meters per Second Squared)
 
     // Max Path Following Turn Speeds
     public static final double maxThetaVelocity = 3.14; // (Radians per Second)
-    public static final double maxThetaAcceleration = 1.50; // (Radians per Second Squared)
+    public static final double maxThetaAcceleration = 1.57; // (Radians per Second Squared)
 
     // Swerve Module Translations
-    public static final Translation2d frontLeftLocation = new Translation2d(0.2794, 0.31115);
-    public static final Translation2d frontRightLocation = new Translation2d(0.2794, -0.31115);
-    public static final Translation2d rearLeftLocation = new Translation2d(-0.2794, 0.31115);
-    public static final Translation2d rearRightLocation = new Translation2d(-0.2794, -0.31115);
+    public static final Translation2d frontLeftLocation = new Translation2d(0.31115, 0.2794);
+    public static final Translation2d frontRightLocation = new Translation2d(0.31115, -0.2794);
+    public static final Translation2d rearLeftLocation = new Translation2d(-0.31115, 0.2794);
+    public static final Translation2d rearRightLocation = new Translation2d(-0.31115, -0.2794);
 
     // Swerve Wheels and Gear Ratio
-    public static final double driveGearRatio = 8.33;
+    public static final double driveGearRatio = (40.0 / 16.0) * (18.0 / 26.0) * (60.0 / 15.0);
     public static final double driveWheelDiameter = 0.1016;
 
     // Analog Encoder Offsets (Degrees) - Opposite of Reading
-    public static final double frontLeftOffset = -111.7;
-    public static final double frontRightOffset = 0.8;
-    public static final double rearLeftOffset = 98.0;
-    public static final double rearRightOffset = 94.8;
+    public static final double frontLeftOffset = -179.0; // -111.7
+    public static final double frontRightOffset = 16.9; // 0.8
+    public static final double rearLeftOffset = 91.4; // 98.0
+    public static final double rearRightOffset = 34.7; // 94.8
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.00025;
