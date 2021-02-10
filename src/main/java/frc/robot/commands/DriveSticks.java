@@ -35,7 +35,7 @@ public class DriveSticks extends CommandBase {
     averageX2 = new RollingAverage(5);
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially scheduled./
   @Override
   public void initialize() {
 
@@ -56,11 +56,11 @@ public class DriveSticks extends CommandBase {
     // Check for Movement
     if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
       // Slow Mode
-      if (Robot.mRobotContainer.controller.getBumperPressed(Hand.kLeft)) {
-        x1 /= 3;
-        y1 /= 3;
-        x2 /= 2;
-      }
+      // if (Robot.mRobotContainer.controller.getBumperPressed(Hand.kLeft)) {
+      //   x1 /= 3;
+      //   y1 /= 3;
+      //   x2 /= 2;
+      // }
 
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();

@@ -34,18 +34,18 @@ public final class Constants {
 
     // Drive Variables
     public static boolean isFieldCentric = true;
-    public static boolean isVelocityControlled = false;
+    public static boolean isVelocityControlled = true;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;
     public static final double swerveLength = 0.6223;
 
     // Max Swerve Speed (Velocity Control)
-    public static final double swerveMaxSpeed = 3.5; // (Meters per Second)
+    public static final double swerveMaxSpeed = 4.1; // (Meters per Second)
 
     // Max Path Following Drive Speeds
     public static final double maxPathFollowingVelocity = 1.5; // (Meters per Second)
-    public static final double maxPathFollowingAcceleration = 0.5; // (Meters per Second Squared)
+    public static final double maxPathFollowingAcceleration = 0.3; // (Meters per Second Squared)
 
     // Max Path Following Turn Speeds
     public static final double maxThetaVelocity = 3.14; // (Radians per Second)
@@ -68,10 +68,10 @@ public final class Constants {
     public static final double rearRightOffset = 34.7; // 94.8
 
     // Swerve Drive PID (Velocity Control)
-    public static final double driveP = 0.00025;
+    public static final double driveP = 0.0001;
     public static final double driveI = 0.0;
     public static final double driveD = 0.0;
-    public static final double driveF = 0.00018;
+    public static final double driveF = 0.00022;
 
     // Swerve Turn PID
     public static final double turnP = 0.005;

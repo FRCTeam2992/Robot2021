@@ -7,8 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.oi.mhController;
 import frc.robot.commands.*;
+import frc.robot.paths.StraightPath;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -59,6 +61,10 @@ public class RobotContainer {
 
     // mTelescopeClimb = new TelescopeClimb();
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
+
+    // SmartDashboard Auto Paths
+    SmartDashboard.putData("Straight Path",
+        new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory()));
 
     // Initialize the Controller
     controller = new mhController(0);
