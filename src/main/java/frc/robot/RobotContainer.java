@@ -66,8 +66,8 @@ public class RobotContainer {
     // SmartDashboard Auto Paths
     SmartDashboard.putData("Straight Path",
         new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory()));
-        SmartDashboard.putData("Gerad Path",
-        new AutoFollowPath(mDriveTrain, new GeradPath().generateSwerveTrajectory()));
+
+    SmartDashboard.putData("Gerad Path", new AutoFollowPath(mDriveTrain, new GeradPath().generateSwerveTrajectory()));
 
     // Initialize the Controller
     controller = new mhController(0);
