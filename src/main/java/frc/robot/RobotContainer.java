@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.oi.mhController;
 import frc.robot.commands.*;
+import frc.robot.paths.GeradPath;
 import frc.robot.paths.StraightPath;
 import frc.robot.subsystems.*;
 
@@ -65,6 +66,8 @@ public class RobotContainer {
     // SmartDashboard Auto Paths
     SmartDashboard.putData("Straight Path",
         new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory()));
+        SmartDashboard.putData("Gerad Path",
+        new AutoFollowPath(mDriveTrain, new GeradPath().generateSwerveTrajectory()));
 
     // Initialize the Controller
     controller = new mhController(0);

@@ -44,8 +44,8 @@ public final class Constants {
     public static final double swerveMaxSpeed = 4.1; // (Meters per Second)
 
     // Max Path Following Drive Speeds
-    public static final double maxPathFollowingVelocity = 1.5; // (Meters per Second)
-    public static final double maxPathFollowingAcceleration = 0.3; // (Meters per Second Squared)
+    public static final double maxPathFollowingVelocity = 2.0; // (Meters per Second)
+    public static final double maxPathFollowingAcceleration = 0.75; // (Meters per Second Squared)
 
     // Max Path Following Turn Speeds
     public static final double maxThetaVelocity = 3.14; // (Radians per Second)
