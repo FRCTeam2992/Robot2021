@@ -108,7 +108,7 @@ public class DriveSticks extends CommandBase {
       if (max > 1) {
         frontRightSpeed /= max;
         frontLeftSpeed /= max;
-        frontLeftSpeed /= max;
+        rearLeftSpeed /= max;
         rearRightSpeed /= max;
       }
 
