@@ -164,10 +164,10 @@ public class DriveTrain extends SubsystemBase {
     frontRightModule = new SwerveModule(frontRightDrive, frontRightTurn, frontRightEncoder, Constants.frontRightOffset,
         frontRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    rearLeftModule = new SwerveModule(rearLeftDrive, frontLeftTurn, rearLeftEncoder, Constants.rearLeftOffset,
+    rearLeftModule = new SwerveModule(rearLeftDrive, rearLeftTurn, rearLeftEncoder, Constants.rearLeftOffset,
         rearLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    rearRightModule = new SwerveModule(rearRightDrive, frontRightTurn, rearRightEncoder, Constants.rearRightOffset,
+    rearRightModule = new SwerveModule(rearRightDrive, rearRightTurn, rearRightEncoder, Constants.rearRightOffset,
         rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
     // Robot Gyro

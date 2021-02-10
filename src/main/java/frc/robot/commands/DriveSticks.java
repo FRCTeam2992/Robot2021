@@ -46,7 +46,7 @@ public class DriveSticks extends CommandBase {
   public void execute() {
     // Joystick Inputs (x1 = Strafe, y1 = Speed, x2 = Rotation)
     averageX1.add(-Robot.mRobotContainer.controller.smoothGetX(Hand.kLeft));
-    averageY1.add(-Robot.mRobotContainer.controller.smoothGetX(Hand.kLeft));
+    averageY1.add(-Robot.mRobotContainer.controller.smoothGetY(Hand.kLeft));
     averageX2.add(-Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0));
 
     double x1 = averageX1.getAverage();
@@ -57,8 +57,8 @@ public class DriveSticks extends CommandBase {
     if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
       // Slow Mode
       if (Robot.mRobotContainer.controller.getBumperPressed(Hand.kLeft)) {
-        x1 /= 2;
-        y1 /= 2;
+        x1 /= 3;
+        y1 /= 3;
         x2 /= 2;
       }
 
@@ -71,7 +71,7 @@ public class DriveSticks extends CommandBase {
       double r = Math.sqrt((L * L) + (W * W));
 
       // Field Centric Code from NAVX Website
-      if (Constants.isFieldCentric == true) {
+      if (Constants.isFieldCentric) {
         double gyro = gyroValue * Math.PI / 180;
 
         double temp = x1 * Math.cos(gyro) + y1 * Math.sin(gyro);
@@ -83,9 +83,9 @@ public class DriveSticks extends CommandBase {
       // Swerve Module Math for Speed and Angle
       // --------------------------------------
       double a = x1 - x2 * (L / r);
-      double b = x1 - x2 * (L / r);
+      double b = x1 + x2 * (L / r);
       double c = y1 - x2 * (W / r);
-      double d = y1 - x2 * (W / r);
+      double d = y1 + x2 * (W / r);
 
       double frontLeftSpeed = Math.sqrt((b * b) + (c * c));
       double frontRightSpeed = Math.sqrt((b * b) + (d * d));
@@ -121,12 +121,12 @@ public class DriveSticks extends CommandBase {
       // Command the Swerve Modules
       if (Constants.isVelocityControlled) {
         frontLeft.calculateDriveVelocity(frontLeftSpeed, frontLeftAngle);
-        frontRight.calculateDriveVelocity(frontLeftSpeed, frontRightAngle);
+        frontRight.calculateDriveVelocity(frontRightSpeed, frontRightAngle);
         rearLeft.calculateDriveVelocity(rearLeftSpeed, rearLeftAngle);
         rearRight.calculateDriveVelocity(rearRightSpeed, rearRightAngle);
       } else {
         frontLeft.calculateDrive(frontLeftSpeed, frontLeftAngle);
-        frontRight.calculateDrive(frontLeftSpeed, frontRightAngle);
+        frontRight.calculateDrive(frontRightSpeed, frontRightAngle);
         rearLeft.calculateDrive(rearLeftSpeed, rearLeftAngle);
         rearRight.calculateDrive(rearRightSpeed, rearRightAngle);
       }
