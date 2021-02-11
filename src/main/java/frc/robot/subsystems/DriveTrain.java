@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -11,6 +14,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -18,6 +23,8 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drive.swerve.SwerveModule;
 import frc.robot.Constants;
@@ -66,6 +73,9 @@ public class DriveTrain extends SubsystemBase {
 
   // Swerve Pose
   public Pose2d latestSwervePose;
+
+  // Motion Trajectories
+  public Trajectory SlalomTrajectory;
 
   public DriveTrain() {
     // Drive Motors
@@ -246,6 +256,14 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private void loadMotionPaths() {
+    // Slalom Trajectory
+    Path slalomPath = Filesystem.getDeployDirectory().toPath().resolve("output/Slalom.wpilib.json");
 
+    try {
+      SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
+    } catch (IOException e) {
+      DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
+      e.printStackTrace();
+    }
   }
 }
