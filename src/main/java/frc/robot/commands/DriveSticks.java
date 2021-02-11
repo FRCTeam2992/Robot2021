@@ -120,15 +120,15 @@ public class DriveSticks extends CommandBase {
 
       // Command the Swerve Modules
       if (Constants.isVelocityControlled) {
-        frontLeft.calculateDriveVelocity(frontLeftSpeed, frontLeftAngle);
-        frontRight.calculateDriveVelocity(frontRightSpeed, frontRightAngle);
-        rearLeft.calculateDriveVelocity(rearLeftSpeed, rearLeftAngle);
-        rearRight.calculateDriveVelocity(rearRightSpeed, rearRightAngle);
+        frontLeft.setDriveVelocity(frontLeftSpeed, frontLeftAngle);
+        frontRight.setDriveVelocity(frontRightSpeed, frontRightAngle);
+        rearLeft.setDriveVelocity(rearLeftSpeed, rearLeftAngle);
+        rearRight.setDriveVelocity(rearRightSpeed, rearRightAngle);
       } else {
-        frontLeft.calculateDrive(frontLeftSpeed, frontLeftAngle);
-        frontRight.calculateDrive(frontRightSpeed, frontRightAngle);
-        rearLeft.calculateDrive(rearLeftSpeed, rearLeftAngle);
-        rearRight.calculateDrive(rearRightSpeed, rearRightAngle);
+        frontLeft.setDrive(frontLeftSpeed, frontLeftAngle);
+        frontRight.setDrive(frontRightSpeed, frontRightAngle);
+        rearLeft.setDrive(rearLeftSpeed, rearLeftAngle);
+        rearRight.setDrive(rearRightSpeed, rearRightAngle);
       }
     } else {
       mDriveTrain.stopDrive();

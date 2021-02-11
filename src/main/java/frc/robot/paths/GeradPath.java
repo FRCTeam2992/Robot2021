@@ -12,10 +12,10 @@ public class GeradPath extends SwerveTrajectoryGenerator {
         super(new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)), new Pose2d(-0.508, 2.286, Rotation2d.fromDegrees(180)),
                 Constants.maxPathFollowingVelocity, Constants.maxPathFollowingAcceleration);
 
+        // Waypoints
         addWaypoint(0.762, 0.254);
         addWaypoint(1.651, 1.524);
         addWaypoint(2.286, 1.778);
-        
         addWaypoint(4.572, 1.778);
         addWaypoint(5.4, 0.762);
         addWaypoint(5.715, 0);
@@ -26,7 +26,6 @@ public class GeradPath extends SwerveTrajectoryGenerator {
         addWaypoint(5.334, 0.381);
         addWaypoint(1.524, 0.381);
         addWaypoint(0.762, 1.524);
-
 
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);

@@ -54,7 +54,7 @@ public class DriveTrain extends SubsystemBase {
   public final SwerveModule frontRightModule;
   public final SwerveModule rearLeftModule;
   public final SwerveModule rearRightModule;
-  
+
   // Robot Gyro
   public AHRS navx;
 
@@ -180,21 +180,32 @@ public class DriveTrain extends SubsystemBase {
     // Serve Drive Odometry
     swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics, Rotation2d.fromDegrees(-navx.getYaw()),
         new Pose2d(0.0, 0.0, new Rotation2d()));
+
+    // Motion Trajectories
+    loadMotionPaths();
   }
 
   @Override
   public void periodic() {
     // Display Module Angles
-    // SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Left Module Angle",
+    // frontLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Right Module Angle",
+    // frontRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Left Module Angle",
+    // rearLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Right Module Angle",
+    // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
-    // SmartDashboard.putNumber("Front Left Module Velocity", frontLeftModule.getWheelSpeedMeters());
-    // SmartDashboard.putNumber("Front Right Module Velocity", frontRightModule.getWheelSpeedMeters());
-    // SmartDashboard.putNumber("Rear Left Module Velocity", rearLeftModule.getWheelSpeedMeters());
-    // SmartDashboard.putNumber("Rear Right Module Velocity", rearRightModule.getWheelSpeedMeters());
+    // SmartDashboard.putNumber("Front Left Module Velocity",
+    // frontLeftModule.getWheelSpeedMeters());
+    // SmartDashboard.putNumber("Front Right Module Velocity",
+    // frontRightModule.getWheelSpeedMeters());
+    // SmartDashboard.putNumber("Rear Left Module Velocity",
+    // rearLeftModule.getWheelSpeedMeters());
+    // SmartDashboard.putNumber("Rear Right Module Velocity",
+    // rearRightModule.getWheelSpeedMeters());
 
     // Display Gyro Angle
     SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
@@ -232,5 +243,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetOdometry() {
     swerveDriveOdometry.resetPosition(new Pose2d(0.0, 0.0, new Rotation2d()), Rotation2d.fromDegrees(-navx.getYaw()));
+  }
+
+  private void loadMotionPaths() {
+
   }
 }

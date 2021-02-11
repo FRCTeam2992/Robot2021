@@ -57,7 +57,7 @@ public class SwerveModule {
         driveMotor.getPIDController().setReference(RPM, ControlType.kVelocity);
     }
 
-    public void calculateDrive(double speed, double angle) {
+    public void setDrive(double speed, double angle) {
         if (Math.abs(getEncoderAngle() - angle) > 90.0) {
             if (angle > 0) {
                 angle -= 180.0;
@@ -72,7 +72,7 @@ public class SwerveModule {
         setTurnAngle(angle);
     }
 
-    public void calculateDriveVelocity(double speedPercent, double angle) {
+    public void setDriveVelocity(double speedPercent, double angle) {
         double speed = speedPercent * maxDriveSpeed;
 
         if (Math.abs(getEncoderAngle() - angle) > 90.0) {
@@ -120,8 +120,20 @@ public class SwerveModule {
     }
 
     public void setState(SwerveModuleState state) {
-        setTurnAngle(state.angle.getDegrees());
+        double angle = state.angle.getDegrees();
+        double speed = state.speedMetersPerSecond;
 
-        setVelocityMeters(state.speedMetersPerSecond);
+        if (Math.abs(getEncoderAngle() - angle) > 90.0) {
+            if (angle > 0) {
+                angle -= 180.0;
+            } else {
+                angle += 180.0;
+            }
+
+            speed = -speed;
+        }
+
+        setVelocityMeters(speed);
+        setTurnAngle(angle);
     }
 }

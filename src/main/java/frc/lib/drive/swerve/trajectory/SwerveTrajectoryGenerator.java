@@ -21,6 +21,9 @@ public class SwerveTrajectoryGenerator {
     private List<Translation2d> interiorWaypoints;
     private List<TrajectoryAngleState> headingWaypoints;
 
+    // Set Trajectory
+    private Trajectory setTrajectory;
+
     public SwerveTrajectoryGenerator(Pose2d startPose, Pose2d endPose, double maxVelocityMetersPerSecond,
             double maxAccelerationMetersPerSecondSq) {
         // Save the Start and End Translations
@@ -36,6 +39,11 @@ public class SwerveTrajectoryGenerator {
 
         // Initialize the Angle Waypoints Map
         headingWaypoints = new ArrayList<>();
+    }
+
+    public SwerveTrajectoryGenerator(Trajectory trajectory) {
+        // Save the Set Trajectory
+        setTrajectory = trajectory;
     }
 
     public SwerveTrajectoryGenerator() {
@@ -82,12 +90,23 @@ public class SwerveTrajectoryGenerator {
         headingWaypoints.add(new TrajectoryAngleState(seconds, degrees));
     }
 
-    public SwerveTrajectory generateSwerveTrajectory() {
-        // Create the Trajectory Config
-        TrajectoryConfig config = new TrajectoryConfig(maxVelocity, maxAcceleration);
+    public void setTrajectory(Trajectory trajectory) {
+        setTrajectory = trajectory;
+    }
 
-        // Generate the Trajectory
-        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(startPose, interiorWaypoints, endPose, config);
+    public SwerveTrajectory generateSwerveTrajectory() {
+        Trajectory trajectory;
+
+        // Check for Set Trajectory
+        if (setTrajectory == null) {
+            trajectory = setTrajectory;
+        } else {
+            // Create the Trajectory Config
+            TrajectoryConfig config = new TrajectoryConfig(maxVelocity, maxAcceleration);
+
+            // Generate the Trajectory
+            trajectory = TrajectoryGenerator.generateTrajectory(startPose, interiorWaypoints, endPose, config);
+        }
 
         return new SwerveTrajectory(trajectory, headingWaypoints);
     }
