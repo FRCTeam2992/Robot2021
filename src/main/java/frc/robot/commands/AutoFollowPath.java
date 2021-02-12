@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.HolonomicDriveController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
@@ -65,6 +66,12 @@ public class AutoFollowPath extends CommandBase {
     Transform2d transform = mDriveTrain.latestSwervePose.minus(mTrajectory.getInitialPose());
     mTrajectory = mTrajectory.transformBy(transform);
 
+    // Set the Swerve Odometry Position to the Trajectory Start Position
+    // Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
+    // mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(),
+    // trajectoryStartPose.getY(),
+    // Rotation2d.fromDegrees(mSwerveyTrajectory.getDesiredHeading(-1.0))));
+
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
     elapsedTimer.start();
@@ -105,6 +112,6 @@ public class AutoFollowPath extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return elapsedTimer.get() > mTrajectory.getTotalTimeSeconds();
+    return elapsedTimer.get() >= mTrajectory.getTotalTimeSeconds();
   }
 }

@@ -255,6 +255,10 @@ public class DriveTrain extends SubsystemBase {
     swerveDriveOdometry.resetPosition(new Pose2d(0.0, 0.0, new Rotation2d()), Rotation2d.fromDegrees(-navx.getYaw()));
   }
 
+  public void setOdometryPosition(Pose2d position) {
+    swerveDriveOdometry.resetPosition(position, Rotation2d.fromDegrees(-navx.getYaw()));
+  }
+
   private void loadMotionPaths() {
     // Slalom Trajectory
     Path slalomPath = Filesystem.getDeployDirectory().toPath().resolve("output/Slalom.wpilib.json");

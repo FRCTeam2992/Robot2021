@@ -34,6 +34,6 @@ public class TrajectoryAngleState implements Comparable<TrajectoryAngleState> {
 
     @Override
     public int compareTo(TrajectoryAngleState state) {
-        return Double.valueOf(time).compareTo(state.time);
+        return Double.valueOf(time).compareTo(state.getTime());
     }
 }
