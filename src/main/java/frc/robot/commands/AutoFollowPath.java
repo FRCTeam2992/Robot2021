@@ -63,7 +63,7 @@ public class AutoFollowPath extends CommandBase {
   public void initialize() {
     // Set the Trajectory Start Position to the Current Robot Position
     Transform2d transform = mDriveTrain.latestSwervePose.minus(mTrajectory.getInitialPose());
-    mTrajectory.transformBy(transform);
+    mTrajectory = mTrajectory.transformBy(transform);
 
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();

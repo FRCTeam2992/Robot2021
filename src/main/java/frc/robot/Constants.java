@@ -62,10 +62,10 @@ public final class Constants {
     public static final double driveWheelDiameter = 0.1016;
 
     // Analog Encoder Offsets (Degrees) - Opposite of Reading
-    public static final double frontLeftOffset = -179.0; // -111.7
-    public static final double frontRightOffset = 16.9; // 0.8
-    public static final double rearLeftOffset = 91.4; // 98.0
-    public static final double rearRightOffset = 34.7; // 94.8
+    public static final double frontLeftOffset = -178.8;
+    public static final double frontRightOffset = 17.0;
+    public static final double rearLeftOffset = 88.8;
+    public static final double rearRightOffset = 34.3;
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.0001;
@@ -79,17 +79,17 @@ public final class Constants {
     public static final double turnD = 0.0;
 
     // Swerve X Axis Correction PID (Path Following)
-    public static final double xCorrectionP = 1.0;
+    public static final double xCorrectionP = 2.0;
     public static final double xCorrectionI = 0.0;
     public static final double xCorrectionD = 0.0;
 
     // Swerve Y Axis Correction PID (Path Following)
-    public static final double yCorrectionP = 1.0;
+    public static final double yCorrectionP = 2.0;
     public static final double yCorrectionI = 0.0;
     public static final double yCorrectionD = 0.0;
 
     // Swerve Theta Axis Correction PID (Path Following)
-    public static final double thetaCorrectionP = 1.0;
+    public static final double thetaCorrectionP = 9.0;
     public static final double thetaCorrectionI = 0.0;
-    public static final double thetaCorrectionD = 0.0;
+    public static final double thetaCorrectionD = 1.0;
 }

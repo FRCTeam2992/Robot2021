@@ -123,16 +123,6 @@ public class SwerveModule {
         double angle = state.angle.getDegrees();
         double speed = state.speedMetersPerSecond;
 
-        if (Math.abs(getEncoderAngle() - angle) > 90.0) {
-            if (angle > 0) {
-                angle -= 180.0;
-            } else {
-                angle += 180.0;
-            }
-
-            speed = -speed;
-        }
-
         setVelocityMeters(speed);
         setTurnAngle(angle);
     }
