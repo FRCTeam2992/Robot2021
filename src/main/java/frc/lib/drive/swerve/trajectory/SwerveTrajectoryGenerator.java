@@ -45,9 +45,6 @@ public class SwerveTrajectoryGenerator {
         // Save the Set Trajectory
         setTrajectory = trajectory;
 
-        // Initialize the Interior Waypoints List
-        interiorWaypoints = new ArrayList<>();
-
         // Initialize the Angle Waypoints Map
         headingWaypoints = new ArrayList<>();
     }
