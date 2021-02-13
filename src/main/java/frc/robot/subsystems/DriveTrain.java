@@ -82,8 +82,7 @@ public class DriveTrain extends SubsystemBase {
     frontLeftDrive = new CANSparkMax(1, MotorType.kBrushless);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.setIdleMode(IdleMode.kCoast);
-    frontLeftDrive.setSmartCurrentLimit(30);
-    frontLeftDrive.setOpenLoopRampRate(0.2);
+    frontLeftDrive.setSmartCurrentLimit(80);
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
@@ -93,8 +92,7 @@ public class DriveTrain extends SubsystemBase {
     frontRightDrive = new CANSparkMax(3, MotorType.kBrushless);
     frontRightDrive.setInverted(false);
     frontRightDrive.setIdleMode(IdleMode.kCoast);
-    frontRightDrive.setSmartCurrentLimit(30);
-    frontRightDrive.setOpenLoopRampRate(0.2);
+    frontRightDrive.setSmartCurrentLimit(80);
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
@@ -104,8 +102,7 @@ public class DriveTrain extends SubsystemBase {
     rearLeftDrive = new CANSparkMax(5, MotorType.kBrushless);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.setIdleMode(IdleMode.kCoast);
-    rearLeftDrive.setSmartCurrentLimit(30);
-    rearLeftDrive.setOpenLoopRampRate(0.2);
+    rearLeftDrive.setSmartCurrentLimit(80);
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
@@ -115,8 +112,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrive = new CANSparkMax(7, MotorType.kBrushless);
     rearRightDrive.setInverted(false);
     rearRightDrive.setIdleMode(IdleMode.kCoast);
-    rearRightDrive.setSmartCurrentLimit(30);
-    rearRightDrive.setOpenLoopRampRate(0.2);
+    rearRightDrive.setSmartCurrentLimit(80);
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
