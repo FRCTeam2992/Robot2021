@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.HolonomicDriveController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
@@ -87,7 +86,7 @@ public class AutoFollowPath extends CommandBase {
     Trajectory.State latestState = mTrajectory.sample(currentTime);
 
     // Get the Desired Heading
-    double heading = mSwerveyTrajectory.getDesiredHeading(currentTime);
+    double heading = mSwerveyTrajectory.getDesiredHeading(currentTime, mDriveTrain.latestSwervePose.getTranslation());
 
     // Get the Ajusted Speeds
     ChassisSpeeds adjustSpeeds = controller.calculate(mDriveTrain.latestSwervePose, latestState,

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 
 public class SwerveTrajectory {
@@ -44,15 +46,27 @@ public class SwerveTrajectory {
         return headingWaypoints;
     }
 
-    public double getDesiredHeading(double time) {
-        double desiredHeading = 0.0;
+    public double getDesiredHeading(double time, Translation2d robotPosition) {
+        TrajectoryAngleState desiredHeadingState = new TrajectoryAngleState(0.0, 0.0);
 
         for (TrajectoryAngleState tempState : headingWaypoints) {
             if (time >= tempState.getTime()) {
-                desiredHeading = tempState.getAngle();
+                desiredHeadingState = tempState;
             }
         }
 
-        return desiredHeading;
+        if (desiredHeadingState.getPivot() != null) {
+            double pivotX = desiredHeadingState.getPivot().getX();
+            double pivotY = desiredHeadingState.getPivot().getY();
+
+            double robotX = robotPosition.getX();
+            double robotY = robotPosition.getY();
+
+            double relativeAngle = Math.atan2((robotX - pivotX), (robotY - pivotY)) * (180 / Math.PI);
+
+            return 180 - relativeAngle - desiredHeadingState.getAngle();
+        }
+
+        return desiredHeadingState.getAngle();
     }
 }
