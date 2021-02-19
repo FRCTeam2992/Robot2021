@@ -17,6 +17,5 @@ public class StraightPath extends SwerveTrajectoryGenerator {
 
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
-        addHeadingWaypoint(0.1, 135);
     }
 }

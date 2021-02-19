@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModule;
 import frc.lib.util.RollingAverage;
@@ -45,9 +46,9 @@ public class DriveSticks extends CommandBase {
   @Override
   public void execute() {
     // Joystick Inputs (x1 = Strafe, y1 = Speed, x2 = Rotation)
-    averageX1.add(-Robot.mRobotContainer.controller.smoothGetX(Hand.kLeft));
-    averageY1.add(-Robot.mRobotContainer.controller.smoothGetY(Hand.kLeft));
-    averageX2.add(-Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0));
+    averageX1.add(-Robot.mRobotContainer.controller.getX(Hand.kLeft));
+    averageY1.add(-Robot.mRobotContainer.controller.getY(Hand.kLeft));
+    averageX2.add(-Robot.mRobotContainer.controller.getRawAxis(4) * (2.0 / 3.0));
 
     double x1 = averageX1.getAverage();
     double y1 = averageY1.getAverage();
@@ -57,9 +58,9 @@ public class DriveSticks extends CommandBase {
     if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
       // Slow Mode
       // if (Robot.mRobotContainer.controller.getBumperPressed(Hand.kLeft)) {
-      //   x1 /= 3;
-      //   y1 /= 3;
-      //   x2 /= 2;
+      // x1 /= 3;
+      // y1 /= 3;
+      // x2 /= 2;
       // }
 
       // Gyro Input (-180 to 180)

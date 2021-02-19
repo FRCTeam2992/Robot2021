@@ -63,6 +63,9 @@ public class RobotContainer {
     // mTelescopeClimb = new TelescopeClimb();
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
 
+    SmartDashboard.putData("Module Angles -90", new SetSwerveAngle(mDriveTrain, -90.0));
+    SmartDashboard.putData("Module Angles 90", new SetSwerveAngle(mDriveTrain, 90.0));
+    SmartDashboard.putData("Module Angles 0", new SetSwerveAngle(mDriveTrain, 0.0));
     // SmartDashboard Auto Paths
     SmartDashboard.putData("Straight Path",
         new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory()));

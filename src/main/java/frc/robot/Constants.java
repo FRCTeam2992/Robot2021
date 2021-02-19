@@ -41,15 +41,15 @@ public final class Constants {
     public static final double swerveLength = 0.6223;
 
     // Max Swerve Speed (Velocity Control)
-    public static final double swerveMaxSpeed = 4.1; // (Meters per Second)
+    public static final double swerveMaxSpeed = 4.0; // (Meters per Second)
 
     // Max Path Following Drive Speeds
-    public static final double maxPathFollowingVelocity = 2.0; // (Meters per Second)
-    public static final double maxPathFollowingAcceleration = 0.75; // (Meters per Second Squared)
+    public static final double maxPathFollowingVelocity = 4.0; // (Meters per Second)
+    public static final double maxPathFollowingAcceleration = 3.0; // (Meters per Second Squared)
 
     // Max Path Following Turn Speeds
     public static final double maxThetaVelocity = 3.14; // (Radians per Second)
-    public static final double maxThetaAcceleration = 1.57; // (Radians per Second Squared)
+    public static final double maxThetaAcceleration = 2.0; // (Radians per Second Squared)
 
     // Swerve Module Translations
     public static final Translation2d frontLeftLocation = new Translation2d(0.31115, 0.2794);
@@ -68,28 +68,28 @@ public final class Constants {
     public static final double rearRightOffset = 34.3;
 
     // Swerve Drive PID (Velocity Control)
-    public static final double driveP = 0.0001;
+    public static final double driveP = 0.0003; // 0.0003
     public static final double driveI = 0.0;
     public static final double driveD = 0.0;
-    public static final double driveF = 0.00022;
+    public static final double driveF = 0.0002;
 
     // Swerve Turn PID
-    public static final double turnP = 0.005;
+    public static final double turnP = 0.008; // 0.008
     public static final double turnI = 0.0;
-    public static final double turnD = 0.0;
+    public static final double turnD = 0.00005;
 
     // Swerve X Axis Correction PID (Path Following)
-    public static final double xCorrectionP = 2.0;
+    public static final double xCorrectionP = 5.0; // 5.0
     public static final double xCorrectionI = 0.0;
     public static final double xCorrectionD = 0.0;
 
     // Swerve Y Axis Correction PID (Path Following)
-    public static final double yCorrectionP = 2.0;
+    public static final double yCorrectionP = 5.0; // 5.0
     public static final double yCorrectionI = 0.0;
     public static final double yCorrectionD = 0.0;
 
     // Swerve Theta Axis Correction PID (Path Following)
-    public static final double thetaCorrectionP = 9.0;
+    public static final double thetaCorrectionP = 6.0;
     public static final double thetaCorrectionI = 0.0;
-    public static final double thetaCorrectionD = 1.0;
+    public static final double thetaCorrectionD = 0.0;
 }

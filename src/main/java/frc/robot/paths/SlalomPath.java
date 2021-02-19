@@ -9,10 +9,8 @@ public class SlalomPath extends SwerveTrajectoryGenerator {
         // Setup
         super(subsystem.SlalomTrajectory);
 
-        // Set Starting Heading Waypoint
-        addHeadingWaypoint(-1.0, 0.0);
-
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
+        //addHeadingWaypoint(0.1, 90.0);
     }
 }

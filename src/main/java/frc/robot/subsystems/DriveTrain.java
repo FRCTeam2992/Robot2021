@@ -82,7 +82,7 @@ public class DriveTrain extends SubsystemBase {
     frontLeftDrive = new CANSparkMax(1, MotorType.kBrushless);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.setIdleMode(IdleMode.kCoast);
-    frontLeftDrive.setSmartCurrentLimit(80);
+    frontLeftDrive.setSmartCurrentLimit(60);
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
@@ -92,7 +92,7 @@ public class DriveTrain extends SubsystemBase {
     frontRightDrive = new CANSparkMax(3, MotorType.kBrushless);
     frontRightDrive.setInverted(false);
     frontRightDrive.setIdleMode(IdleMode.kCoast);
-    frontRightDrive.setSmartCurrentLimit(80);
+    frontRightDrive.setSmartCurrentLimit(60);
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
@@ -102,7 +102,7 @@ public class DriveTrain extends SubsystemBase {
     rearLeftDrive = new CANSparkMax(5, MotorType.kBrushless);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.setIdleMode(IdleMode.kCoast);
-    rearLeftDrive.setSmartCurrentLimit(80);
+    rearLeftDrive.setSmartCurrentLimit(60);
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
@@ -112,7 +112,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrive = new CANSparkMax(7, MotorType.kBrushless);
     rearRightDrive.setInverted(false);
     rearRightDrive.setIdleMode(IdleMode.kCoast);
-    rearRightDrive.setSmartCurrentLimit(80);
+    rearRightDrive.setSmartCurrentLimit(60);
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
@@ -204,8 +204,6 @@ public class DriveTrain extends SubsystemBase {
     // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
-    // SmartDashboard.putNumber("Front Left Module Velocity",
-    // frontLeftModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Front Right Module Velocity",
     // frontRightModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Rear Left Module Velocity",

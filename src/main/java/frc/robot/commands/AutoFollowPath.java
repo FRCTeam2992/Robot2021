@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.HolonomicDriveController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -61,15 +61,10 @@ public class AutoFollowPath extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Set the Trajectory Start Position to the Current Robot Position
-    Transform2d transform = mDriveTrain.latestSwervePose.minus(mTrajectory.getInitialPose());
-    mTrajectory = mTrajectory.transformBy(transform);
-
     // Set the Swerve Odometry Position to the Trajectory Start Position
-    // Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
-    // mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(),
-    // trajectoryStartPose.getY(),
-    // Rotation2d.fromDegrees(mSwerveyTrajectory.getDesiredHeading(-1.0))));
+    Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
+    mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(), Rotation2d
+        .fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0, mDriveTrain.latestSwervePose.getTranslation()))));
 
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
