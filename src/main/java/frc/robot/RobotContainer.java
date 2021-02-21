@@ -18,8 +18,8 @@ public class RobotContainer {
 
   // Subsystem Instances
   public final DriveTrain mDriveTrain;
-  // private final Intake mIntake;
-  // private final Spindexer mSpindexer;
+  private final Intake mIntake;
+  private final Spindexer mSpindexer;
   // private final Shooter mShooter;
   // private final Ejector mEjector;
 
@@ -38,11 +38,11 @@ public class RobotContainer {
     mDriveTrain = new DriveTrain();
     mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
 
-    // mIntake = new Intake();
-    // mIntake.setDefaultCommand(new StopIntake(mIntake));
+    mIntake = new Intake();
+    mIntake.setDefaultCommand(new StopIntake(mIntake));
 
-    // mSpindexer = new Spindexer();
-    // mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
+    mSpindexer = new Spindexer();
+    mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
 
     // mShooter = new Shooter();
     // mShooter.setDefaultCommand(new StopShooter(mShooter));
@@ -73,6 +73,15 @@ public class RobotContainer {
     SmartDashboard.putData("Slalom Path",
         new AutoFollowPath(mDriveTrain, new SlalomPath(mDriveTrain).generateSwerveTrajectory()));
 
+    SmartDashboard.putData("Intake 100%", new MoveIntake(mIntake, 1.0));
+    SmartDashboard.putData("Intake -100%", new MoveIntake(mIntake, -1.0));
+
+    SmartDashboard.putData("Spindexer 50%", new MoveSpindexer(mSpindexer, 0.5));
+    SmartDashboard.putData("Spindexer -50%", new MoveSpindexer(mSpindexer, -0.5));
+    
+    SmartDashboard.putData("Intake Solenoid True", new DeployIntake(mIntake, true));
+    SmartDashboard.putData("Intake Solenoid False", new DeployIntake(mIntake, false));
+    
     // Initialize the Controller
     controller = new mhController(0);
 
