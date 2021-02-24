@@ -9,18 +9,27 @@
 Adafruit_NeoPixel spindexerStrip = Adafruit_NeoPixel(SPINDEXER_REAL_COUNT, SPINDEXER_PIN, NEO_GRB + NEO_KHZ800);
 
 // Color Codes
-int white = spindexerStrip.Color(255, 255, 255);
-int blue = spindexerStrip.Color(0, 0, 255);
 int red = spindexerStrip.Color(255, 0, 0);
+int orange = spindexerStrip.Color(255, 128, 0);
+int yellow = spindexerStrip.Color(255, 175, 0);
+int green = spindexerStrip.Color(255, 110, 0);
+int blue = spindexerStrip.Color(0, 0, 255);
+int purple = spindexerStrip.Color(155, 0, 1);
+
+int black = spindexerStrip.Color(0, 0, 0);
+int white = spindexerStrip.Color(255, 255, 255);
+int cyan = spindexerStrip.Color(165, 42, 42);
+
 
 void setup() {
   // Spindexer Lights
   spindexerStrip.setBrightness(255);
   spindexerStrip.begin();
+  setStripWhite();
 }
 
 void loop() {
-  coolRainbowThing();
+  reidsBounceCode();
 }
 
 void blueChase() {
@@ -80,20 +89,43 @@ void alternatingBlueWhiteBounce() {
       setSpindexerPixel(i, blue);
       wasBlue = true;
     }
-    spindexerStrip.show();
-    delay(20);
+    for (int i = 96; i >= 0; i -= 2) {
+      spindexerStrip.show();
+      delay(20);
+    }
   }
 }
-
-void coolRainbowThing() {
-
+void setStripWhite() {
   for (int i = 0; i < SPINDEXER_COUNT; i++) {
-    setSpindexerPixel(i, (0, 0, 0));
-    setSpindexerPixel(i - 1, red);
+    setSpindexerPixel(i, white);
+  }
+  for (int i = 0; i < 10; i++) {
+    setSpindexerPixel(i, blue);
   }
   spindexerStrip.show();
-  delay(20);
 }
+
+void reidsBounceCode() {
+  for (int i = 10; i < 99; i++) {
+    setSpindexerPixel(i, blue);
+    setSpindexerPixel(i - 10, white);
+
+    spindexerStrip.show();
+    delay(15);
+  }
+
+  for (int i = 88; i >= 0; i--) {
+    setSpindexerPixel(i, blue);
+    setSpindexerPixel(i + 10, white);
+
+    spindexerStrip.show();
+    delay(15);
+  }
+}
+
+
+
+
 
 void setSpindexerPixel(int index, int color) {
   spindexerStrip.setPixelColor(index, color);
