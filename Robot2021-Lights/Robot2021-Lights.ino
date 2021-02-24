@@ -11,6 +11,7 @@ Adafruit_NeoPixel spindexerStrip = Adafruit_NeoPixel(SPINDEXER_REAL_COUNT, SPIND
 // Color Codes
 int white = spindexerStrip.Color(255, 255, 255);
 int blue = spindexerStrip.Color(0, 0, 255);
+int red = spindexerStrip.Color(255, 0, 0);
 
 void setup() {
   // Spindexer Lights
@@ -19,7 +20,7 @@ void setup() {
 }
 
 void loop() {
-  blueChase();
+  coolRainbowThing();
 }
 
 void blueChase() {
@@ -54,6 +55,44 @@ void blueChase() {
     spindexerStrip.show();
     delay(10);
   }
+}
+void alternatingBlueWhiteBounce() {
+  bool wasBlue = false;
+
+  for (int i = 0; i < SPINDEXER_COUNT; i += 2) {
+
+    if (wasBlue) {
+      setSpindexerPixel(i, white);
+      wasBlue = false;
+    } else {
+      setSpindexerPixel(i, blue);
+      wasBlue = true;
+    }
+    spindexerStrip.show();
+    delay(20);
+  }
+  wasBlue = true;
+  for (int i = 96; i >= 0; i -= 2) {
+    if (wasBlue) {
+      setSpindexerPixel(i, white);
+      wasBlue = false;
+    } else {
+      setSpindexerPixel(i, blue);
+      wasBlue = true;
+    }
+    spindexerStrip.show();
+    delay(20);
+  }
+}
+
+void coolRainbowThing() {
+
+  for (int i = 0; i < SPINDEXER_COUNT; i++) {
+    setSpindexerPixel(i, (0, 0, 0));
+    setSpindexerPixel(i - 1, red);
+  }
+  spindexerStrip.show();
+  delay(20);
 }
 
 void setSpindexerPixel(int index, int color) {
