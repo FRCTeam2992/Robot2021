@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -30,4 +31,9 @@ public class AdjustabeShooterHood extends SubsystemBase {
   public void setAdjustableShooterHoodSpeed(double speed) {
     hoodMotor.set(speed);
   }
+
+  public void hoodPosition(int position) {
+    hoodMotor.getPIDController().setReference(position, ControlType.kPosition);
+  }
+  
 }
