@@ -29,42 +29,12 @@ void setup() {
 }
 
 void loop() {
-  reidsBounceCode();
+  //reidsBounceCode();
+  //blueChase();
+  CJCode();
 }
 
-void blueChase() {
-  for (int i = 0; i < SPINDEXER_COUNT; i++) {
-    setSpindexerPixel(i, blue);
-    setSpindexerPixel(i - 10, white);
 
-    if (i == 0) {
-      setSpindexerPixel(SPINDEXER_COUNT - 10, white);
-    } else if (i == 1) {
-      setSpindexerPixel(SPINDEXER_COUNT - 9, white);
-    } else if (i == 2) {
-      setSpindexerPixel(SPINDEXER_COUNT - 8, white);
-    } else if (i == 3) {
-      setSpindexerPixel(SPINDEXER_COUNT - 7, white);
-    } else if (i == 4) {
-      setSpindexerPixel(SPINDEXER_COUNT - 6, white);
-    } else if (i == 5) {
-      setSpindexerPixel(SPINDEXER_COUNT - 5, white);
-    } else if (i == 6) {
-      setSpindexerPixel(SPINDEXER_COUNT - 4, white);
-    } else if (i == 7) {
-      setSpindexerPixel(SPINDEXER_COUNT - 3, white);
-    } else if (i == 8) {
-      setSpindexerPixel(SPINDEXER_COUNT - 2, white);
-    } else if (i == 9) {
-      setSpindexerPixel(SPINDEXER_COUNT - 1, white);
-    } else if (i == 10) {
-      setSpindexerPixel(SPINDEXER_COUNT, white);
-    }
-
-    spindexerStrip.show();
-    delay(10);
-  }
-}
 void alternatingBlueWhiteBounce() {
   bool wasBlue = false;
 
@@ -122,9 +92,93 @@ void reidsBounceCode() {
     delay(15);
   }
 }
+void blueChase() {
+  for (int i = 0; i < SPINDEXER_COUNT; i++) {
+    setSpindexerPixel(i, white);
+    setSpindexerPixel(i - 10, blue);
 
+    if (i == 0) {
+      setSpindexerPixel(SPINDEXER_COUNT - 10, blue);
+    } else if (i == 1) {
+      setSpindexerPixel(SPINDEXER_COUNT - 9, blue);
+    } else if (i == 2) {
+      setSpindexerPixel(SPINDEXER_COUNT - 8, blue);
+    } else if (i == 3) {
+      setSpindexerPixel(SPINDEXER_COUNT - 7, blue);
+    } else if (i == 4) {
+      setSpindexerPixel(SPINDEXER_COUNT - 6, blue);
+    } else if (i == 5) {
+      setSpindexerPixel(SPINDEXER_COUNT - 5, blue);
+    } else if (i == 6) {
+      setSpindexerPixel(SPINDEXER_COUNT - 4, blue);
+    } else if (i == 7) {
+      setSpindexerPixel(SPINDEXER_COUNT - 3, blue);
+    } else if (i == 8) {
+      setSpindexerPixel(SPINDEXER_COUNT - 2, blue);
+    } else if (i == 9) {
+      setSpindexerPixel(SPINDEXER_COUNT - 1, blue);
+    } else if (i == 10) {
+      setSpindexerPixel(SPINDEXER_COUNT, blue);
+    }
 
+    spindexerStrip.show();
+    delay(10);
+  }
+  for (int i = 88; i >= 0; i--) {
+    setSpindexerPixel(i, white);
+    setSpindexerPixel(i + 10, blue);
 
+    spindexerStrip.show();
+    delay(15);
+  }
+}
+
+int a = 0;
+int speed = 20;
+
+void CJCode() {
+  for (int d = 0; d >= 0; d++) {
+    for (int i = 0; i < SPINDEXER_COUNT; i++) {
+      setSpindexerPixel(i, blue);
+      setSpindexerPixel(i - 10, white);
+      if (i % 98 == 0) {
+        a++;
+        speed += 10;
+      }
+      else if (a > 3) {
+        i = 100;
+      }
+      spindexerStrip.show();
+      delay(speed);
+    }
+    a = 0;
+    for (int i = 88; i >= 0; i--) {
+      setSpindexerPixel(i, blue);
+      setSpindexerPixel(i + 10, white);
+
+      if (i % 98 == 0) {
+        a++;
+        speed -= 10;
+      }
+      else if (a > 3) {
+        i = 100;
+      }
+      spindexerStrip.show();
+      delay(speed);
+    }
+    for (int i = 0; i <= 3; i++) {
+      for (int i = 0; i < SPINDEXER_COUNT; i++) {
+        setSpindexerPixel(i, white);
+      }
+      spindexerStrip.show();
+      delay (20); 
+      for (int i = 0; i < 10; i++) {
+        setSpindexerPixel(i, blue);
+      }
+      spindexerStrip.show();
+    }
+  }
+}
 
 
 void setSpindexerPixel(int index, int color) {
