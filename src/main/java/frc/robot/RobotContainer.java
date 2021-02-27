@@ -20,7 +20,7 @@ public class RobotContainer {
   public final DriveTrain mDriveTrain;
   private final Intake mIntake;
   private final Spindexer mSpindexer;
-  // private final Shooter mShooter;
+  private final Shooter mShooter;
   // private final Ejector mEjector;
 
   // Subsytem Instances (Disabled)
@@ -44,8 +44,8 @@ public class RobotContainer {
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
 
-    // mShooter = new Shooter();
-    // mShooter.setDefaultCommand(new StopShooter(mShooter));
+    mShooter = new Shooter();
+    mShooter.setDefaultCommand(new StopShooter(mShooter));
 
     // mEjector = new Ejector();
     // mEjector.setDefaultCommand(new StopEjector(mEjector));
@@ -81,6 +81,9 @@ public class RobotContainer {
     
     SmartDashboard.putData("Intake Solenoid True", new DeployIntake(mIntake, true));
     SmartDashboard.putData("Intake Solenoid False", new DeployIntake(mIntake, false));
+
+    SmartDashboard.putData("Spin Shooter 50%", new StartShooter(mShooter, 0.5));
+    SmartDashboard.putData("Spin Shooter -50%", new StartShooter(mShooter, -0.5));
     
     // Initialize the Controller
     controller = new mhController(0);
