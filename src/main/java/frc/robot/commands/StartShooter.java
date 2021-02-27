@@ -18,11 +18,10 @@ public class StartShooter extends CommandBase {
 
   private double mShooterSpeed;
 
-  public StartShooter(Shooter subsystem, double shooterSpeed) {
+  public StartShooter(Shooter subsystem) {
     // Subsystem Instance
     mShooter = subsystem;
 
-    mShooterSpeed = shooterSpeed;
 
     // Set the Subsystem Requirement
     addRequirements(mShooter);

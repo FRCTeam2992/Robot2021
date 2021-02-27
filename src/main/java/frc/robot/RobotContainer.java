@@ -22,6 +22,7 @@ public class RobotContainer {
   private final Spindexer mSpindexer;
   private final Shooter mShooter;
   // private final Ejector mEjector;
+  private final AdjustabeShooterHood mAdjustabeShooterHood;
 
   // Subsytem Instances (Disabled)
   // private final Turret mTurret;
@@ -63,6 +64,9 @@ public class RobotContainer {
     // mTelescopeClimb = new TelescopeClimb();
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
 
+    mAdjustabeShooterHood = new AdjustabeShooterHood();
+    mAdjustabeShooterHood.setDefaultCommand(new StopAdjustableShooterHood(mAdjustabeShooterHood));
+
     SmartDashboard.putData("Module Angles -90", new SetSwerveAngle(mDriveTrain, -90.0));
     SmartDashboard.putData("Module Angles 90", new SetSwerveAngle(mDriveTrain, 90.0));
     SmartDashboard.putData("Module Angles 0", new SetSwerveAngle(mDriveTrain, 0.0));
@@ -82,9 +86,12 @@ public class RobotContainer {
     SmartDashboard.putData("Intake Solenoid True", new DeployIntake(mIntake, true));
     SmartDashboard.putData("Intake Solenoid False", new DeployIntake(mIntake, false));
 
-    SmartDashboard.putData("Spin Shooter 50%", new StartShooter(mShooter, 0.5));
-    SmartDashboard.putData("Spin Shooter -50%", new StartShooter(mShooter, -0.5));
-    
+    SmartDashboard.putData("Spin Shooter 50%", new SetShooterSpeed(mShooter, 0.5));
+    SmartDashboard.putData("Spin Shooter -50%", new SetShooterSpeed(mShooter, -0.5));
+
+    SmartDashboard.putData("Adjustable shooter hood 25%", new MoveAdjustableShooterHood(mAdjustabeShooterHood, .25));
+    SmartDashboard.putData("Adjustable shooter hood -25%", new MoveAdjustableShooterHood(mAdjustabeShooterHood, -.25));
+
     // Initialize the Controller
     controller = new mhController(0);
 

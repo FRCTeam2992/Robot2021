@@ -16,9 +16,9 @@ public class SetShooterSpeed extends CommandBase {
   private Shooter mShooter;
 
   // Saved Variables
-  private int mShooterSpeed;
+  private double mShooterSpeed;
 
-  public SetShooterSpeed(Shooter subsystem, int shooterSpeed) {
+  public SetShooterSpeed(Shooter subsystem, double shooterSpeed) {
     // Subsystem Instance
     subsystem = mShooter;
 
