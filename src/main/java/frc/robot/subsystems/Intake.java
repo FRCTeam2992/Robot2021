@@ -10,9 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -40,11 +37,11 @@ public class Intake extends SubsystemBase {
 
   }
 
-  public void setIntakeSpeed(double Speed) {
-    intakeMotor.set(ControlMode.PercentOutput, Speed);
+  public void setIntakeSpeed(double speed) {
+    intakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void deployIntake(Boolean toggle) {
+  public void deployIntake(boolean toggle) {
     intakeDeploySolenoid.set(toggle);
   }
 }
