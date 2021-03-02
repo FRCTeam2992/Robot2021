@@ -18,7 +18,7 @@ public class AdjustabeShooterHood extends SubsystemBase {
 
   public AdjustabeShooterHood() {
     // Shooter Hood Motors
-    hoodMotor = new CANSparkMax(69, MotorType.kBrushless);
+    hoodMotor = new CANSparkMax(21, MotorType.kBrushless);
     hoodMotor.setInverted(false);
     hoodMotor.setIdleMode(IdleMode.kBrake);
   }
@@ -32,8 +32,7 @@ public class AdjustabeShooterHood extends SubsystemBase {
     hoodMotor.set(speed);
   }
 
-  public void hoodPosition(int position) {
+  public void setHoodPosition(int position) {
     hoodMotor.getPIDController().setReference(position, ControlType.kPosition);
   }
-  
 }
