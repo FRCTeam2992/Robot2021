@@ -9,18 +9,22 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AdjustabeShooterHood extends SubsystemBase {
 
   // Shooter Hood Motors
   private CANSparkMax hoodMotor;
+  private DigitalInput limitSwitch;
 
   public AdjustabeShooterHood() {
     // Shooter Hood Motors
-    hoodMotor = new CANSparkMax(21, MotorType.kBrushless);
+    hoodMotor = new CANSparkMax(69, MotorType.kBrushless);
     hoodMotor.setInverted(false);
     hoodMotor.setIdleMode(IdleMode.kBrake);
+
+    limitSwitch = new DigitalInput(0);  
   }
 
   @Override
@@ -34,5 +38,9 @@ public class AdjustabeShooterHood extends SubsystemBase {
 
   public void setHoodPosition(int position) {
     hoodMotor.getPIDController().setReference(position, ControlType.kPosition);
+  }
+
+  public boolean getLimitState() {
+    return limitSwitch.get();
   }
 }
