@@ -30,8 +30,10 @@ void setup() {
 
 void loop() {
   //reidsBounceCode();
+  alternatingBlueWhiteBounce;
   //blueChase();
-  CJCode();
+  //CJCode();
+  //CJCodeButGood;
 }
 
 
@@ -171,7 +173,7 @@ void CJCode() {
         setSpindexerPixel(i, white);
       }
       spindexerStrip.show();
-      delay (20); 
+      delay (20);
       for (int i = 0; i < 10; i++) {
         setSpindexerPixel(i, blue);
       }
@@ -180,6 +182,28 @@ void CJCode() {
   }
 }
 
+void CJCodeButGood() {
+  int n = 75;
+  for (int i = 10; i < 99; i++) {
+    n += .5;
+    setSpindexerPixel(i, blue);
+    setSpindexerPixel(i - 10, white);
+
+    spindexerStrip.show();
+    delay(15);
+  }
+
+  for (int i = 88; i >= 0; i--) {
+    setSpindexerPixel(i, blue);
+    setSpindexerPixel(i + 10, white);
+
+    spindexerStrip.show();
+    delay(n);
+  }
+  if (n < 1) {
+    int n = 75;
+  }
+}
 
 void setSpindexerPixel(int index, int color) {
   spindexerStrip.setPixelColor(index, color);
