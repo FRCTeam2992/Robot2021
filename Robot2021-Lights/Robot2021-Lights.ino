@@ -248,3 +248,151 @@ void setSpindexerPixel(int index, uint32_t color) {
   spindexerStrip.setPixelColor(index, color);
   //spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
 }
+
+int x = 0;
+
+int p = 0;
+int j = 0;
+int k = 0;
+int l = 255;
+
+int q = 0;
+int y = 255;
+int u = 255;
+int w = 255;
+
+void coollightsv2() {
+
+  if (p == 7){
+    p = 0;
+  }
+  
+  for (int i = 0; i < 98; i++) {
+
+    if (p == 0) {
+      j = 128;
+      k = 0;
+      l = 128;
+    }
+
+
+    if (p == 1) {
+      j = 0;
+      k = 0;
+      l = 255;
+    }
+
+
+    if (p == 2) {
+      j = 0;
+      k = 255;
+      l = 0;
+    }
+
+
+    if (p == 3) {
+      j = 255;
+      k = 255;
+      l = 0;
+    }
+
+
+    if (p == 4) {
+      j = 255;
+      k = 120;
+      l = 0;
+    }
+
+
+    if (p == 5) {
+      j = 255;
+      k = 0;
+      l = 0;
+    }
+
+
+    if (p == 6) {
+      j = 225;
+      k = 105;
+      l = 180;
+    }
+
+
+    
+
+    if (q == 1) {
+      y = 128;
+      u = 0;
+      w = 128;
+    }
+
+
+    if (q == 2) {
+      y = 0;
+      u = 0;
+      w = 255;
+    }
+
+
+    if (q == 3) {
+      y = 0;
+      u = 255;
+      w = 0;
+    }
+
+
+    if (q == 4) {
+      y = 255;
+      u = 255;
+      w = 0;
+    }
+
+
+    if (q == 5) {
+      y = 255;
+      u = 120;
+      w = 0;
+    }
+
+
+    if (q == 6) {
+      y = 255;
+      u = 0;
+      w = 0;
+    }
+
+
+    if (q == 0) {
+      y = 225;
+      u = 105;
+      w = 180;
+    }
+
+    setSpindexerPixel(i, 255, 255, 255);
+    setSpindexerPixel(i - 5, j, k, l);
+
+    if (i == 0) {
+      setSpindexerPixel(94, y, u, w);
+    }
+
+    if (i == 1) {
+      setSpindexerPixel(95, y, u, w);
+    }
+
+    if (i == 2) {
+      setSpindexerPixel(96, y, u, w);
+    }
+
+    if (i == 3) {
+      setSpindexerPixel(97, y, u, w);
+    }
+
+    if (i == 4) {
+      setSpindexerPixel(98, y, u, w);
+    }
+
+    delay(20);
+    spindexerStrip.show();
+  }
+  p++;
+}
