@@ -30,10 +30,11 @@ void setup() {
 
 void loop() {
   //reidsBounceCode();
-  alternatingBlueWhiteBounce;
+  //alternatingBlueWhiteBounce;
   //blueChase();
   //CJCode();
-  //CJCodeButGood;
+  //CJCodeButGood();
+  ColorTest();
 }
 
 
@@ -77,23 +78,38 @@ void setStripWhite() {
   spindexerStrip.show();
 }
 
+
+int n = 76;
+int f = 10;
+
 void reidsBounceCode() {
+
   for (int i = 10; i < 99; i++) {
     setSpindexerPixel(i, blue);
     setSpindexerPixel(i - 10, white);
-
     spindexerStrip.show();
-    delay(15);
+    delay(n);
   }
+  n -= f;
 
-  for (int i = 88; i >= 0; i--) {
+  for (int i = 89; i >= 0; i--) {
     setSpindexerPixel(i, blue);
     setSpindexerPixel(i + 10, white);
-
     spindexerStrip.show();
-    delay(15);
+    delay(n);
   }
+  if (n <= 6) {
+    n = 6;
+    f = -10;
+  }
+
+  if (n >= 76) {
+    n = 76;
+    f = 10;
+  }
+  n -= f;
 }
+
 void blueChase() {
   for (int i = 0; i < SPINDEXER_COUNT; i++) {
     setSpindexerPixel(i, white);
@@ -205,7 +221,17 @@ void CJCodeButGood() {
   }
 }
 
+void ColorTest() {
+ for(int i = 0; i <= 0; i++) {
+    setSpindexerPixel(i, orange);
+    spindexerStrip.show();
+    delay(15);
+ }
+
+  
+}
+
 void setSpindexerPixel(int index, int color) {
   spindexerStrip.setPixelColor(index, color);
-  spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
+  //spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
 }
