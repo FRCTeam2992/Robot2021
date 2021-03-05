@@ -68,6 +68,9 @@ public class RobotContainer {
     // mEjector = new Ejector();
     // mEjector.setDefaultCommand(new StopEjector(mEjector));
 
+    SmartDashboard.putData("Set Swerve 0", new SetSwerveAngle(mDriveTrain, 0));
+    SmartDashboard.putData("Set Swerve 90", new SetSwerveAngle(mDriveTrain, 90));
+
     // SmartDashboard Auto Paths
     SmartDashboard.putData("Straight Path",
         new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory()));

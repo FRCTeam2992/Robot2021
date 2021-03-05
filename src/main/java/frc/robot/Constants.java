@@ -62,10 +62,10 @@ public final class Constants {
     public static final double driveWheelDiameter = 0.1016;
 
     // Analog Encoder Offsets (Degrees) - Opposite of Reading
-    public static final double frontLeftOffset = 0.0;
-    public static final double frontRightOffset = 0.0;
-    public static final double rearLeftOffset = 0.0;
-    public static final double rearRightOffset = 0.0;
+    public static final double frontLeftOffset = -23.1;
+    public static final double frontRightOffset = 169.4;
+    public static final double rearLeftOffset = 62.2;
+    public static final double rearRightOffset = 156.5;
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.0003; // 0.0003
