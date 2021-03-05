@@ -16,12 +16,18 @@ uint32_t green = spindexerStrip.Color(0, 255, 0);
 uint32_t blue = spindexerStrip.Color(0, 0, 255);
 uint32_t purple = spindexerStrip.Color(255, 0, 255);
 
-uint32_t black = spindexerStrip.Color(0, 0, 0);
-uint32_t white = spindexerStrip.Color(255, 255, 255);
 uint32_t cyan = spindexerStrip.Color(0, 255, 200);
 uint32_t mint = spindexerStrip.Color(50, 255, 50);
 uint32_t lime = spindexerStrip.Color(75, 255, 4);
 uint32_t babyish_blue = spindexerStrip.Color(85, 85, 255);
+uint32_t pink = spindexerStrip.Color(255, 60, 60);
+uint32_t magenta = spindexerStrip.Color(255, 0, 155);
+uint32_t special = spindexerStrip.Color(0, 214, 179);
+
+
+uint32_t black = spindexerStrip.Color(0, 0, 0);
+uint32_t white = spindexerStrip.Color(255, 255, 255);
+
 
 void setup() {
   // Spindexer Lights
@@ -42,7 +48,7 @@ void loop() {
 
 void ColorTest() {
   for (int i = 1; i <= 99; i++) {
-    setSpindexerPixel(i, mint);
+    setSpindexerPixel(i, special);
     spindexerStrip.show();
   }
 }
