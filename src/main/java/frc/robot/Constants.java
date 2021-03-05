@@ -34,7 +34,7 @@ public final class Constants {
 
     // Drive Variables
     public static boolean isFieldCentric = true;
-    public static boolean isVelocityControlled = true;
+    public static boolean isVelocityControlled = false;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;
@@ -62,10 +62,10 @@ public final class Constants {
     public static final double driveWheelDiameter = 0.1016;
 
     // Analog Encoder Offsets (Degrees) - Opposite of Reading
-    public static final double frontLeftOffset = -178.8;
-    public static final double frontRightOffset = 17.0;
-    public static final double rearLeftOffset = 88.8;
-    public static final double rearRightOffset = 34.3;
+    public static final double frontLeftOffset = 0.0;
+    public static final double frontRightOffset = 0.0;
+    public static final double rearLeftOffset = 0.0;
+    public static final double rearRightOffset = 0.0;
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.0003; // 0.0003
