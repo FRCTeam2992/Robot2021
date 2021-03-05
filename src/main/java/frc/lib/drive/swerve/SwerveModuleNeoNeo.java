@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 
-public class SwerveModule {
+public class SwerveModuleNeoNeo {
 
     // Saved Variables
     private CANSparkMax driveMotor;
@@ -20,7 +20,7 @@ public class SwerveModule {
     private double wheelGearRatio;
     private double maxDriveSpeed;
 
-    public SwerveModule(CANSparkMax driveMotor, CANSparkMax turnMotor, AnalogInput encoderInput, double encoderOffset,
+    public SwerveModuleNeoNeo(CANSparkMax driveMotor, CANSparkMax turnMotor, AnalogInput encoderInput, double encoderOffset,
             PIDController turnPID, double wheelDiameter, double wheelGearRatio, double maxDriveSpeed) {
         // Saved Variables
         this.driveMotor = driveMotor;

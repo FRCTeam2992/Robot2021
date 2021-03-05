@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -49,7 +50,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // Set the Drive Train to Coast
-    mRobotContainer.mDriveTrain.setDriveIdleMode(IdleMode.kCoast);
+    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Coast);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kCoast);
   }
 
@@ -67,7 +68,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveIdleMode(IdleMode.kBrake);
+    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Reset the Gyro
@@ -90,7 +91,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveIdleMode(IdleMode.kBrake);
+    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Reset the Gyro

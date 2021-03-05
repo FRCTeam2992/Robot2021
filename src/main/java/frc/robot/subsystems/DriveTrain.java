@@ -7,8 +7,10 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -26,25 +28,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.drive.swerve.SwerveModule;
+import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
   // Drive Motors
-  private final CANSparkMax frontLeftDrive;
+  private final TalonFX frontLeftDrive;
   private final CANSparkMax frontLeftTurn;
 
-  private final CANSparkMax frontRightDrive;
+  private final TalonFX frontRightDrive;
   private final CANSparkMax frontRightTurn;
 
-  private final CANSparkMax rearLeftDrive;
+  private final TalonFX rearLeftDrive;
   private final CANSparkMax rearLeftTurn;
 
-  private final CANSparkMax rearRightDrive;
+  private final TalonFX rearRightDrive;
   private final CANSparkMax rearRightTurn;
 
-  // Drive Encoders
+  // Module Angle Encoders
   private final AnalogInput frontLeftEncoder;
   private final AnalogInput frontRightEncoder;
   private final AnalogInput rearLeftEncoder;
@@ -57,10 +59,10 @@ public class DriveTrain extends SubsystemBase {
   private final PIDController rearRightController;
 
   // Swerve Modules
-  public final SwerveModule frontLeftModule;
-  public final SwerveModule frontRightModule;
-  public final SwerveModule rearLeftModule;
-  public final SwerveModule rearRightModule;
+  public final SwerveModuleFalconNeo frontLeftModule;
+  public final SwerveModuleFalconNeo frontRightModule;
+  public final SwerveModuleFalconNeo rearLeftModule;
+  public final SwerveModuleFalconNeo rearRightModule;
 
   // Robot Gyro
   public AHRS navx;
@@ -79,40 +81,40 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveTrain() {
     // Drive Motors
-    frontLeftDrive = new CANSparkMax(1, MotorType.kBrushless);
+    frontLeftDrive = new TalonFX(1);
     frontLeftDrive.setInverted(false);
-    frontLeftDrive.setIdleMode(IdleMode.kCoast);
-    frontLeftDrive.setSmartCurrentLimit(60);
+    frontLeftDrive.setNeutralMode(NeutralMode.Coast);
+    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
     frontLeftTurn.setIdleMode(IdleMode.kCoast);
     frontLeftTurn.setSmartCurrentLimit(30);
 
-    frontRightDrive = new CANSparkMax(3, MotorType.kBrushless);
+    frontRightDrive = new TalonFX(3);
     frontRightDrive.setInverted(false);
-    frontRightDrive.setIdleMode(IdleMode.kCoast);
-    frontRightDrive.setSmartCurrentLimit(60);
+    frontRightDrive.setNeutralMode(NeutralMode.Coast);
+    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
     frontRightTurn.setIdleMode(IdleMode.kCoast);
     frontRightTurn.setSmartCurrentLimit(30);
 
-    rearLeftDrive = new CANSparkMax(5, MotorType.kBrushless);
+    rearLeftDrive = new TalonFX(5);
     rearLeftDrive.setInverted(false);
-    rearLeftDrive.setIdleMode(IdleMode.kCoast);
-    rearLeftDrive.setSmartCurrentLimit(60);
+    rearLeftDrive.setNeutralMode(NeutralMode.Coast);
+    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
     rearLeftTurn.setIdleMode(IdleMode.kCoast);
     rearLeftTurn.setSmartCurrentLimit(30);
 
-    rearRightDrive = new CANSparkMax(7, MotorType.kBrushless);
+    rearRightDrive = new TalonFX(7);
     rearRightDrive.setInverted(false);
-    rearRightDrive.setIdleMode(IdleMode.kCoast);
-    rearRightDrive.setSmartCurrentLimit(60);
+    rearRightDrive.setNeutralMode(NeutralMode.Coast);
+    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
@@ -139,42 +141,41 @@ public class DriveTrain extends SubsystemBase {
     rearRightController.enableContinuousInput(-180.0, 180.0);
 
     // Set the Drive PID Controllers
-    CANPIDController frontLeftDrivePID = frontLeftDrive.getPIDController();
-    frontLeftDrivePID.setP(Constants.driveP);
-    frontLeftDrivePID.setI(Constants.driveI);
-    frontLeftDrivePID.setD(Constants.driveD);
-    frontLeftDrivePID.setFF(Constants.driveF);
+    frontLeftDrive.config_kP(0, Constants.driveP);
+    frontLeftDrive.config_kI(0, Constants.driveI);
+    frontLeftDrive.config_kD(0, Constants.driveD);
+    frontLeftDrive.config_kF(0, Constants.driveF);
 
-    CANPIDController frontRightDrivePID = frontRightDrive.getPIDController();
-    frontRightDrivePID.setP(Constants.driveP);
-    frontRightDrivePID.setI(Constants.driveI);
-    frontRightDrivePID.setD(Constants.driveD);
-    frontRightDrivePID.setFF(Constants.driveF);
+    frontRightDrive.config_kP(0, Constants.driveP);
+    frontRightDrive.config_kI(0, Constants.driveI);
+    frontRightDrive.config_kD(0, Constants.driveD);
+    frontRightDrive.config_kF(0, Constants.driveF);
 
-    CANPIDController rearLeftDrivePID = rearLeftDrive.getPIDController();
-    rearLeftDrivePID.setP(Constants.driveP);
-    rearLeftDrivePID.setI(Constants.driveI);
-    rearLeftDrivePID.setD(Constants.driveD);
-    rearLeftDrivePID.setFF(Constants.driveF);
+    rearLeftDrive.config_kP(0, Constants.driveP);
+    rearLeftDrive.config_kI(0, Constants.driveI);
+    rearLeftDrive.config_kD(0, Constants.driveD);
+    rearLeftDrive.config_kF(0, Constants.driveF);
 
-    CANPIDController rearRightDrivePID = rearRightDrive.getPIDController();
-    rearRightDrivePID.setP(Constants.driveP);
-    rearRightDrivePID.setI(Constants.driveI);
-    rearRightDrivePID.setD(Constants.driveD);
-    rearRightDrivePID.setFF(Constants.driveF);
+    rearRightDrive.config_kP(0, Constants.driveP);
+    rearRightDrive.config_kI(0, Constants.driveI);
+    rearRightDrive.config_kD(0, Constants.driveD);
+    rearRightDrive.config_kF(0, Constants.driveF);
 
     // Swerve Modules
-    frontLeftModule = new SwerveModule(frontLeftDrive, frontLeftTurn, frontLeftEncoder, Constants.frontLeftOffset,
-        frontLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    frontLeftModule = new SwerveModuleFalconNeo(frontLeftDrive, frontLeftTurn, frontLeftEncoder,
+        Constants.frontLeftOffset, frontLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio,
+        Constants.swerveMaxSpeed);
 
-    frontRightModule = new SwerveModule(frontRightDrive, frontRightTurn, frontRightEncoder, Constants.frontRightOffset,
-        frontRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    frontRightModule = new SwerveModuleFalconNeo(frontRightDrive, frontRightTurn, frontRightEncoder,
+        Constants.frontRightOffset, frontRightController, Constants.driveWheelDiameter, Constants.driveGearRatio,
+        Constants.swerveMaxSpeed);
 
-    rearLeftModule = new SwerveModule(rearLeftDrive, rearLeftTurn, rearLeftEncoder, Constants.rearLeftOffset,
+    rearLeftModule = new SwerveModuleFalconNeo(rearLeftDrive, rearLeftTurn, rearLeftEncoder, Constants.rearLeftOffset,
         rearLeftController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
 
-    rearRightModule = new SwerveModule(rearRightDrive, rearRightTurn, rearRightEncoder, Constants.rearRightOffset,
-        rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio, Constants.swerveMaxSpeed);
+    rearRightModule = new SwerveModuleFalconNeo(rearRightDrive, rearRightTurn, rearRightEncoder,
+        Constants.rearRightOffset, rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio,
+        Constants.swerveMaxSpeed);
 
     // Robot Gyro
     navx = new AHRS(SPI.Port.kMXP);
@@ -231,11 +232,11 @@ public class DriveTrain extends SubsystemBase {
     rearRightTurn.setIdleMode(mode);
   }
 
-  public void setDriveIdleMode(IdleMode mode) {
-    frontLeftDrive.setIdleMode(mode);
-    frontRightDrive.setIdleMode(mode);
-    rearLeftDrive.setIdleMode(mode);
-    rearRightDrive.setIdleMode(mode);
+  public void setDriveIdleMode(NeutralMode mode) {
+    frontLeftDrive.setNeutralMode(mode);
+    frontRightDrive.setNeutralMode(mode);
+    rearLeftDrive.setNeutralMode(mode);
+    rearRightDrive.setNeutralMode(mode);
   }
 
   public void stopDrive() {
