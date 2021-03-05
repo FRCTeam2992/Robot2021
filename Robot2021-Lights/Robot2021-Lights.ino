@@ -9,23 +9,23 @@
 Adafruit_NeoPixel spindexerStrip = Adafruit_NeoPixel(SPINDEXER_REAL_COUNT, SPINDEXER_PIN, NEO_GRB + NEO_KHZ800);
 
 // Color Codes
-int red = spindexerStrip.Color(255, 0, 0);
-int orange = spindexerStrip.Color(255, 128, 0);
-int yellow = spindexerStrip.Color(255, 175, 0);
-int green = spindexerStrip.Color(255, 110, 0);
-int blue = spindexerStrip.Color(0, 0, 255);
-int purple = spindexerStrip.Color(155, 0, 1);
+uint32_t red = spindexerStrip.Color(255, 0, 0);
+uint32_t orange = spindexerStrip.Color(255, 128, 0);
+uint32_t yellow = spindexerStrip.Color(255, 175, 0);
+uint32_t green = spindexerStrip.Color(0, 255, 0);
+uint32_t blue = spindexerStrip.Color(0, 0, 255);
+uint32_t purple = spindexerStrip.Color(155, 0, 1);
 
-int black = spindexerStrip.Color(0, 0, 0);
-int white = spindexerStrip.Color(255, 255, 255);
-int cyan = spindexerStrip.Color(165, 42, 42);
+uint32_t black = spindexerStrip.Color(0, 0, 0);
+uint32_t white = spindexerStrip.Color(255, 255, 255);
+uint32_t cyan = spindexerStrip.Color(165, 42, 42);
 
 
 void setup() {
   // Spindexer Lights
   spindexerStrip.setBrightness(255);
   spindexerStrip.begin();
-  setStripWhite();
+  spindexerStrip.show();
 }
 
 void loop() {
@@ -222,16 +222,18 @@ void CJCodeButGood() {
 }
 
 void ColorTest() {
- for(int i = 0; i <= 0; i++) {
-    setSpindexerPixel(i, orange);
+  for (int i = 1; i >= 0; i++) {
+    setSpindexerPixel(i, green);
     spindexerStrip.show();
-    delay(15);
- }
-
-  
+  }
 }
 
-void setSpindexerPixel(int index, int color) {
+void setSpindexerPixel(int index, int r, int g, int b) {
+  spindexerStrip.setPixelColor(index, r, g, b);
+  //spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, r, g, b);
+}
+
+void setSpindexerPixel(int index, uint32_t color) {
   spindexerStrip.setPixelColor(index, color);
   //spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
 }
