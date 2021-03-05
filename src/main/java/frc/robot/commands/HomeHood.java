@@ -11,6 +11,9 @@ public class HomeHood extends CommandBase {
 
 private AdjustabeShooterHood mAdjustabeShooterHood;
 
+private boolean beginningLimitState;
+private boolean isDone = false;
+
   public HomeHood(AdjustabeShooterHood subsytem) {
 
     mAdjustabeShooterHood = subsytem;
@@ -20,34 +23,32 @@ private AdjustabeShooterHood mAdjustabeShooterHood;
 
   @Override
   public void initialize() {
-
+    beginningLimitState = mAdjustabeShooterHood.getLimitState();
   }
 
   @Override
   public void execute() {
-    if(mAdjustabeShooterHood.getLimitState()) {
+    if (beginningLimitState) {
       mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.1);
-      
-      if(mAdjustabeShooterHood.getLimitState() == false) {
-        mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(-0.1);
 
-        if(mAdjustabeShooterHood.getLimitState()){
-          mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
-        }
+      if(!mAdjustabeShooterHood.getLimitState()) {
+        beginningLimitState = false;
       }
     }
+
+
     else{
       mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(-0.1);
 
-      if(mAdjustabeShooterHood.getLimitState() == false) {
-        mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(-0.1);
-
         if(mAdjustabeShooterHood.getLimitState()){
           mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
+          mAdjustabeShooterHood.zeroHoodMotor();
+
+          isDone = true;
         }
       }
     }
-  }
+  
 
   @Override
   public void end(boolean interrupted) {
@@ -56,6 +57,6 @@ private AdjustabeShooterHood mAdjustabeShooterHood;
 
   @Override
   public boolean isFinished() {
-    return false;
+    return isDone;
   }
 }

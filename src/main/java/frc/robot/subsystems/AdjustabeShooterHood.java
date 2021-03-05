@@ -24,7 +24,7 @@ public class AdjustabeShooterHood extends SubsystemBase {
     hoodMotor.setInverted(false);
     hoodMotor.setIdleMode(IdleMode.kBrake);
 
-    limitSwitch = new DigitalInput(0);  
+    limitSwitch = new DigitalInput(0);
   }
 
   @Override
@@ -42,5 +42,9 @@ public class AdjustabeShooterHood extends SubsystemBase {
 
   public boolean getLimitState() {
     return limitSwitch.get();
+  }
+
+  public void zeroHoodMotor() {
+    hoodMotor.getEncoder().setPosition(0.0);
   }
 }
