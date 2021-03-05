@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.lib.drive.swerve.SwerveModule;
+import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.util.RollingAverage;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -113,10 +113,10 @@ public class DriveSticks extends CommandBase {
       }
 
       // Get the Swerve Modules
-      SwerveModule frontLeft = mDriveTrain.frontLeftModule;
-      SwerveModule frontRight = mDriveTrain.frontRightModule;
-      SwerveModule rearLeft = mDriveTrain.rearLeftModule;
-      SwerveModule rearRight = mDriveTrain.rearRightModule;
+      SwerveModuleFalconNeo frontLeft = mDriveTrain.frontLeftModule;
+      SwerveModuleFalconNeo frontRight = mDriveTrain.frontRightModule;
+      SwerveModuleFalconNeo rearLeft = mDriveTrain.rearLeftModule;
+      SwerveModuleFalconNeo rearRight = mDriveTrain.rearRightModule;
 
       // Command the Swerve Modules
       if (Constants.isVelocityControlled) {
