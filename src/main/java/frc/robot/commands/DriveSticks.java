@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.util.RollingAverage;
@@ -59,51 +60,13 @@ public class DriveSticks extends CommandBase {
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();
 
-      // Swerve Variables
-      double L = Constants.swerveLength / 2.0;
-      double W = Constants.swerveWidth / 2.0;
-      double r = Math.sqrt((L * L) + (W * W));
+      // Calculate the Swerve States
+      SwerveModuleState[] swerveStates;
 
-      // Field Centric Code from NAVX Website
       if (Constants.isFieldCentric) {
-        double gyro = gyroValue * Math.PI / 180.0;
-
-        double temp = x1 * Math.cos(gyro) + y1 * Math.sin(gyro);
-        y1 = -x1 * Math.sin(gyro) + y1 * Math.cos(gyro);
-        x1 = temp;
-      }
-
-      // --------------------------------------
-      // Swerve Module Math for Speed and Angle
-      // --------------------------------------
-      double a = x1 - x2 * (L / r);
-      double b = x1 + x2 * (L / r);
-      double c = y1 - x2 * (W / r);
-      double d = y1 + x2 * (W / r);
-
-      double frontLeftSpeed = Math.sqrt((b * b) + (c * c));
-      double frontRightSpeed = Math.sqrt((b * b) + (d * d));
-      double rearLeftSpeed = Math.sqrt((a * a) + (c * c));
-      double rearRightSpeed = Math.sqrt((a * a) + (d * d));
-
-      double frontLeftAngle = Math.atan2(b, c) * 180.0 / Math.PI;
-      double frontRightAngle = Math.atan2(b, d) * 180.0 / Math.PI;
-      double rearLeftAngle = Math.atan2(a, c) * 180.0 / Math.PI;
-      double rearRightAngle = Math.atan2(a, d) * 180.0 / Math.PI;
-
-      // -------------------------------------
-      // Normalize the Speed
-      // -------------------------------------
-      double max = frontLeftSpeed;
-      max = Math.max(max, frontRightSpeed);
-      max = Math.max(max, rearLeftSpeed);
-      max = Math.max(max, rearRightSpeed);
-
-      if (max > 1) {
-        frontRightSpeed /= max;
-        frontLeftSpeed /= max;
-        rearLeftSpeed /= max;
-        rearRightSpeed /= max;
+        swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2, gyroValue);
+      } else {
+        swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2);
       }
 
       // Get the Swerve Modules
@@ -114,15 +77,15 @@ public class DriveSticks extends CommandBase {
 
       // Command the Swerve Modules
       if (Constants.isVelocityControlled) {
-        frontLeft.setDriveVelocity(frontLeftSpeed, frontLeftAngle);
-        frontRight.setDriveVelocity(frontRightSpeed, frontRightAngle);
-        rearLeft.setDriveVelocity(rearLeftSpeed, rearLeftAngle);
-        rearRight.setDriveVelocity(rearRightSpeed, rearRightAngle);
+        frontLeft.setDriveVelocity(swerveStates[0].speedMetersPerSecond, swerveStates[0].angle.getDegrees());
+        frontRight.setDriveVelocity(swerveStates[1].speedMetersPerSecond, swerveStates[1].angle.getDegrees());
+        rearLeft.setDriveVelocity(swerveStates[2].speedMetersPerSecond, swerveStates[2].angle.getDegrees());
+        rearRight.setDriveVelocity(swerveStates[3].speedMetersPerSecond, swerveStates[3].angle.getDegrees());
       } else {
-        frontLeft.setDrive(frontLeftSpeed, frontLeftAngle);
-        frontRight.setDrive(frontRightSpeed, frontRightAngle);
-        rearLeft.setDrive(rearLeftSpeed, rearLeftAngle);
-        rearRight.setDrive(rearRightSpeed, rearRightAngle);
+        frontLeft.setDrive(swerveStates[0].speedMetersPerSecond, swerveStates[0].angle.getDegrees());
+        frontRight.setDrive(swerveStates[1].speedMetersPerSecond, swerveStates[1].angle.getDegrees());
+        rearLeft.setDrive(swerveStates[2].speedMetersPerSecond, swerveStates[2].angle.getDegrees());
+        rearRight.setDrive(swerveStates[3].speedMetersPerSecond, swerveStates[3].angle.getDegrees());
       }
     } else {
       mDriveTrain.stopDrive();
