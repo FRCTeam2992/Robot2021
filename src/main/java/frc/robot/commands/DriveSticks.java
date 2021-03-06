@@ -54,25 +54,19 @@ public class DriveSticks extends CommandBase {
     double x2 = averageX2.getAverage();
 
     // Check for Movement
-    if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
-      // Slow Mode
-      // if (Robot.mRobotContainer.controller.getBumperPressed(Hand.kLeft)) {
-      // x1 /= 3;
-      // y1 /= 3;
-      // x2 /= 2;
-      // }
+    if (Math.abs(x1) >= 0.1 || Math.abs(y1) >= 0.1 || Math.abs(x2) >= 0.1) {
 
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();
 
       // Swerve Variables
-      double L = Constants.swerveLength / 2;
-      double W = Constants.swerveWidth / 2;
+      double L = Constants.swerveLength / 2.0;
+      double W = Constants.swerveWidth / 2.0;
       double r = Math.sqrt((L * L) + (W * W));
 
       // Field Centric Code from NAVX Website
       if (Constants.isFieldCentric) {
-        double gyro = gyroValue * Math.PI / 180;
+        double gyro = gyroValue * Math.PI / 180.0;
 
         double temp = x1 * Math.cos(gyro) + y1 * Math.sin(gyro);
         y1 = -x1 * Math.sin(gyro) + y1 * Math.cos(gyro);
@@ -92,10 +86,10 @@ public class DriveSticks extends CommandBase {
       double rearLeftSpeed = Math.sqrt((a * a) + (c * c));
       double rearRightSpeed = Math.sqrt((a * a) + (d * d));
 
-      double frontLeftAngle = Math.atan2(b, c) * 180 / Math.PI;
-      double frontRightAngle = Math.atan2(b, d) * 180 / Math.PI;
-      double rearLeftAngle = Math.atan2(a, c) * 180 / Math.PI;
-      double rearRightAngle = Math.atan2(a, d) * 180 / Math.PI;
+      double frontLeftAngle = Math.atan2(b, c) * 180.0 / Math.PI;
+      double frontRightAngle = Math.atan2(b, d) * 180.0 / Math.PI;
+      double rearLeftAngle = Math.atan2(a, c) * 180.0 / Math.PI;
+      double rearRightAngle = Math.atan2(a, d) * 180.0 / Math.PI;
 
       // -------------------------------------
       // Normalize the Speed

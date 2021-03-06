@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
+import frc.lib.vision.LimeLight;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
@@ -78,6 +79,9 @@ public class DriveTrain extends SubsystemBase {
 
   // Motion Trajectories
   public Trajectory SlalomTrajectory;
+
+  // Limelight Camera
+  public final LimeLight limeLightCamera;
 
   public DriveTrain() {
     // Drive Motors
@@ -190,6 +194,9 @@ public class DriveTrain extends SubsystemBase {
 
     // Motion Trajectories
     loadMotionPaths();
+
+    // LimeLight Camera
+    limeLightCamera = new LimeLight();
   }
 
   @Override
