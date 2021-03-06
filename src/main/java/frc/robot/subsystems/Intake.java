@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     // Intake Motors
-    intakeMotor = new CANSparkMax(10, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
     intakeMotor.setInverted(false);
     intakeMotor.setIdleMode(IdleMode.kCoast);
 

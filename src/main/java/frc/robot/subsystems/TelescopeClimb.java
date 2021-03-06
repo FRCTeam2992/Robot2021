@@ -20,7 +20,7 @@ public class TelescopeClimb extends SubsystemBase {
 
   public TelescopeClimb() {
     // Telescope Climb Motors
-    teleClimbMotor = new TalonSRX(11);
+    teleClimbMotor = new TalonSRX(15);
     teleClimbMotor.setNeutralMode(NeutralMode.Brake);
     teleClimbMotor.setInverted(false);
   }

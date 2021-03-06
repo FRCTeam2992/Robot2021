@@ -20,7 +20,7 @@ public class ClimbSlide extends SubsystemBase {
 
   public ClimbSlide() {
     // Climb Slide Motors
-    slideMotor = new VictorSPX(12);
+    slideMotor = new VictorSPX(16);
     slideMotor.setInverted(false);
     slideMotor.setNeutralMode(NeutralMode.Coast);
   }
