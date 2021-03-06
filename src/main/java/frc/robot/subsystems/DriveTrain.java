@@ -202,10 +202,14 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Left Module Angle",
+    // frontLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Right Module Angle",
+    // frontRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Left Module Angle",
+    // rearLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Right Module Angle",
+    // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Right Module Velocity",
@@ -235,7 +239,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightTurn.setIdleMode(mode);
   }
 
-  public void setDriveIdleMode(NeutralMode mode) {
+  public void setDriveNeutralMode(NeutralMode mode) {
     frontLeftDrive.setNeutralMode(mode);
     frontRightDrive.setNeutralMode(mode);
     rearLeftDrive.setNeutralMode(mode);

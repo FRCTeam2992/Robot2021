@@ -61,30 +61,30 @@ public final class Constants {
     public static final double driveGearRatio = (40.0 / 16.0) * (18.0 / 26.0) * (60.0 / 15.0);
     public static final double driveWheelDiameter = 0.1016;
 
-    // Analog Encoder Offsets (Degrees) - Opposite of Reading
+    // Analog Encoder Offsets (Degrees) - Opposite of Reading - Bevel Gear to Right
     public static final double frontLeftOffset = -23.1;
     public static final double frontRightOffset = 169.4;
     public static final double rearLeftOffset = 62.2;
     public static final double rearRightOffset = 156.5;
 
     // Swerve Drive PID (Velocity Control)
-    public static final double driveP = 0.0003; // 0.0003
+    public static final double driveP = 0.0003;
     public static final double driveI = 0.0;
     public static final double driveD = 0.0;
     public static final double driveF = 0.0002;
 
     // Swerve Turn PID
-    public static final double turnP = 0.008; // 0.008
+    public static final double turnP = 0.008;
     public static final double turnI = 0.0;
     public static final double turnD = 0.00005;
 
     // Swerve X Axis Correction PID (Path Following)
-    public static final double xCorrectionP = 5.0; // 5.0
+    public static final double xCorrectionP = 5.0;
     public static final double xCorrectionI = 0.0;
     public static final double xCorrectionD = 0.0;
 
     // Swerve Y Axis Correction PID (Path Following)
-    public static final double yCorrectionP = 5.0; // 5.0
+    public static final double yCorrectionP = 5.0;
     public static final double yCorrectionI = 0.0;
     public static final double yCorrectionD = 0.0;
 

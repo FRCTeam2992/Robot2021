@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // Set the Drive Train to Coast
-    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Coast);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Coast);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kCoast);
   }
 
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Brake);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Reset the Gyro
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Brake);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Reset the Gyro

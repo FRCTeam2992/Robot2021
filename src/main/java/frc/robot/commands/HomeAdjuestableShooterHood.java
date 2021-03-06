@@ -7,14 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AdjustabeShooterHood;
 
-public class HomeHood extends CommandBase {
+public class HomeAdjuestableShooterHood extends CommandBase {
 
-private AdjustabeShooterHood mAdjustabeShooterHood;
+  private AdjustabeShooterHood mAdjustabeShooterHood;
 
-private boolean beginningLimitState;
-private boolean isDone = false;
+  private boolean beginningLimitState;
+  private boolean isDone = false;
 
-  public HomeHood(AdjustabeShooterHood subsytem) {
+  public HomeAdjuestableShooterHood(AdjustabeShooterHood subsytem) {
 
     mAdjustabeShooterHood = subsytem;
 
@@ -31,24 +31,22 @@ private boolean isDone = false;
     if (beginningLimitState) {
       mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.1);
 
-      if(!mAdjustabeShooterHood.getLimitState()) {
+      if (!mAdjustabeShooterHood.getLimitState()) {
         beginningLimitState = false;
       }
     }
 
-
-    else{
+    else {
       mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(-0.1);
 
-        if(mAdjustabeShooterHood.getLimitState()){
-          mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
-          mAdjustabeShooterHood.zeroHoodMotor();
+      if (mAdjustabeShooterHood.getLimitState()) {
+        mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
+        mAdjustabeShooterHood.zeroHoodMotor();
 
-          isDone = true;
-        }
+        isDone = true;
       }
     }
-  
+  }
 
   @Override
   public void end(boolean interrupted) {
