@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.util.RollingAverage;
@@ -22,6 +21,10 @@ public class DriveSticks extends CommandBase {
   private RollingAverage averageX1;
   private RollingAverage averageY1;
   private RollingAverage averageX2;
+
+  // Command States
+  private double gyroTarget;
+  private boolean gyroTargetRecorded = false;
 
   public DriveSticks(DriveTrain subsystem) {
     // Subsystem Instance
@@ -60,8 +63,24 @@ public class DriveSticks extends CommandBase {
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();
 
+      // Gyro Correction
+      if (x2 <= 0.1 && Constants.isGyroCorrected) {
+        // Check for Recorded Value
+        if (gyroTargetRecorded) {
+          // Calculate Correction Speed
+          x2 = (gyroTarget - gyroValue) * Constants.driveGyroP;
+        } else {
+          // Record a Gyro Value
+          gyroTarget = gyroValue;
+          gyroTargetRecorded = true;
+        }
+      } else {
+        // Reset the Target Recorded State
+        gyroTargetRecorded = false;
+      }
+
       // Calculate the Swerve States
-      SwerveModuleState[] swerveStates;
+      double[] swerveStates;
 
       if (Constants.isFieldCentric) {
         swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2, gyroValue);
@@ -77,15 +96,15 @@ public class DriveSticks extends CommandBase {
 
       // Command the Swerve Modules
       if (Constants.isVelocityControlled) {
-        frontLeft.setDriveVelocity(swerveStates[0].speedMetersPerSecond, swerveStates[0].angle.getDegrees());
-        frontRight.setDriveVelocity(swerveStates[1].speedMetersPerSecond, swerveStates[1].angle.getDegrees());
-        rearLeft.setDriveVelocity(swerveStates[2].speedMetersPerSecond, swerveStates[2].angle.getDegrees());
-        rearRight.setDriveVelocity(swerveStates[3].speedMetersPerSecond, swerveStates[3].angle.getDegrees());
+        frontLeft.setDriveVelocity(swerveStates[0], swerveStates[1]);
+        frontRight.setDriveVelocity(swerveStates[2], swerveStates[3]);
+        rearLeft.setDriveVelocity(swerveStates[4], swerveStates[5]);
+        rearRight.setDriveVelocity(swerveStates[6], swerveStates[7]);
       } else {
-        frontLeft.setDrive(swerveStates[0].speedMetersPerSecond, swerveStates[0].angle.getDegrees());
-        frontRight.setDrive(swerveStates[1].speedMetersPerSecond, swerveStates[1].angle.getDegrees());
-        rearLeft.setDrive(swerveStates[2].speedMetersPerSecond, swerveStates[2].angle.getDegrees());
-        rearRight.setDrive(swerveStates[3].speedMetersPerSecond, swerveStates[3].angle.getDegrees());
+        frontLeft.setDrive(swerveStates[0], swerveStates[1]);
+        frontRight.setDrive(swerveStates[2], swerveStates[3]);
+        rearLeft.setDrive(swerveStates[4], swerveStates[5]);
+        rearRight.setDrive(swerveStates[6], swerveStates[7]);
       }
     } else {
       mDriveTrain.stopDrive();

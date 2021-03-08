@@ -1,18 +1,17 @@
 package frc.lib.drive.swerve;
 
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-
 public class SwerveController {
 
-    // Saved Variables
-    private double length;
-    private double width;
+    // Swerve Variables
+    private double L;
+    private double W;
+    private double r;
 
     public SwerveController(double length, double width) {
-        // Saved Variables
-        this.length = length;
-        this.width = width;
+        // Swerve Variables
+        L = length / 2.0;
+        W = width / 2.0;
+        r = Math.sqrt((L * L) + (W * W));
     }
 
     /**
@@ -20,12 +19,7 @@ public class SwerveController {
      * @param y1 Joystick Speed
      * @param x2 Joystick Rotation
      */
-    public SwerveModuleState[] calculate(double x1, double y1, double x2) {
-        // Swerve Variables
-        double L = length / 2.0;
-        double W = width / 2.0;
-        double r = Math.sqrt((L * L) + (W * W));
-
+    public double[] calculate(double x1, double y1, double x2) {
         // --------------------------------------
         // Swerve Module Math for Speed and Angle
         // --------------------------------------
@@ -59,12 +53,16 @@ public class SwerveController {
             rearRightSpeed /= max;
         }
 
-        SwerveModuleState[] stateArray = new SwerveModuleState[4];
+        double[] stateArray = new double[8];
 
-        stateArray[0] = new SwerveModuleState(frontLeftSpeed, Rotation2d.fromDegrees(frontLeftAngle));
-        stateArray[1] = new SwerveModuleState(frontRightSpeed, Rotation2d.fromDegrees(frontRightAngle));
-        stateArray[2] = new SwerveModuleState(rearLeftSpeed, Rotation2d.fromDegrees(rearLeftAngle));
-        stateArray[3] = new SwerveModuleState(rearRightSpeed, Rotation2d.fromDegrees(rearRightAngle));
+        stateArray[0] = frontLeftSpeed;
+        stateArray[1] = frontLeftAngle;
+        stateArray[2] = frontRightSpeed;
+        stateArray[3] = frontRightAngle;
+        stateArray[4] = rearLeftSpeed;
+        stateArray[5] = rearLeftAngle;
+        stateArray[6] = rearRightSpeed;
+        stateArray[7] = rearRightAngle;
 
         return stateArray;
     }
@@ -75,12 +73,7 @@ public class SwerveController {
      * @param x2   Joystick Rotation
      * @param gyro Gyro Input (-180 to 180)
      */
-    public SwerveModuleState[] calculate(double x1, double y1, double x2, double gyroInput) {
-        // Swerve Variables
-        double L = length / 2.0;
-        double W = width / 2.0;
-        double r = Math.sqrt((L * L) + (W * W));
-
+    public double[] calculate(double x1, double y1, double x2, double gyroInput) {
         // Field Centric Code from NAVX Website
         double gyro = gyroInput * Math.PI / 180.0;
 
@@ -121,12 +114,16 @@ public class SwerveController {
             rearRightSpeed /= max;
         }
 
-        SwerveModuleState[] stateArray = new SwerveModuleState[4];
+        double[] stateArray = new double[8];
 
-        stateArray[0] = new SwerveModuleState(frontLeftSpeed, Rotation2d.fromDegrees(frontLeftAngle));
-        stateArray[1] = new SwerveModuleState(frontRightSpeed, Rotation2d.fromDegrees(frontRightAngle));
-        stateArray[2] = new SwerveModuleState(rearLeftSpeed, Rotation2d.fromDegrees(rearLeftAngle));
-        stateArray[3] = new SwerveModuleState(rearRightSpeed, Rotation2d.fromDegrees(rearRightAngle));
+        stateArray[0] = frontLeftSpeed;
+        stateArray[1] = frontLeftAngle;
+        stateArray[2] = frontRightSpeed;
+        stateArray[3] = frontRightAngle;
+        stateArray[4] = rearLeftSpeed;
+        stateArray[5] = rearLeftAngle;
+        stateArray[6] = rearRightSpeed;
+        stateArray[7] = rearRightAngle;
 
         return stateArray;
     }

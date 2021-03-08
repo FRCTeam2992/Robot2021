@@ -4,44 +4,66 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class AdjustabeShooterHood extends SubsystemBase {
+public class AdjustabeHood extends SubsystemBase {
 
-  // Shooter Hood Motors
+  // Adjustable Hood Motors
   private CANSparkMax hoodMotor;
+
+  // Adjustable Hood Limit Switch
   private DigitalInput limitSwitch;
 
-  public AdjustabeShooterHood() {
-    // Shooter Hood Motors
+  // Homed State
+  public boolean isHomed = false;
+
+  public AdjustabeHood() {
+    // Adjustables Hood Motors
     hoodMotor = new CANSparkMax(14, MotorType.kBrushless);
     hoodMotor.setInverted(false);
     hoodMotor.setIdleMode(IdleMode.kBrake);
 
+    // Set the Hood PID Controllers
+    CANPIDController hoodController = hoodMotor.getPIDController();
+    hoodController.setOutputRange(Constants.lowerHoodSpeedLimit, Constants.upperHoodSpeedLimit);
+    hoodController.setP(Constants.hoodP);
+    hoodController.setI(Constants.hoodI);
+    hoodController.setD(Constants.hoodD);
+
+    // Adjustable Hood Limit Switch
     limitSwitch = new DigitalInput(0);
   }
 
   @Override
   public void periodic() {
-
+    // Display Hood Position
+    SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
+    SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
   }
 
   public void setAdjustableShooterHoodSpeed(double speed) {
     hoodMotor.set(speed);
   }
 
-  public void setHoodPosition(int position) {
+  public void setHoodPosition(double position) {
     hoodMotor.getPIDController().setReference(position, ControlType.kPosition);
   }
 
   public boolean getLimitState() {
     return limitSwitch.get();
+  }
+
+  public double getHoodPosition() {
+    return hoodMotor.getEncoder().getPosition();
   }
 
   public void zeroHoodMotor() {
