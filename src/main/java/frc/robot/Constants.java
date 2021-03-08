@@ -79,6 +79,9 @@ public final class Constants {
     // Swerve Gyro Correction
     public static final double driveGyroP = 0.0;
 
+    // Swerve Auto Aim
+    public static final double driveAimP = 0.0;
+
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.0003;
     public static final double driveI = 0.0;
