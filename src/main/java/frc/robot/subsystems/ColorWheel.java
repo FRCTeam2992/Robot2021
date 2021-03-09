@@ -41,7 +41,7 @@ public class ColorWheel extends SubsystemBase {
 
   public ColorWheel() {
     // Color Wheel Motors
-    colorWheelMotor = new TalonSRX(15);
+    colorWheelMotor = new TalonSRX(17);
     colorWheelMotor.setInverted(false);
     colorWheelMotor.setNeutralMode(NeutralMode.Coast);
 

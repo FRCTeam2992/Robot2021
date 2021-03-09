@@ -5,25 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.AdjustabeShooterHood;
+import frc.robot.subsystems.AdjustabeHood;
 
-public class MoveAdjustableShooterHood extends CommandBase {
+public class StopAdjustableHood extends CommandBase {
 
   // Subsystem Instance
-  private AdjustabeShooterHood mAdjustabeShooterHood;
+  private AdjustabeHood mAdjustabeShooterHood;
 
-  // Saved Variables
-  private double mAdjustableShooterHoodSpeed;
-
-  public MoveAdjustableShooterHood(AdjustabeShooterHood subsystem, double adjustabeShooterHoodSpeed) {
+  public StopAdjustableHood(AdjustabeHood subsystem) {
     // Subsystem Instance
     mAdjustabeShooterHood = subsystem;
 
     // Set the Subsystem Requirement
     addRequirements(mAdjustabeShooterHood);
-
-    // Saved Variables
-    mAdjustableShooterHoodSpeed = adjustabeShooterHoodSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -35,13 +29,13 @@ public class MoveAdjustableShooterHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(mAdjustableShooterHoodSpeed);
+    mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mAdjustabeShooterHood.setAdjustableShooterHoodSpeed(0.0);
+
   }
 
   // Returns true when the command should end.

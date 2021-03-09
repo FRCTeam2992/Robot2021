@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.HomeAdjustableHood;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +25,9 @@ public class Robot extends TimedRobot {
 
   // Saved Instances
   public static RobotContainer mRobotContainer;
+
+  // Adjustable Hood Disabled State
+  private double lastHoodPosition = 0.0;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -50,8 +54,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     // Set the Drive Train to Coast
-    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Coast);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Coast);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kCoast);
+
+    // Save the Last Hood Position
+    lastHoodPosition = mRobotContainer.mAdjustabeHood.getHoodPosition();
   }
 
   /**
@@ -68,7 +75,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Brake);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Reset the Gyro
@@ -76,6 +83,9 @@ public class Robot extends TimedRobot {
 
     // Reset the Odometry
     mRobotContainer.mDriveTrain.resetOdometry();
+
+    // Home the Ajustable Hood
+    runHoodHome();
   }
 
   /**
@@ -91,7 +101,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveIdleMode(NeutralMode.Brake);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Reset the Gyro
@@ -99,6 +109,9 @@ public class Robot extends TimedRobot {
 
     // Reset the Odometry
     mRobotContainer.mDriveTrain.resetOdometry();
+
+    // Home the Ajustable Hood
+    runHoodHome();
   }
 
   /**
@@ -124,5 +137,12 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
+  }
+
+  public void runHoodHome() {
+    if (!mRobotContainer.mAdjustabeHood.isHomed
+        || lastHoodPosition != mRobotContainer.mAdjustabeHood.getHoodPosition()) {
+      new HomeAdjustableHood(mRobotContainer.mAdjustabeHood).schedule(false);
+    }
   }
 }

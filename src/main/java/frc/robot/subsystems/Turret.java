@@ -20,7 +20,7 @@ public class Turret extends SubsystemBase {
 
   public Turret() {
     // Turret Motors
-    turretMotor = new TalonSRX(17);
+    turretMotor = new TalonSRX(18);
     turretMotor.setInverted(false);
     turretMotor.setNeutralMode(NeutralMode.Coast);
   }

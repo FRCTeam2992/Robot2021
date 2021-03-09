@@ -11,6 +11,5 @@ public class SlalomPath extends SwerveTrajectoryGenerator {
 
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
-        //addHeadingWaypoint(0.1, 90.0);
     }
 }

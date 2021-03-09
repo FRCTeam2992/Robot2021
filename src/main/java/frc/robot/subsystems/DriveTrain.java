@@ -24,11 +24,12 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drive.swerve.SwerveController;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
+import frc.lib.vision.LimeLight;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
@@ -64,6 +65,9 @@ public class DriveTrain extends SubsystemBase {
   public final SwerveModuleFalconNeo rearLeftModule;
   public final SwerveModuleFalconNeo rearRightModule;
 
+  // Swerve Controller
+  public final SwerveController swerveController;
+
   // Robot Gyro
   public AHRS navx;
 
@@ -79,12 +83,15 @@ public class DriveTrain extends SubsystemBase {
   // Motion Trajectories
   public Trajectory SlalomTrajectory;
 
+  // Limelight Camera
+  public final LimeLight limeLightCamera;
+
   public DriveTrain() {
     // Drive Motors
     frontLeftDrive = new TalonFX(1);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.setNeutralMode(NeutralMode.Coast);
-    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
+    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
@@ -94,7 +101,7 @@ public class DriveTrain extends SubsystemBase {
     frontRightDrive = new TalonFX(3);
     frontRightDrive.setInverted(false);
     frontRightDrive.setNeutralMode(NeutralMode.Coast);
-    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
+    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
@@ -104,7 +111,7 @@ public class DriveTrain extends SubsystemBase {
     rearLeftDrive = new TalonFX(5);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.setNeutralMode(NeutralMode.Coast);
-    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
+    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
@@ -114,7 +121,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrive = new TalonFX(7);
     rearRightDrive.setInverted(false);
     rearRightDrive.setNeutralMode(NeutralMode.Coast);
-    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 80, 200));
+    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
@@ -177,6 +184,9 @@ public class DriveTrain extends SubsystemBase {
         Constants.rearRightOffset, rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio,
         Constants.swerveMaxSpeed);
 
+    // Swerve Controller
+    swerveController = new SwerveController(Constants.swerveLength, Constants.swerveWidth);
+
     // Robot Gyro
     navx = new AHRS(SPI.Port.kMXP);
 
@@ -190,6 +200,9 @@ public class DriveTrain extends SubsystemBase {
 
     // Motion Trajectories
     loadMotionPaths();
+
+    // LimeLight Camera
+    limeLightCamera = new LimeLight();
   }
 
   @Override
@@ -213,16 +226,17 @@ public class DriveTrain extends SubsystemBase {
     // rearRightModule.getWheelSpeedMeters());
 
     // Display Gyro Angle
-    SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+    // SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
     // Update the Odometry
     latestSwervePose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
         frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
 
     // Display Odometry
-    SmartDashboard.putNumber("Odometry Rotation", latestSwervePose.getRotation().getDegrees());
-    SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
-    SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
+    // SmartDashboard.putNumber("Odometry Rotation",
+    // latestSwervePose.getRotation().getDegrees());
+    // SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
+    // SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
   }
 
   public void setTurnIdleMode(IdleMode mode) {
@@ -232,7 +246,7 @@ public class DriveTrain extends SubsystemBase {
     rearRightTurn.setIdleMode(mode);
   }
 
-  public void setDriveIdleMode(NeutralMode mode) {
+  public void setDriveNeutralMode(NeutralMode mode) {
     frontLeftDrive.setNeutralMode(mode);
     frontRightDrive.setNeutralMode(mode);
     rearLeftDrive.setNeutralMode(mode);

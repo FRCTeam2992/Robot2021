@@ -27,11 +27,11 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
     // Shooter Motors
-    leadShooter = new TalonSRX(13);
+    leadShooter = new TalonSRX(12);
     leadShooter.setInverted(false);
     leadShooter.setNeutralMode(NeutralMode.Coast);
 
-    followShooter = new VictorSPX(14);
+    followShooter = new VictorSPX(13);
     followShooter.setInverted(true);
     followShooter.follow(leadShooter);
   }

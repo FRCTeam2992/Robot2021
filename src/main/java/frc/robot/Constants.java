@@ -21,6 +21,14 @@ public final class Constants {
     public static final int defaultShooterSpeed = 5200;
     public static final int shooterEncoderPulses = 2048;
 
+    // Adjustable Hood Variables
+    public static final double maxHoodRotations = 15.25;
+    public static final double upperHoodSpeedLimit = 0.2;
+    public static final double lowerHoodSpeedLimit = -0.15;
+    public static final double hoodP = 0.75;
+    public static final double hoodI = 0.0;
+    public static final double hoodD = 0.0;
+
     // Color Wheel Variables
     public static final int colorWheelEncoderPulses = 1024;
     public static final double colorWheelSpinRatio = 8.0;
@@ -35,6 +43,7 @@ public final class Constants {
     // Drive Variables
     public static boolean isFieldCentric = true;
     public static boolean isVelocityControlled = false;
+    public static boolean isGyroCorrected = false;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;
@@ -61,30 +70,36 @@ public final class Constants {
     public static final double driveGearRatio = (40.0 / 16.0) * (18.0 / 26.0) * (60.0 / 15.0);
     public static final double driveWheelDiameter = 0.1016;
 
-    // Analog Encoder Offsets (Degrees) - Opposite of Reading
-    public static final double frontLeftOffset = 0.0;
-    public static final double frontRightOffset = 0.0;
-    public static final double rearLeftOffset = 0.0;
-    public static final double rearRightOffset = 0.0;
+    // Analog Encoder Offsets (Degrees) - Opposite of Reading - Bevel Gear to Right
+    public static final double frontLeftOffset = -23.1;
+    public static final double frontRightOffset = 169.4;
+    public static final double rearLeftOffset = 62.2;
+    public static final double rearRightOffset = 156.5;
+
+    // Swerve Gyro Correction
+    public static final double driveGyroP = 0.0;
+
+    // Swerve Auto Aim
+    public static final double driveAimP = 0.0;
 
     // Swerve Drive PID (Velocity Control)
-    public static final double driveP = 0.0003; // 0.0003
+    public static final double driveP = 0.0003;
     public static final double driveI = 0.0;
     public static final double driveD = 0.0;
     public static final double driveF = 0.0002;
 
     // Swerve Turn PID
-    public static final double turnP = 0.008; // 0.008
+    public static final double turnP = 0.008;
     public static final double turnI = 0.0;
     public static final double turnD = 0.00005;
 
     // Swerve X Axis Correction PID (Path Following)
-    public static final double xCorrectionP = 5.0; // 5.0
+    public static final double xCorrectionP = 5.0;
     public static final double xCorrectionI = 0.0;
     public static final double xCorrectionD = 0.0;
 
     // Swerve Y Axis Correction PID (Path Following)
-    public static final double yCorrectionP = 5.0; // 5.0
+    public static final double yCorrectionP = 5.0;
     public static final double yCorrectionI = 0.0;
     public static final double yCorrectionD = 0.0;
 
