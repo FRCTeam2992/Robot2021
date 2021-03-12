@@ -24,10 +24,10 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drive.swerve.SwerveController;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.vision.LimeLight;
 import frc.robot.Constants;
@@ -64,6 +64,9 @@ public class DriveTrain extends SubsystemBase {
   public final SwerveModuleFalconNeo frontRightModule;
   public final SwerveModuleFalconNeo rearLeftModule;
   public final SwerveModuleFalconNeo rearRightModule;
+
+  // Swerve Controller
+  public final SwerveController swerveController;
 
   // Robot Gyro
   public AHRS navx;
@@ -181,6 +184,9 @@ public class DriveTrain extends SubsystemBase {
         Constants.rearRightOffset, rearRightController, Constants.driveWheelDiameter, Constants.driveGearRatio,
         Constants.swerveMaxSpeed);
 
+    // Swerve Controller
+    swerveController = new SwerveController(Constants.swerveLength, Constants.swerveWidth);
+
     // Robot Gyro
     navx = new AHRS(SPI.Port.kMXP);
 
@@ -220,16 +226,17 @@ public class DriveTrain extends SubsystemBase {
     // rearRightModule.getWheelSpeedMeters());
 
     // Display Gyro Angle
-    SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+    // SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
     // Update the Odometry
     latestSwervePose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
         frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
 
     // Display Odometry
-    SmartDashboard.putNumber("Odometry Rotation", latestSwervePose.getRotation().getDegrees());
-    SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
-    SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
+    // SmartDashboard.putNumber("Odometry Rotation",
+    // latestSwervePose.getRotation().getDegrees());
+    // SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
+    // SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
   }
 
   public void setTurnIdleMode(IdleMode mode) {

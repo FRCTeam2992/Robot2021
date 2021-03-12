@@ -10,17 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class SetShooterSpeed extends CommandBase {
+public class ChangeShooterSpeed extends CommandBase {
 
   // Subsystem Instance
   private Shooter mShooter;
 
   // Saved Variables
-  private double mShooterSpeed;
+  private int mShooterSpeed;
 
-  public SetShooterSpeed(Shooter subsystem, double shooterSpeed) {
+  public ChangeShooterSpeed(Shooter subsystem, int shooterSpeed) {
     // Subsystem Instance
-    subsystem = mShooter;
+    mShooter = subsystem;
 
     // Saved Variables
     mShooterSpeed = shooterSpeed;
@@ -29,13 +29,17 @@ public class SetShooterSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    mShooter.shooterSetSpeed += mShooterSpeed;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    int changeSpeed = mShooter.shooterSetSpeed + mShooterSpeed;
 
+    changeSpeed = Math.max(0, changeSpeed);
+
+    mShooter.shooterSetSpeed = changeSpeed;
   }
 
   // Called once the command ends or is interrupted.

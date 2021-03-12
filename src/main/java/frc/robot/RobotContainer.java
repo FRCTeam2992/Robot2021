@@ -20,15 +20,15 @@ public class RobotContainer {
   public final DriveTrain mDriveTrain;
   private final Intake mIntake;
   private final Spindexer mSpindexer;
+  private final Shooter mShooter;
+  public final AdjustabeHood mAdjustabeHood;
 
   // Subsytem Instances (Disabled)
   // private final Turret mTurret;
   // private final ClimbSlide mClimeSlide;
   // private final TelescopeClimb mTelescopeClimb;
   // private final ColorWheel mColorWheel;
-  // private final Shooter mShooter;
   // private final Ejector mEjector;
-  // private final AdjustabeShooterHood mAdjustabeShooterHood;
 
   // Controllers
   public mhController controller;
@@ -45,6 +45,12 @@ public class RobotContainer {
     mSpindexer = new Spindexer();
     mSpindexer.setDefaultCommand(new StopSpindexer(mSpindexer));
 
+    mShooter = new Shooter();
+    mShooter.setDefaultCommand(new StopShooter(mShooter));
+
+    mAdjustabeHood = new AdjustabeHood();
+    mAdjustabeHood.setDefaultCommand(new StopAdjustableHood(mAdjustabeHood));
+
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();
     // mTurret.setDefaultCommand(new StopTurret(mTurret));
@@ -58,18 +64,8 @@ public class RobotContainer {
     // mTelescopeClimb = new TelescopeClimb();
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
 
-    // mAdjustabeShooterHood = new AdjustabeShooterHood();
-    // mAdjustabeShooterHood.setDefaultCommand(new
-    // StopAdjustableShooterHood(mAdjustabeShooterHood));
-
-    // mShooter = new Shooter();
-    // mShooter.setDefaultCommand(new StopShooter(mShooter));
-
     // mEjector = new Ejector();
     // mEjector.setDefaultCommand(new StopEjector(mEjector));
-
-    SmartDashboard.putData("Set Swerve 0", new SetSwerveAngle(mDriveTrain, 0));
-    SmartDashboard.putData("Set Swerve 90", new SetSwerveAngle(mDriveTrain, 90));
 
     // SmartDashboard Auto Paths
     SmartDashboard.putData("Straight Path",
@@ -77,6 +73,31 @@ public class RobotContainer {
 
     SmartDashboard.putData("Slalom Path",
         new AutoFollowPath(mDriveTrain, new SlalomPath(mDriveTrain).generateSwerveTrajectory()));
+
+    // SmartDashboard Shooter Test
+    SmartDashboard.putData(new StopShooter(mShooter));
+    SmartDashboard.putData(new StartShooter(mShooter));
+    SmartDashboard.putData("Set Shooter +100", new ChangeShooterSpeed(mShooter, 100));
+    SmartDashboard.putData("Set Shooter -100", new ChangeShooterSpeed(mShooter, -100));
+
+    SmartDashboard.putData(new StopAdjustableHood(mAdjustabeHood));
+    SmartDashboard.putData(new HomeAdjustableHood(mAdjustabeHood));
+    SmartDashboard.putData("Set Hood 2", new SetAdjustableHoodPosition(mAdjustabeHood, 1));
+    SmartDashboard.putData("Set Hood 4", new SetAdjustableHoodPosition(mAdjustabeHood, 4));
+    SmartDashboard.putData("Set Hood 6", new SetAdjustableHoodPosition(mAdjustabeHood, 6));
+    SmartDashboard.putData("Set Hood 8", new SetAdjustableHoodPosition(mAdjustabeHood, 8));
+    SmartDashboard.putData("Set Hood 10", new SetAdjustableHoodPosition(mAdjustabeHood, 10));
+    SmartDashboard.putData("Set Hood 12", new SetAdjustableHoodPosition(mAdjustabeHood, 12.0));
+    SmartDashboard.putData("Set Hood 14.5", new SetAdjustableHoodPosition(mAdjustabeHood, 14.5));
+    SmartDashboard.putData("Set Hood 15.25", new SetAdjustableHoodPosition(mAdjustabeHood, 15.25));
+    SmartDashboard.putData("Move Hood 0.05", new MoveAdjustableHood(mAdjustabeHood, 0.05));
+    SmartDashboard.putData("Move Hood -0.05", new MoveAdjustableHood(mAdjustabeHood, -0.05));
+
+    SmartDashboard.putData("Move Intake 1.0", new MoveIntake(mIntake, 1.0));
+    SmartDashboard.putData("Move Intake -1.0", new MoveIntake(mIntake, -1.0));
+
+    SmartDashboard.putData("Move Spindexer 0.5", new MoveSpindexer(mSpindexer, 0.5));
+    SmartDashboard.putData("Move Spindexer -0.75", new MoveSpindexer(mSpindexer, -0.5));
 
     // Initialize the Controller
     controller = new mhController(0);

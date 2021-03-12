@@ -22,6 +22,10 @@ public class DriveSticks extends CommandBase {
   private RollingAverage averageY1;
   private RollingAverage averageX2;
 
+  // Command States
+  private double gyroTarget;
+  private boolean gyroTargetRecorded = false;
+
   public DriveSticks(DriveTrain subsystem) {
     // Subsystem Instance
     mDriveTrain = subsystem;
@@ -59,51 +63,29 @@ public class DriveSticks extends CommandBase {
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();
 
-      // Swerve Variables
-      double L = Constants.swerveLength / 2.0;
-      double W = Constants.swerveWidth / 2.0;
-      double r = Math.sqrt((L * L) + (W * W));
-
-      // Field Centric Code from NAVX Website
-      if (Constants.isFieldCentric) {
-        double gyro = gyroValue * Math.PI / 180.0;
-
-        double temp = x1 * Math.cos(gyro) + y1 * Math.sin(gyro);
-        y1 = -x1 * Math.sin(gyro) + y1 * Math.cos(gyro);
-        x1 = temp;
+      // Gyro Correction
+      if (x2 <= 0.1 && Constants.isGyroCorrected) {
+        // Check for Recorded Value
+        if (gyroTargetRecorded) {
+          // Calculate Correction Speed
+          x2 = (gyroTarget - gyroValue) * Constants.driveGyroP;
+        } else {
+          // Record a Gyro Value
+          gyroTarget = gyroValue;
+          gyroTargetRecorded = true;
+        }
+      } else {
+        // Reset the Target Recorded State
+        gyroTargetRecorded = false;
       }
 
-      // --------------------------------------
-      // Swerve Module Math for Speed and Angle
-      // --------------------------------------
-      double a = x1 - x2 * (L / r);
-      double b = x1 + x2 * (L / r);
-      double c = y1 - x2 * (W / r);
-      double d = y1 + x2 * (W / r);
+      // Calculate the Swerve States
+      double[] swerveStates;
 
-      double frontLeftSpeed = Math.sqrt((b * b) + (c * c));
-      double frontRightSpeed = Math.sqrt((b * b) + (d * d));
-      double rearLeftSpeed = Math.sqrt((a * a) + (c * c));
-      double rearRightSpeed = Math.sqrt((a * a) + (d * d));
-
-      double frontLeftAngle = Math.atan2(b, c) * 180.0 / Math.PI;
-      double frontRightAngle = Math.atan2(b, d) * 180.0 / Math.PI;
-      double rearLeftAngle = Math.atan2(a, c) * 180.0 / Math.PI;
-      double rearRightAngle = Math.atan2(a, d) * 180.0 / Math.PI;
-
-      // -------------------------------------
-      // Normalize the Speed
-      // -------------------------------------
-      double max = frontLeftSpeed;
-      max = Math.max(max, frontRightSpeed);
-      max = Math.max(max, rearLeftSpeed);
-      max = Math.max(max, rearRightSpeed);
-
-      if (max > 1) {
-        frontRightSpeed /= max;
-        frontLeftSpeed /= max;
-        rearLeftSpeed /= max;
-        rearRightSpeed /= max;
+      if (Constants.isFieldCentric) {
+        swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2, gyroValue);
+      } else {
+        swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2);
       }
 
       // Get the Swerve Modules
@@ -114,15 +96,15 @@ public class DriveSticks extends CommandBase {
 
       // Command the Swerve Modules
       if (Constants.isVelocityControlled) {
-        frontLeft.setDriveVelocity(frontLeftSpeed, frontLeftAngle);
-        frontRight.setDriveVelocity(frontRightSpeed, frontRightAngle);
-        rearLeft.setDriveVelocity(rearLeftSpeed, rearLeftAngle);
-        rearRight.setDriveVelocity(rearRightSpeed, rearRightAngle);
+        frontLeft.setDriveVelocity(swerveStates[0], swerveStates[1]);
+        frontRight.setDriveVelocity(swerveStates[2], swerveStates[3]);
+        rearLeft.setDriveVelocity(swerveStates[4], swerveStates[5]);
+        rearRight.setDriveVelocity(swerveStates[6], swerveStates[7]);
       } else {
-        frontLeft.setDrive(frontLeftSpeed, frontLeftAngle);
-        frontRight.setDrive(frontRightSpeed, frontRightAngle);
-        rearLeft.setDrive(rearLeftSpeed, rearLeftAngle);
-        rearRight.setDrive(rearRightSpeed, rearRightAngle);
+        frontLeft.setDrive(swerveStates[0], swerveStates[1]);
+        frontRight.setDrive(swerveStates[2], swerveStates[3]);
+        rearLeft.setDrive(swerveStates[4], swerveStates[5]);
+        rearRight.setDrive(swerveStates[6], swerveStates[7]);
       }
     } else {
       mDriveTrain.stopDrive();

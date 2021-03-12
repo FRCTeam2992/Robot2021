@@ -21,6 +21,14 @@ public final class Constants {
     public static final int defaultShooterSpeed = 5200;
     public static final int shooterEncoderPulses = 2048;
 
+    // Adjustable Hood Variables
+    public static final double maxHoodRotations = 15.25;
+    public static final double upperHoodSpeedLimit = 0.2;
+    public static final double lowerHoodSpeedLimit = -0.15;
+    public static final double hoodP = 0.75;
+    public static final double hoodI = 0.0;
+    public static final double hoodD = 0.0;
+
     // Color Wheel Variables
     public static final int colorWheelEncoderPulses = 1024;
     public static final double colorWheelSpinRatio = 8.0;
@@ -35,6 +43,7 @@ public final class Constants {
     // Drive Variables
     public static boolean isFieldCentric = true;
     public static boolean isVelocityControlled = false;
+    public static boolean isGyroCorrected = false;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;
@@ -66,6 +75,12 @@ public final class Constants {
     public static final double frontRightOffset = 169.4;
     public static final double rearLeftOffset = 62.2;
     public static final double rearRightOffset = 156.5;
+
+    // Swerve Gyro Correction
+    public static final double driveGyroP = 0.0;
+
+    // Swerve Auto Aim
+    public static final double driveAimP = 0.0;
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.0003;
