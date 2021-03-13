@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.util.RollingAverage;
@@ -100,6 +101,8 @@ public class DriveSticks extends CommandBase {
         frontRight.setDriveVelocity(swerveStates[2], swerveStates[3]);
         rearLeft.setDriveVelocity(swerveStates[4], swerveStates[5]);
         rearRight.setDriveVelocity(swerveStates[6], swerveStates[7]);
+
+        SmartDashboard.putNumber("Front Left Set Speed", swerveStates[0] * Constants.swerveMaxSpeed);
       } else {
         frontLeft.setDrive(swerveStates[0], swerveStates[1]);
         frontRight.setDrive(swerveStates[2], swerveStates[3]);

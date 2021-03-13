@@ -33,7 +33,7 @@ public class HomeAdjustableHood extends CommandBase {
   @Override
   public void execute() {
     if (beginningLimitState) {
-      mAdjustabeHood.setAdjustableShooterHoodSpeed(0.05);
+      mAdjustabeHood.setAdjustableShooterHoodSpeed(0.15);
 
       if (!mAdjustabeHood.getLimitState()) {
         beginningLimitState = false;
@@ -41,7 +41,7 @@ public class HomeAdjustableHood extends CommandBase {
     }
 
     else {
-      mAdjustabeHood.setAdjustableShooterHoodSpeed(-0.05);
+      mAdjustabeHood.setAdjustableShooterHoodSpeed(-0.15);
 
       if (mAdjustabeHood.getLimitState()) {
         mAdjustabeHood.setAdjustableShooterHoodSpeed(0.0);

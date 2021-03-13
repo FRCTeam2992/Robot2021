@@ -42,7 +42,7 @@ public final class Constants {
 
     // Drive Variables
     public static boolean isFieldCentric = true;
-    public static boolean isVelocityControlled = false;
+    public static boolean isVelocityControlled = true;
     public static boolean isGyroCorrected = false;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
@@ -50,7 +50,7 @@ public final class Constants {
     public static final double swerveLength = 0.6223;
 
     // Max Swerve Speed (Velocity Control)
-    public static final double swerveMaxSpeed = 4.0; // (Meters per Second)
+    public static final double swerveMaxSpeed = 4.5; // (Meters per Second)
 
     // Max Path Following Drive Speeds
     public static final double maxPathFollowingVelocity = 4.0; // (Meters per Second)
@@ -83,10 +83,10 @@ public final class Constants {
     public static final double driveAimP = 0.0;
 
     // Swerve Drive PID (Velocity Control)
-    public static final double driveP = 0.0003;
+    public static final double driveP = 0.15;
     public static final double driveI = 0.0;
     public static final double driveD = 0.0;
-    public static final double driveF = 0.0002;
+    public static final double driveF = 0.05;
 
     // Swerve Turn PID
     public static final double turnP = 0.008;

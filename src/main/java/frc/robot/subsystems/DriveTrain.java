@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -82,9 +83,13 @@ public class DriveTrain extends SubsystemBase {
 
   // Motion Trajectories
   public Trajectory SlalomTrajectory;
+  public Trajectory BarrelTrajectory;
+  public Trajectory BounceTrajectory;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
+
+  double maxSpeed = 0.0;
 
   public DriveTrain() {
     // Drive Motors
@@ -218,12 +223,19 @@ public class DriveTrain extends SubsystemBase {
     // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
+    SmartDashboard.putNumber("Front Left Module Velocity", frontLeftModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Front Right Module Velocity",
     // frontRightModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Rear Left Module Velocity",
     // rearLeftModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Rear Right Module Velocity",
     // rearRightModule.getWheelSpeedMeters());
+
+    // if(frontLeftModule.getWheelSpeedMeters() > maxSpeed) {
+    // maxSpeed = frontLeftModule.getWheelSpeedMeters();
+    // }
+
+    // SmartDashboard.putNumber("Max Speed", maxSpeed);
 
     // Display Gyro Angle
     // SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
@@ -233,10 +245,9 @@ public class DriveTrain extends SubsystemBase {
         frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
 
     // Display Odometry
-    // SmartDashboard.putNumber("Odometry Rotation",
-    // latestSwervePose.getRotation().getDegrees());
-    // SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
-    // SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
+    SmartDashboard.putNumber("Odometry Rotation", latestSwervePose.getRotation().getDegrees());
+    SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
+    SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
   }
 
   public void setTurnIdleMode(IdleMode mode) {
@@ -272,8 +283,16 @@ public class DriveTrain extends SubsystemBase {
     // Slalom Trajectory
     Path slalomPath = Filesystem.getDeployDirectory().toPath().resolve("output/Slalom.wpilib.json");
 
+    // Barrel Trajectory
+    Path barrelPath = Filesystem.getDeployDirectory().toPath().resolve("output/Barrel.wpilib.json");
+
+    // Bounce Trajectory
+    Path bouncePath = Filesystem.getDeployDirectory().toPath().resolve("output/Bounce.wpilib.json");
+
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
+      BarrelTrajectory = TrajectoryUtil.fromPathweaverJson(barrelPath);
+      BounceTrajectory = TrajectoryUtil.fromPathweaverJson(bouncePath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();
