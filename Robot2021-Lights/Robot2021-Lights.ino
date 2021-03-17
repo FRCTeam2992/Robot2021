@@ -46,10 +46,12 @@ void loop() {
   //CJCodeButGood();
   //alternatingBlueWhiteBounce;
   //blueChase();
-  CJCode();
+  //CJCode();
   //CJCodeButGood();
   //ColorTest();
   //heartMeter();
+  coollightsv2();
+  
 }
 void BackgroundColor() {
   for (int i = 0; i <= 99; i++) {
@@ -107,28 +109,28 @@ void setStripWhite() {
   }
   spindexerStrip.show();
 }
-int q = 75;
+int qq = 75;
 void heartMeter() {
 
 
   int distHeart = random (0, 99);
   for (int h = 0; h <= distHeart; h++) {
-    q -= .75;
+    qq -= .75;
     setSpindexerPixel(h, green);
     spindexerStrip.show();
-    delay(q);
+    delay(qq);
   }
 
 
   for (int h = distHeart - 10; h >= -10; h--) {
-    q += 1;
+    qq += 1;
 
     setSpindexerPixel(h, green);
     setSpindexerPixel(h + 10, black);
     spindexerStrip.show();
-    delay(q);
+    delay(qq);
   }
-  q = 100;
+  qq = 100;
 
 }
 
@@ -293,6 +295,193 @@ void CJCode() {
     spindexerStrip.show();
 
   }
+}
+
+
+
+
+
+
+
+
+
+
+int x = 0;
+
+int p = 0;
+int j = 0;
+int k = 0;
+int l = 255;
+
+int q = 0;
+int y = 255;
+int u = 255;
+int w = 255;
+
+int b = 3;
+int hh = 20;
+void coollightsv2() {
+
+  if (p == 7){
+    p = 0;
+  }
+  
+if (q == 7){
+    q = 0;
+  }
+
+  for (int i = 0; i < 98; i++) {
+
+    if (p == 0) {
+      j = 255;
+      k = 0;
+      l = 255;
+    }
+
+
+    if (p == 1) {
+      j = 0;
+      k = 0;
+      l = 255;
+    }
+
+
+    if (p == 2) {
+      j = 0;
+      k = 255;
+      l = 0;
+    }
+
+
+    if (p == 3) {
+      j = 255;
+      k = 160;
+      l = 0;
+    }
+
+
+    if (p == 4) {
+      j = 255;
+      k = 50;
+      l = 0;
+    }
+
+
+    if (p == 5) {
+      j = 255;
+      k = 0;
+      l = 0;
+    }
+
+
+    if (p == 6) {
+      j = 225;
+      k = 60;
+      l = 60;
+    }
+
+
+
+
+    if (q == 1) {
+      y = 255;
+      u = 0;
+      w = 255;
+    }
+
+
+    if (q == 2) {
+      y = 0;
+      u = 0;
+      w = 255;
+    }
+
+
+    if (q == 3) {
+      y = 0;
+      u = 255;
+      w = 0;
+    }
+
+
+    if (q == 4) {
+      y = 255;
+      u = 160;
+      w = 0;
+    }
+
+
+    if (q == 5) {
+      y = 255;
+      u = 50;
+      w = 0;
+    }
+
+
+    if (q == 6) {
+      y = 255;
+      u = 0;
+      w = 0;
+    }
+
+
+    if (q == 0) {
+      y = 225;
+      u = 60;
+      w = 60;
+    }
+    setSpindexerPixel(i, j, k, l);
+    //setSpindexerPixel(i, 255, 255, 255);
+    //setSpindexerPixel(i - 5, j, k, l);
+    
+    if (i == 0){
+      setSpindexerPixel(93, y, u, w);
+      }
+    
+    if (i == 0) {
+      setSpindexerPixel(94, y, u, w);
+    }
+
+    if (i == 1) {
+      setSpindexerPixel(95, y, u, w);
+    }
+
+    if (i == 2) {
+      setSpindexerPixel(96, y, u, w);
+    }
+
+    if (i == 3) {
+      setSpindexerPixel(97, y, u, w);
+    }
+
+    if (i == 4) {
+      setSpindexerPixel(98, y, u, w);
+    }
+    
+  if (b == 1);{
+int h = 30;
+}
+  if (b == 2);{
+int hh = 25;
+}
+  if (b == 3);{
+int hh = 20;
+}
+  if (b == 4);{
+int hh = 80;
+}
+  if (b == 5);{
+    int hh = 80;
+    }
+  if (b == 6);{
+int hh = 70;
+}
+    delay(hh);
+    spindexerStrip.show();
+  }
+  int b = random (1, 6);
+  p++;
+  q++;
 }
 
 
