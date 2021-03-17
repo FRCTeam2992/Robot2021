@@ -11,7 +11,7 @@ Adafruit_NeoPixel spindexerStrip = Adafruit_NeoPixel(SPINDEXER_REAL_COUNT, SPIND
 // Color Codes
 uint32_t red = spindexerStrip.Color(255, 0, 0);
 uint32_t orange = spindexerStrip.Color(255, 50, 0);
-uint32_t yellow = spindexerStrip.Color(255, 130, 0);
+uint32_t yellow = spindexerStrip.Color(255, 160, 0);
 uint32_t green = spindexerStrip.Color(0, 255, 0);
 uint32_t blue = spindexerStrip.Color(0, 0, 255);
 uint32_t purple = spindexerStrip.Color(255, 0, 255);
@@ -43,13 +43,13 @@ void setup() {
 }
 
 void loop() {
-  //CJCodeButGood();
   //alternatingBlueWhiteBounce;
   //blueChase();
-  CJCode();
+  //CJCode();
   //CJCodeButGood();
   //ColorTest();
-  //heartMeter();
+  //5heartMeter();
+  ColorMixies();
 }
 void BackgroundColor() {
   for (int i = 0; i <= 99; i++) {
@@ -107,28 +107,28 @@ void setStripWhite() {
   }
   spindexerStrip.show();
 }
-int q = 75;
+int qq = 75;
 void heartMeter() {
 
 
   int distHeart = random (0, 99);
   for (int h = 0; h <= distHeart; h++) {
-    q -= .75;
+    qq -= .75;
     setSpindexerPixel(h, green);
     spindexerStrip.show();
-    delay(q);
+    delay(qq);
   }
 
 
   for (int h = distHeart - 10; h >= -10; h--) {
-    q += 1;
+    qq += 1;
 
     setSpindexerPixel(h, green);
     setSpindexerPixel(h + 10, black);
     spindexerStrip.show();
-    delay(q);
+    delay(qq);
   }
-  q = 100;
+  qq = 100;
 
 }
 
@@ -286,7 +286,7 @@ void CJCode() {
     if (i <= 94) {
       setSpindexerPixel(i + 4, white);
     }
-    if (i < 95){
+    if (i < 95) {
       delay(20);
     }
 
@@ -294,9 +294,31 @@ void CJCode() {
 
   }
 }
+int rd = random (126, 255);
+int grn = random (126, 255);
+int blu = random (126, 255);
+
+int redd = rd;
+int gren = grn;
+int bllue = blu;
+
+int reeed = random (126, 255);
+int greeen = random (126, 255);
+int blueee = random (126, 255);
+
+int reed = reeed;
+int grreen = greeen;
+int bluee = blueee;
+
+void ColorMixies() {
 
 
 
+  for (int i = 98; i <= 98; i++) {
+    setSpindexerPixel(i, red, green, blue);
+    setSpindexerPixel(i - 25, black);
+  }
+}
 
 
 void setSpindexerPixel(int index, int r, int g, int b) {
