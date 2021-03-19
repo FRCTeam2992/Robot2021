@@ -85,11 +85,13 @@ public class DriveTrain extends SubsystemBase {
   public Trajectory SlalomTrajectory;
   public Trajectory BarrelTrajectory;
   public Trajectory BounceTrajectory;
+  public Trajectory GalacticSearchARedTrajectory;
+  public Trajectory GalacticSearchABlueTrajectory;
+  public Trajectory GalacticSearchBRedTrajectory;
+  public Trajectory GalacticSearchBBlueTrajectory;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
-
-  double maxSpeed = 0.0;
 
   public DriveTrain() {
     // Drive Motors
@@ -223,19 +225,14 @@ public class DriveTrain extends SubsystemBase {
     // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
-    SmartDashboard.putNumber("Front Left Module Velocity", frontLeftModule.getWheelSpeedMeters());
+    // SmartDashboard.putNumber("Front Left Module Velocity",
+    // frontLeftModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Front Right Module Velocity",
     // frontRightModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Rear Left Module Velocity",
     // rearLeftModule.getWheelSpeedMeters());
     // SmartDashboard.putNumber("Rear Right Module Velocity",
     // rearRightModule.getWheelSpeedMeters());
-
-    // if(frontLeftModule.getWheelSpeedMeters() > maxSpeed) {
-    // maxSpeed = frontLeftModule.getWheelSpeedMeters();
-    // }
-
-    // SmartDashboard.putNumber("Max Speed", maxSpeed);
 
     // Display Gyro Angle
     // SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
@@ -280,19 +277,27 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private void loadMotionPaths() {
-    // Slalom Trajectory
+    // Trajectory Paths
     Path slalomPath = Filesystem.getDeployDirectory().toPath().resolve("output/Slalom.wpilib.json");
-
-    // Barrel Trajectory
     Path barrelPath = Filesystem.getDeployDirectory().toPath().resolve("output/Barrel.wpilib.json");
-
-    // Bounce Trajectory
     Path bouncePath = Filesystem.getDeployDirectory().toPath().resolve("output/Bounce.wpilib.json");
+    Path galacticSearchARedPath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/GalacticSearchARed.wpilib.json");
+    Path galacticSearchABluePath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/GalacticSearchABlue.wpilib.json");
+    Path galacticSearchBRedPath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/GalacticSearchBRed.wpilib.json");
+    Path galacticSearchBBluePath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/GalacticSearchBBlue.wpilib.json");
 
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
       BarrelTrajectory = TrajectoryUtil.fromPathweaverJson(barrelPath);
       BounceTrajectory = TrajectoryUtil.fromPathweaverJson(bouncePath);
+      GalacticSearchARedTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchARedPath);
+      GalacticSearchABlueTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchABluePath);
+      GalacticSearchBRedTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchBRedPath);
+      GalacticSearchBBlueTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchBBluePath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();

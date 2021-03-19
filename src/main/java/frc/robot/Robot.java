@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.HomeAdjustableHood;
 
@@ -28,6 +29,9 @@ public class Robot extends TimedRobot {
 
   // Adjustable Hood Disabled State
   private double lastHoodPosition = 0.0;
+
+  // Auto Instances
+  private Command autoCommand;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -86,6 +90,14 @@ public class Robot extends TimedRobot {
 
     // Home the Ajustable Hood
     runHoodHome();
+
+    // Get the Autonomous Command
+    autoCommand = mRobotContainer.getAutoCommand();
+
+    // Run the Auto Command
+    if (autoCommand != null) {
+      autoCommand.schedule();
+    }
   }
 
   /**
@@ -112,6 +124,11 @@ public class Robot extends TimedRobot {
 
     // Home the Ajustable Hood
     runHoodHome();
+
+    // Cancel the Auto Command
+    if (autoCommand != null) {
+      autoCommand.cancel();
+    }
   }
 
   /**

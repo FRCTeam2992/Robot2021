@@ -7,10 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.oi.mhController;
 import frc.robot.commands.*;
+import frc.robot.commands.autos.GalacticSearchA;
+import frc.robot.commands.autos.GalacticSearchB;
 import frc.robot.commands.groups.AutoIntake;
 import frc.robot.commands.groups.AutoOverride;
 import frc.robot.paths.BarrelPath;
@@ -34,6 +38,9 @@ public class RobotContainer {
   // private final ClimbSlide mClimeSlide;
   // private final TelescopeClimb mTelescopeClimb;
   // private final ColorWheel mColorWheel;
+
+  // Auto Chooser
+  SendableChooser<Command> autoChooser;
 
   // Controllers
   public mhController controller;
@@ -142,6 +149,9 @@ public class RobotContainer {
     // mEjector));
     // SmartDashboard.putData("Auto Shoot", new AutoShoot(mSpindexer, mEjector));
 
+    // Setup the Autonomous Selector
+    setupAutoSelector();
+
     // Initialize the Controller
     controller = new mhController(0);
 
@@ -156,5 +166,31 @@ public class RobotContainer {
 
     controllerAutoOverride = new JoystickButton(controller, 2);
     controllerAutoOverride.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
+  }
+
+  private void setupAutoSelector() {
+    // Auto Commands
+    Command slalomAuto = new AutoFollowPath(mDriveTrain, new SlalomPath(mDriveTrain).generateSwerveTrajectory());
+    Command barrelAuto = new AutoFollowPath(mDriveTrain, new BarrelPath(mDriveTrain).generateSwerveTrajectory());
+    Command bounceAuto = new AutoFollowPath(mDriveTrain, new BouncePath(mDriveTrain).generateSwerveTrajectory());
+    Command galacticSearchAAuto = new GalacticSearchA(mDriveTrain, mIntake, mSpindexer, mEjector);
+    Command galacticSearchBAuto = new GalacticSearchB(mDriveTrain, mIntake, mSpindexer, mEjector);
+
+    // Auto Choose
+    autoChooser = new SendableChooser<>();
+
+    // Add Commands to the Chooser
+    autoChooser.setDefaultOption("Slalom", slalomAuto);
+    autoChooser.addOption("Barrel", barrelAuto);
+    autoChooser.addOption("Bounce", bounceAuto);
+    autoChooser.addOption("Galactic Search A", galacticSearchAAuto);
+    autoChooser.addOption("Galactic Search B", galacticSearchBAuto);
+
+    // Display the Chooser on Dashboard
+    SmartDashboard.putData("Auto Selector", autoChooser);
+  }
+
+  public Command getAutoCommand() {
+    return autoChooser.getSelected();
   }
 }
