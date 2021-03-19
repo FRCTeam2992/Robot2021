@@ -8,8 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.oi.mhController;
 import frc.robot.commands.*;
+import frc.robot.commands.groups.AutoIntake;
+import frc.robot.commands.groups.AutoOverride;
 import frc.robot.paths.BarrelPath;
 import frc.robot.paths.BouncePath;
 import frc.robot.paths.SlalomPath;
@@ -24,16 +27,20 @@ public class RobotContainer {
   private final Spindexer mSpindexer;
   private final Shooter mShooter;
   public final AdjustabeHood mAdjustabeHood;
+  private final Ejector mEjector;
 
   // Subsytem Instances (Disabled)
   // private final Turret mTurret;
   // private final ClimbSlide mClimeSlide;
   // private final TelescopeClimb mTelescopeClimb;
   // private final ColorWheel mColorWheel;
-  // private final Ejector mEjector;
 
   // Controllers
   public mhController controller;
+
+  // Controller Buttons
+  JoystickButton controllerAutoIntake;
+  JoystickButton controllerAutoOverride;
 
   public RobotContainer() {
 
@@ -53,6 +60,9 @@ public class RobotContainer {
     mAdjustabeHood = new AdjustabeHood();
     mAdjustabeHood.setDefaultCommand(new StopAdjustableHood(mAdjustabeHood));
 
+    mEjector = new Ejector();
+    mEjector.setDefaultCommand(new StopEjector(mEjector));
+
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();
     // mTurret.setDefaultCommand(new StopTurret(mTurret));
@@ -65,9 +75,6 @@ public class RobotContainer {
 
     // mTelescopeClimb = new TelescopeClimb();
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
-
-    // mEjector = new Ejector();
-    // mEjector.setDefaultCommand(new StopEjector(mEjector));
 
     // SmartDashboard Auto Paths
     SmartDashboard.putData("Straight Path",
@@ -84,8 +91,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Set Swerve 0", new SetSwerveAngle(mDriveTrain, 0.0));
 
-    
-    // SmartDashboard Shooter Test
+    // SmartDashboard Test Data
     // SmartDashboard.putData(new StopShooter(mShooter));
     // SmartDashboard.putData(new StartShooter(mShooter));
     // SmartDashboard.putData("Set Shooter +100", new ChangeShooterSpeed(mShooter,
@@ -119,13 +125,22 @@ public class RobotContainer {
     // SmartDashboard.putData("Move Intake 1.0", new MoveIntake(mIntake, 1.0));
     // SmartDashboard.putData("Move Intake -1.0", new MoveIntake(mIntake, -1.0));
 
-    // SmartDashboard.putData("Move Spindexer 0.5", new MoveSpindexer(mSpindexer,
-    // 0.5));
+    // SmartDashboard.putData("Move Spindexer 0.6", new MoveSpindexer(mSpindexer,
+    // 0.6));
     // SmartDashboard.putData("Move Spindexer -0.75", new MoveSpindexer(mSpindexer,
     // -0.5));
 
     // SmartDashboard.putData("Intake Out", new DeployIntake(mIntake, true));
     // SmartDashboard.putData("Intake In", new DeployIntake(mIntake, false));
+
+    // SmartDashboard.putData("Move Ejector 0.8", new MoveEjector(mEjector, 0.8));
+    // SmartDashboard.putData("Move Ejector -0.1", new MoveEjector(mEjector, -0.1));
+
+    // SmartDashboard.putData("Auto Intake", new AutoIntake(mIntake, mSpindexer,
+    // mEjector));
+    // SmartDashboard.putData("Auto Override", new AutoOverride(mIntake, mSpindexer,
+    // mEjector));
+    // SmartDashboard.putData("Auto Shoot", new AutoShoot(mSpindexer, mEjector));
 
     // Initialize the Controller
     controller = new mhController(0);
@@ -135,6 +150,11 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    // Controller Buttons
+    controllerAutoIntake = new JoystickButton(controller, 1);
+    controllerAutoIntake.whenPressed(new AutoIntake(mIntake, mSpindexer, mEjector));
 
+    controllerAutoOverride = new JoystickButton(controller, 2);
+    controllerAutoOverride.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
   }
 }

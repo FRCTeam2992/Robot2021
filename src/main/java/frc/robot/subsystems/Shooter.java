@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -30,6 +31,7 @@ public class Shooter extends SubsystemBase {
     leadShooter = new TalonSRX(12);
     leadShooter.setInverted(false);
     leadShooter.setNeutralMode(NeutralMode.Coast);
+    leadShooter.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
 
     followShooter = new VictorSPX(13);
     followShooter.setInverted(true);

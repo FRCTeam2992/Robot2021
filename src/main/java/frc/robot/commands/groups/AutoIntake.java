@@ -17,7 +17,7 @@ public class AutoIntake extends ParallelCommandGroup {
 
   public AutoIntake(Intake mIntake, Spindexer mSpindexer, Ejector mEjector) {
     // Add Commands
-    addCommands(new DeployIntake(mIntake, true), new MoveIntake(mIntake, .5), new MoveSpindexer(mSpindexer, .5),
-        new MoveEjector(mEjector, -.5));
+    addCommands(new DeployIntake(mIntake, true), new MoveIntake(mIntake, 1.0), new MoveSpindexer(mSpindexer, 0.4),
+        new MoveEjector(mEjector, -0.2));
   }
 }

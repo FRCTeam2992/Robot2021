@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.util.RollingAverage;
@@ -59,17 +58,32 @@ public class DriveSticks extends CommandBase {
     double x2 = averageX2.getAverage();
 
     // Check for Movement
-    if (Math.abs(x1) >= 0.1 || Math.abs(y1) >= 0.1 || Math.abs(x2) >= 0.1) {
+    if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
 
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();
 
       // Gyro Correction
-      if (x2 <= 0.1 && Constants.isGyroCorrected) {
+      if (Math.abs(x2) <= 0.05 && Constants.isGyroCorrected) {
         // Check for Recorded Value
         if (gyroTargetRecorded) {
+          // Get the Gyro Value
+          double tempGyroValue = gyroValue;
+
+          // Normalize the Target Angle (0 - 360)
+          if (gyroTarget < 0.0) {
+            gyroTarget += 360;
+          }
+
+          // Normalize the Gyro Angle (0 - 360)
+          if (tempGyroValue < 0.0) {
+            tempGyroValue += 360;
+          }
+
           // Calculate Correction Speed
-          x2 = (gyroTarget - gyroValue) * Constants.driveGyroP;
+          double gyroError = gyroTarget - tempGyroValue;
+
+          x2 = gyroError * Constants.driveGyroP;
         } else {
           // Record a Gyro Value
           gyroTarget = gyroValue;
@@ -101,8 +115,6 @@ public class DriveSticks extends CommandBase {
         frontRight.setDriveVelocity(swerveStates[2], swerveStates[3]);
         rearLeft.setDriveVelocity(swerveStates[4], swerveStates[5]);
         rearRight.setDriveVelocity(swerveStates[6], swerveStates[7]);
-
-        SmartDashboard.putNumber("Front Left Set Speed", swerveStates[0] * Constants.swerveMaxSpeed);
       } else {
         frontLeft.setDrive(swerveStates[0], swerveStates[1]);
         frontRight.setDrive(swerveStates[2], swerveStates[3]);

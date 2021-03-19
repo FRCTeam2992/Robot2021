@@ -53,8 +53,8 @@ public final class Constants {
     public static final double swerveMaxSpeed = 4.5; // (Meters per Second)
 
     // Max Path Following Drive Speeds
-    public static final double maxPathFollowingVelocity = 4.0; // (Meters per Second)
-    public static final double maxPathFollowingAcceleration = 3.0; // (Meters per Second Squared)
+    public static final double maxPathFollowingVelocity = 2.0; // (Meters per Second)
+    public static final double maxPathFollowingAcceleration = 1.0; // (Meters per Second Squared)
 
     // Max Path Following Turn Speeds
     public static final double maxThetaVelocity = 3.14; // (Radians per Second)
@@ -77,7 +77,7 @@ public final class Constants {
     public static final double rearRightOffset = 156.5;
 
     // Swerve Gyro Correction
-    public static final double driveGyroP = 0.0;
+    public static final double driveGyroP = 0.01;
 
     // Swerve Auto Aim
     public static final double driveAimP = 0.0;
