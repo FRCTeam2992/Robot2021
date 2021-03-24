@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drive.swerve.SwerveController;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
+import frc.lib.navx.BiasedNavx;
 import frc.lib.vision.LimeLight;
 import frc.robot.Constants;
 
@@ -70,7 +71,7 @@ public class DriveTrain extends SubsystemBase {
   public final SwerveController swerveController;
 
   // Robot Gyro
-  public AHRS navx;
+  public BiasedNavx navx;
 
   // Swerve Drive Kinematics
   public final SwerveDriveKinematics swerveDriveKinematics;
@@ -195,7 +196,7 @@ public class DriveTrain extends SubsystemBase {
     swerveController = new SwerveController(Constants.swerveLength, Constants.swerveWidth);
 
     // Robot Gyro
-    navx = new AHRS(SPI.Port.kMXP);
+    navx = new BiasedNavx(SPI.Port.kMXP);
 
     // Swerve Drive Kinematics
     swerveDriveKinematics = new SwerveDriveKinematics(Constants.frontLeftLocation, Constants.frontRightLocation,

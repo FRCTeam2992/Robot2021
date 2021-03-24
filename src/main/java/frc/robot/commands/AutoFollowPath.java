@@ -58,6 +58,17 @@ public class AutoFollowPath extends CommandBase {
     elapsedTimer = new Timer();
   }
 
+  /**
+   * Wrapper for constructor that adds a NavX Yaw gyro bias for a nonzero robot setup position
+   * @param theSubsystem
+   * @param theSwerveTrajectory
+   * @param gyroBias
+   */
+  public AutoFollowPath(DriveTrain theSubsystem, SwerveTrajectory theSwerveTrajectory, double gyroBias) {
+    this(theSubsystem, theSwerveTrajectory);
+    mDriveTrain.navx.setBias(gyroBias); // Set the gyrobias to account for starting orientation of this path
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
