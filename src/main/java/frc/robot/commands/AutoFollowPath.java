@@ -31,6 +31,9 @@ public class AutoFollowPath extends CommandBase {
   // Drive Controller Instance
   private HolonomicDriveController controller;
 
+  // Gyro heading bias
+  private double mGyroBias = 0.0;
+
   // Timer
   private Timer elapsedTimer;
 
@@ -66,7 +69,7 @@ public class AutoFollowPath extends CommandBase {
    */
   public AutoFollowPath(DriveTrain theSubsystem, SwerveTrajectory theSwerveTrajectory, double gyroBias) {
     this(theSubsystem, theSwerveTrajectory);
-    mDriveTrain.navx.setBias(gyroBias); // Set the gyrobias to account for starting orientation of this path
+    mGyroBias = gyroBias;
   }
 
   // Called when the command is initially scheduled.
@@ -76,6 +79,9 @@ public class AutoFollowPath extends CommandBase {
     Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
     mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(), Rotation2d
         .fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0, mDriveTrain.latestSwervePose.getTranslation()))));
+
+    // Set gyro bias to account for initial heading for this path
+    mDriveTrain.navx.setBias(mGyroBias); 
 
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
