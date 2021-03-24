@@ -90,7 +90,7 @@ public class SwerveTrajectoryGenerator {
     }
 
     public void addHeadingWaypoint(double seconds, double degrees) {
-        headingWaypoints.add(new TrajectoryAngleState(seconds, degrees));
+        headingWaypoints.add(new TrajectoryAngleState(seconds, -degrees));
     }
 
     public void addPivotHeadingWaypoint(double seconds, Translation2d pivotPosition, double robotAngle) {

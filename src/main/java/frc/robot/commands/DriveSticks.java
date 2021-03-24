@@ -81,7 +81,7 @@ public class DriveSticks extends CommandBase {
           }
 
           // Calculate Correction Speed
-          double gyroError = gyroTarget - tempGyroValue;
+          double gyroError = gyroTarget + tempGyroValue;
 
           x2 = gyroError * Constants.driveGyroP;
         } else {

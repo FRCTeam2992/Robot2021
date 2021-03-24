@@ -11,5 +11,8 @@ public class GalacticSearchBBlue extends SwerveTrajectoryGenerator {
 
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
+        addHeadingWaypoint(0.5, 45.0);
+        addHeadingWaypoint(1.5, -80.0);
+        addHeadingWaypoint(2.0, 45.0);
     }
 }
