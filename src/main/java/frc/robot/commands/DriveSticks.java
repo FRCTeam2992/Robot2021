@@ -57,6 +57,30 @@ public class DriveSticks extends CommandBase {
     double y1 = averageY1.getAverage();
     double x2 = averageX2.getAverage();
 
+    // Polar deadband
+    if ((x1*x1+y1*y1) < Constants.polarDeadband*Constants.polarDeadband) {
+      x1 = 0.0;
+      y1 = 0.0;
+    }
+    if (Math.abs(x2) < Constants.polarDeadband) {
+      x2 = 0.0;
+    }
+/*
+    // Joystick smoothing
+    double magnitude = Math.sqrt(x1*x1 + y1*y1);
+    double angle = Math.atan(y1/x1);
+    magnitude = Constants.joystickSmoothFactor * Math.pow(magnitude, 3.0) + (1-Constants.joystickSmoothFactor) * magnitude;
+    x1 = magnitude * Math.cos(angle);
+    y1 = magnitude * Math.sin(angle);
+*/
+    x1 = Constants.joystickSmoothFactor * Math.pow(x1, 3.0) + (1-Constants.joystickSmoothFactor) * x1;
+    y1 = Constants.joystickSmoothFactor * Math.pow(y1, 3.0) + (1-Constants.joystickSmoothFactor) * y1;
+    x2 = Constants.joystickSmoothFactor * Math.pow(x2, 3.0) + (1-Constants.joystickSmoothFactor) * x2;
+
+    x1 /= 2.0;
+    y1 /= 2.0;
+    x2 /= 2.0;
+
     // Check for Movement
     if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
 
@@ -70,18 +94,28 @@ public class DriveSticks extends CommandBase {
           // Get the Gyro Value
           double tempGyroValue = gyroValue;
 
-          // Normalize the Target Angle (0 - 360)
-          if (gyroTarget < 0.0) {
-            gyroTarget += 360;
+          // Normalize the Target Angle (-180 - 180)
+          if (gyroTarget < -180.0) {
+            gyroTarget += 360.0;
+          } else if (gyroTarget > 180) {
+            gyroTarget -= 360.0;
           }
 
-          // Normalize the Gyro Angle (0 - 360)
-          if (tempGyroValue < 0.0) {
+          // Normalize the Gyro Angle (-180 - 180)
+          if (tempGyroValue > 180.0) {
+            tempGyroValue -= 360;
+          } else if (tempGyroValue < -180) {
             tempGyroValue += 360;
           }
 
           // Calculate Correction Speed
           double gyroError = gyroTarget + tempGyroValue;
+          if (gyroError > 180.0) {
+            gyroError -= 360.0;
+          } else if (gyroError < -180.0) {
+            gyroError += 360.0;
+          }
+    
 
           x2 = gyroError * Constants.driveGyroP;
         } else {

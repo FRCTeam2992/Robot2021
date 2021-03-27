@@ -44,6 +44,8 @@ public final class Constants {
     public static boolean isFieldCentric = true;
     public static boolean isVelocityControlled = true;
     public static boolean isGyroCorrected = false;
+    public static double polarDeadband = 0.05;
+    public static double joystickSmoothFactor = 1.0;    // output = factor * input^3 + (1-factor)*input
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;
@@ -58,7 +60,7 @@ public final class Constants {
 
     // Max Path Following Turn Speeds
     public static final double maxThetaVelocity = 6.0; // (Radians per Second)
-    public static final double maxThetaAcceleration = 3.14; // (Radians per Second Squared)
+    public static final double maxThetaAcceleration = 6.0; // (Radians per Second Squared)
 
     // Swerve Module Translations
     public static final Translation2d frontLeftLocation = new Translation2d(0.31115, 0.2794);
