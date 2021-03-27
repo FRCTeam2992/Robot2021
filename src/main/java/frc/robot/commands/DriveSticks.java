@@ -51,7 +51,7 @@ public class DriveSticks extends CommandBase {
     // Joystick Inputs (x1 = Strafe, y1 = Speed, x2 = Rotation)
     averageX1.add(-Robot.mRobotContainer.controller.getX(Hand.kLeft));
     averageY1.add(-Robot.mRobotContainer.controller.getY(Hand.kLeft));
-    averageX2.add(-Robot.mRobotContainer.controller.getRawAxis(4) * (2.0 / 3.0));
+    averageX2.add(-Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0));
 
     double x1 = averageX1.getAverage();
     double y1 = averageY1.getAverage();

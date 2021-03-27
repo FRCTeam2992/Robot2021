@@ -1,6 +1,7 @@
 package frc.lib.drive.swerve.trajectory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -93,8 +94,8 @@ public class SwerveTrajectoryGenerator {
         headingWaypoints.add(new TrajectoryAngleState(seconds, -degrees));
     }
 
-    public void addPivotHeadingWaypoint(double seconds, Translation2d pivotPosition, double robotAngle) {
-        headingWaypoints.add(new TrajectoryAngleState(seconds, pivotPosition, robotAngle));
+    public void addTimedHeadingWaypoint(double startTime, double endTime, double degrees) {
+        headingWaypoints.add(new TrajectoryAngleState(startTime, endTime, -degrees));
     }
 
     public void setTrajectory(Trajectory trajectory) {
@@ -115,6 +116,45 @@ public class SwerveTrajectoryGenerator {
             trajectory = TrajectoryGenerator.generateTrajectory(startPose, interiorWaypoints, endPose, config);
         }
 
-        return new SwerveTrajectory(trajectory, headingWaypoints);
+        Collections.sort(headingWaypoints);
+
+        List<TrajectoryAngleState> tempHeadingList = new ArrayList<>();
+
+        for (TrajectoryAngleState tempState : headingWaypoints) {
+            if (tempState.getEndTime() > 0.0) {
+                double stepTime = 0.0;
+
+                double lastAngle = tempHeadingList.get(tempHeadingList.size() - 1).getAngle();
+                double stateAngle = tempState.getAngle();
+
+                double angleChange = stateAngle - lastAngle;
+
+                if (angleChange > 180.0) {
+                    angleChange -= 360.0;
+                } else if (angleChange < -180.0) {
+                    angleChange += 360.0;
+                }
+
+                double angleSteps = angleChange / (tempState.getEndTime() - tempState.getTime());
+
+                while (stepTime <= (tempState.getEndTime() - tempState.getTime())) {
+                    double tempAngle = lastAngle + (angleSteps * stepTime);
+
+                    if (tempAngle > 180.0) {
+                        tempAngle -= 360.0;
+                    } else if (tempAngle < -180.0) {
+                        tempAngle += 360.0;
+                    }
+
+                    tempHeadingList.add(new TrajectoryAngleState(tempState.getTime() + stepTime, tempAngle));
+
+                    stepTime += 0.02;
+                }
+            } else {
+                tempHeadingList.add(tempState);
+            }
+        }
+
+        return new SwerveTrajectory(trajectory, tempHeadingList);
     }
 }

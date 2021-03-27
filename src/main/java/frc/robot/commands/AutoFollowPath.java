@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -47,12 +48,15 @@ public class AutoFollowPath extends CommandBase {
     // Get the Trajectory
     mTrajectory = mSwerveyTrajectory.getTrajectory();
 
+    ProfiledPIDController thetaController = new ProfiledPIDController(Constants.thetaCorrectionP,
+        Constants.thetaCorrectionI, Constants.thetaCorrectionD,
+        new TrapezoidProfile.Constraints(Constants.maxThetaVelocity, Constants.maxThetaAcceleration));
+
+    thetaController.enableContinuousInput(-180.0, 180.0);
     // Initialize the Drive Controller
     controller = new HolonomicDriveController(
         new PIDController(Constants.xCorrectionP, Constants.xCorrectionI, Constants.xCorrectionD),
-        new PIDController(Constants.yCorrectionP, Constants.yCorrectionI, Constants.yCorrectionD),
-        new ProfiledPIDController(Constants.thetaCorrectionP, Constants.thetaCorrectionI, Constants.thetaCorrectionD,
-            new TrapezoidProfile.Constraints(Constants.maxThetaVelocity, Constants.maxThetaAcceleration)));
+        new PIDController(Constants.yCorrectionP, Constants.yCorrectionI, Constants.yCorrectionD), thetaController);
 
     // Timer
     elapsedTimer = new Timer();
@@ -63,8 +67,13 @@ public class AutoFollowPath extends CommandBase {
   public void initialize() {
     // Set the Swerve Odometry Position to the Trajectory Start Position
     Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
-    mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(), Rotation2d
-        .fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0, mDriveTrain.latestSwervePose.getTranslation()))));
+    mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(),
+        Rotation2d.fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0))));
+
+    Transform2d transform = new Pose2d(mTrajectory.getInitialPose().getTranslation(), Rotation2d.fromDegrees(-90.0))
+        .minus(mTrajectory.getInitialPose());
+
+    mTrajectory = mTrajectory.transformBy(transform);
 
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
@@ -81,7 +90,7 @@ public class AutoFollowPath extends CommandBase {
     Trajectory.State latestState = mTrajectory.sample(currentTime);
 
     // Get the Desired Heading
-    double heading = mSwerveyTrajectory.getDesiredHeading(currentTime, mDriveTrain.latestSwervePose.getTranslation());
+    double heading = mSwerveyTrajectory.getDesiredHeading(currentTime);
 
     // Get the Ajusted Speeds
     ChassisSpeeds adjustSpeeds = controller.calculate(mDriveTrain.latestSwervePose, latestState,

@@ -1,13 +1,11 @@
 package frc.lib.drive.swerve.trajectory;
 
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-
 public class TrajectoryAngleState implements Comparable<TrajectoryAngleState> {
 
     // Variables
     private double time;
+    private double endTime = 0.0;
     private double angle;
-    private Translation2d pivot;
 
     public TrajectoryAngleState(double seconds, double degrees) {
         // Save the Variables
@@ -15,11 +13,11 @@ public class TrajectoryAngleState implements Comparable<TrajectoryAngleState> {
         angle = degrees;
     }
 
-    public TrajectoryAngleState(double seconds, Translation2d pivotPosition, double robotAngle) {
+    public TrajectoryAngleState(double startTime, double endTime, double degrees) {
         // Save the Variables
-        time = seconds;
-        angle = robotAngle;
-        pivot = pivotPosition;
+        time = startTime;
+        this.endTime = endTime;
+        angle = degrees;
     }
 
     public TrajectoryAngleState() {
@@ -42,12 +40,12 @@ public class TrajectoryAngleState implements Comparable<TrajectoryAngleState> {
         return angle;
     }
 
-    public void setPivot(Translation2d pivotPosition) {
-        this.pivot = pivotPosition;
+    public void setEndTime(double seconds) {
+        endTime = seconds;
     }
 
-    public Translation2d getPivot() {
-        return pivot;
+    public double getEndTime() {
+        return endTime;
     }
 
     @Override

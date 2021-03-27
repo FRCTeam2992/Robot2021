@@ -11,6 +11,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.HomeAdjustableHood;
@@ -121,6 +123,9 @@ public class Robot extends TimedRobot {
 
     // Reset the Odometry
     mRobotContainer.mDriveTrain.resetOdometry();
+    // mRobotContainer.mDriveTrain
+    //     .setOdometryPosition(new Pose2d(mRobotContainer.mDriveTrain.SlalomTrajectory.getInitialPose().getX(),
+    //         mRobotContainer.mDriveTrain.SlalomTrajectory.getInitialPose().getY(), Rotation2d.fromDegrees(90.0)));
 
     // Home the Ajustable Hood
     runHoodHome();
