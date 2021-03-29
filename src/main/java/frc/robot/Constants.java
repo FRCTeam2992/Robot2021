@@ -45,8 +45,8 @@ public final class Constants {
     public static final boolean isVelocityControlled = true;
     public static final boolean isGyroCorrected = true;
     public static final double joystickDeadband = 0.05;
-    public static final double joystickXYSmoothFactor = 1.0;
-    public static final double joystickRotationSmoothFactor = 0.5;
+    public static double joystickXYSmoothFactor = 1.0;
+    public static double joystickRotationSmoothFactor = 0.5;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;

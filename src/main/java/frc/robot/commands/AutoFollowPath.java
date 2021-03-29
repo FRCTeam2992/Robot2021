@@ -54,8 +54,8 @@ public class AutoFollowPath extends CommandBase {
         Constants.thetaCorrectionI, Constants.thetaCorrectionD,
         new TrapezoidProfile.Constraints(Constants.maxThetaVelocity, Constants.maxThetaAcceleration));
 
-    // Enable Wrapping on the Theta Controller
-    thetaController.enableContinuousInput(-180.0, 180.0);
+    // Enable Wrapping on the Theta Controller (Radians)
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     // Initialize the Drive Controller
     controller = new HolonomicDriveController(

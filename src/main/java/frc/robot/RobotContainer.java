@@ -47,6 +47,7 @@ public class RobotContainer {
   // Controller Buttons
   JoystickButton controllerAutoIntake;
   JoystickButton controllerAutoOverride;
+  JoystickButton controllerGyroReset;
 
   public RobotContainer() {
 
@@ -142,6 +143,10 @@ public class RobotContainer {
     // Setup the Autonomous Selector
     setupAutoSelector();
 
+    // Display the Joystick Smooth Factors
+    SmartDashboard.putNumber("xySmoothFactor", Constants.joystickXYSmoothFactor);
+    SmartDashboard.putNumber("rotationSmoothFactor", Constants.joystickRotationSmoothFactor);
+
     // Initialize the Controller
     controller = new mhController(0);
 
@@ -156,6 +161,9 @@ public class RobotContainer {
 
     controllerAutoOverride = new JoystickButton(controller, 2);
     controllerAutoOverride.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
+
+    controllerGyroReset = new JoystickButton(controller, 9);
+    controllerGyroReset.whenPressed(new ResetGyro(mDriveTrain));
   }
 
   private void setupAutoSelector() {
