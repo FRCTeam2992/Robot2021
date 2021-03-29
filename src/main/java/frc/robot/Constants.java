@@ -43,9 +43,9 @@ public final class Constants {
     // Drive Variables
     public static boolean isFieldCentric = true;
     public static boolean isVelocityControlled = true;
-    public static boolean isGyroCorrected = false;
+    public static boolean isGyroCorrected = true;
     public static double polarDeadband = 0.05;
-    public static double joystickSmoothFactor = 1.0;    // output = factor * input^3 + (1-factor)*input
+    public static double joystickSmoothFactor = 1.0;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
     public static final double swerveWidth = 0.5588;
@@ -73,13 +73,13 @@ public final class Constants {
     public static final double driveWheelDiameter = 0.1016;
 
     // Analog Encoder Offsets (Degrees) - Opposite of Reading - Bevel Gear to Right
-    public static final double frontLeftOffset = -23.1;
-    public static final double frontRightOffset = 169.4;
-    public static final double rearLeftOffset = 62.2;
-    public static final double rearRightOffset = 156.5;
+    public static final double frontLeftOffset = -22.7; // -23.1
+    public static final double frontRightOffset = 169.2; // 169.4
+    public static final double rearLeftOffset = 65.8; // 62.2
+    public static final double rearRightOffset = 156.2; // 156.5
 
     // Swerve Gyro Correction
-    public static final double driveGyroP = 0.01;
+    public static final double driveGyroP = 0.005;
 
     // Swerve Auto Aim
     public static final double driveAimP = 0.0;

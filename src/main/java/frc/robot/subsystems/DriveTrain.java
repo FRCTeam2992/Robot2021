@@ -98,7 +98,8 @@ public class DriveTrain extends SubsystemBase {
     frontLeftDrive = new TalonFX(1);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.setNeutralMode(NeutralMode.Coast);
-    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
+    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
+    frontLeftDrive.configOpenloopRamp(0.25);
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
@@ -108,7 +109,8 @@ public class DriveTrain extends SubsystemBase {
     frontRightDrive = new TalonFX(3);
     frontRightDrive.setInverted(false);
     frontRightDrive.setNeutralMode(NeutralMode.Coast);
-    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
+    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
+    frontLeftDrive.configOpenloopRamp(0.25);
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
@@ -118,7 +120,8 @@ public class DriveTrain extends SubsystemBase {
     rearLeftDrive = new TalonFX(5);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.setNeutralMode(NeutralMode.Coast);
-    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
+    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
+    frontLeftDrive.configOpenloopRamp(0.25);
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
@@ -128,7 +131,8 @@ public class DriveTrain extends SubsystemBase {
     rearRightDrive = new TalonFX(7);
     rearRightDrive.setInverted(false);
     rearRightDrive.setNeutralMode(NeutralMode.Coast);
-    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
+    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
+    frontLeftDrive.configOpenloopRamp(0.25);
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
@@ -215,14 +219,10 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    // SmartDashboard.putNumber("Front Left Module Angle",
-    // frontLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Front Right Module Angle",
-    // frontRightModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Left Module Angle",
-    // rearLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Right Module Angle",
-    // rearRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Left Module Velocity",

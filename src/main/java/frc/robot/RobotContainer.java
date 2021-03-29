@@ -16,7 +16,6 @@ import frc.robot.commands.*;
 import frc.robot.commands.autos.GalacticSearchSelector;
 import frc.robot.commands.groups.AutoIntake;
 import frc.robot.commands.groups.AutoOverride;
-import frc.robot.commands.groups.AutoShoot;
 import frc.robot.paths.BarrelPath;
 import frc.robot.paths.BouncePath;
 import frc.robot.paths.SlalomPath;

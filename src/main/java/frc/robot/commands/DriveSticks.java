@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
-import frc.lib.util.RollingAverage;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
@@ -16,11 +15,6 @@ public class DriveSticks extends CommandBase {
 
   // Subsystem Instance
   private DriveTrain mDriveTrain;
-
-  // Joystick Rolling Averages
-  private RollingAverage averageX1;
-  private RollingAverage averageY1;
-  private RollingAverage averageX2;
 
   // Command States
   private double gyroTarget;
@@ -32,11 +26,6 @@ public class DriveSticks extends CommandBase {
 
     // Set the Subsystem Requirement
     addRequirements(mDriveTrain);
-
-    // Joystick Rolling Averages
-    averageX1 = new RollingAverage(5);
-    averageY1 = new RollingAverage(5);
-    averageX2 = new RollingAverage(5);
   }
 
   // Called when the command is initially scheduled./
@@ -49,37 +38,30 @@ public class DriveSticks extends CommandBase {
   @Override
   public void execute() {
     // Joystick Inputs (x1 = Strafe, y1 = Speed, x2 = Rotation)
-    averageX1.add(-Robot.mRobotContainer.controller.getX(Hand.kLeft));
-    averageY1.add(-Robot.mRobotContainer.controller.getY(Hand.kLeft));
-    averageX2.add(-Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0));
-
-    double x1 = averageX1.getAverage();
-    double y1 = averageY1.getAverage();
-    double x2 = averageX2.getAverage();
+    double x1 = -Robot.mRobotContainer.controller.getX(Hand.kLeft);
+    double y1 = -Robot.mRobotContainer.controller.getY(Hand.kLeft);
+    double x2 = -Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0);
 
     // Polar deadband
-    if ((x1*x1+y1*y1) < Constants.polarDeadband*Constants.polarDeadband) {
+    if ((x1 * x1 + y1 * y1) < Constants.polarDeadband * Constants.polarDeadband) {
       x1 = 0.0;
       y1 = 0.0;
     }
+
     if (Math.abs(x2) < Constants.polarDeadband) {
       x2 = 0.0;
     }
-/*
-    // Joystick smoothing
-    double magnitude = Math.sqrt(x1*x1 + y1*y1);
-    double angle = Math.atan(y1/x1);
-    magnitude = Constants.joystickSmoothFactor * Math.pow(magnitude, 3.0) + (1-Constants.joystickSmoothFactor) * magnitude;
-    x1 = magnitude * Math.cos(angle);
-    y1 = magnitude * Math.sin(angle);
-*/
-    x1 = Constants.joystickSmoothFactor * Math.pow(x1, 3.0) + (1-Constants.joystickSmoothFactor) * x1;
-    y1 = Constants.joystickSmoothFactor * Math.pow(y1, 3.0) + (1-Constants.joystickSmoothFactor) * y1;
-    x2 = Constants.joystickSmoothFactor * Math.pow(x2, 3.0) + (1-Constants.joystickSmoothFactor) * x2;
 
-    x1 /= 2.0;
-    y1 /= 2.0;
-    x2 /= 2.0;
+    /*
+     * // Joystick smoothing double magnitude = Math.sqrt(x1*x1 + y1*y1); double
+     * angle = Math.atan(y1/x1); magnitude = Constants.joystickSmoothFactor *
+     * Math.pow(magnitude, 3.0) + (1-Constants.joystickSmoothFactor) * magnitude; x1
+     * = magnitude * Math.cos(angle); y1 = magnitude * Math.sin(angle);
+     */
+
+    x1 = Constants.joystickSmoothFactor * Math.pow(x1, 3.0) + (1 - Constants.joystickSmoothFactor) * x1;
+    y1 = Constants.joystickSmoothFactor * Math.pow(y1, 3.0) + (1 - Constants.joystickSmoothFactor) * y1;
+    x2 = Constants.joystickSmoothFactor * Math.pow(x2, 3.0) + (1 - Constants.joystickSmoothFactor) * x2;
 
     // Check for Movement
     if (Math.abs(x1) >= 0.05 || Math.abs(y1) >= 0.05 || Math.abs(x2) >= 0.05) {
@@ -108,19 +90,21 @@ public class DriveSticks extends CommandBase {
             tempGyroValue += 360;
           }
 
-          // Calculate Correction Speed
+          // Get the Gyro Error
           double gyroError = gyroTarget + tempGyroValue;
+
+          // Normalize the Gyro Error (-180 - 180)
           if (gyroError > 180.0) {
             gyroError -= 360.0;
           } else if (gyroError < -180.0) {
             gyroError += 360.0;
           }
-    
 
+          // Calculate Correction Speed
           x2 = gyroError * Constants.driveGyroP;
         } else {
           // Record a Gyro Value
-          gyroTarget = gyroValue;
+          gyroTarget = -gyroValue;
           gyroTargetRecorded = true;
         }
       } else {
