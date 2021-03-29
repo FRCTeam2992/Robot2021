@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -97,47 +96,39 @@ public class DriveTrain extends SubsystemBase {
     // Drive Motors
     frontLeftDrive = new TalonFX(1);
     frontLeftDrive.setInverted(false);
-    frontLeftDrive.setNeutralMode(NeutralMode.Coast);
-    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
-    frontLeftDrive.configOpenloopRamp(0.25);
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
-    frontLeftTurn.setIdleMode(IdleMode.kCoast);
     frontLeftTurn.setSmartCurrentLimit(30);
 
     frontRightDrive = new TalonFX(3);
     frontRightDrive.setInverted(false);
-    frontRightDrive.setNeutralMode(NeutralMode.Coast);
-    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
-    frontLeftDrive.configOpenloopRamp(0.25);
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
-    frontRightTurn.setIdleMode(IdleMode.kCoast);
     frontRightTurn.setSmartCurrentLimit(30);
 
     rearLeftDrive = new TalonFX(5);
     rearLeftDrive.setInverted(false);
-    rearLeftDrive.setNeutralMode(NeutralMode.Coast);
-    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
-    frontLeftDrive.configOpenloopRamp(0.25);
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
-    rearLeftTurn.setIdleMode(IdleMode.kCoast);
     rearLeftTurn.setSmartCurrentLimit(30);
 
     rearRightDrive = new TalonFX(7);
     rearRightDrive.setInverted(false);
-    rearRightDrive.setNeutralMode(NeutralMode.Coast);
-    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 40, 0));
-    frontLeftDrive.configOpenloopRamp(0.25);
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
-    rearRightTurn.setIdleMode(IdleMode.kCoast);
     rearRightTurn.setSmartCurrentLimit(30);
+
+    // Config the Drive Motors
+    setDriveNeutralMode(NeutralMode.Coast);
+    setDriveCurrentLimit(60.0);
+    setDriveRampRate(0.0);
+
+    // Config the Turn Motors
+    setTurnIdleMode(IdleMode.kCoast);
 
     // Drive Encoders
     frontLeftEncoder = new AnalogInput(0);
@@ -264,6 +255,27 @@ public class DriveTrain extends SubsystemBase {
     frontRightDrive.setNeutralMode(mode);
     rearLeftDrive.setNeutralMode(mode);
     rearRightDrive.setNeutralMode(mode);
+  }
+
+  public void setDriveCurrentLimit(double current) {
+    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, current, current, 0));
+    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, current, current, 0));
+    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, current, current, 0));
+    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, current, current, 0));
+  }
+
+  public void setDriveRampRate(double seconds) {
+    // Open Loop Ramp
+    frontLeftDrive.configOpenloopRamp(seconds);
+    frontRightDrive.configOpenloopRamp(seconds);
+    rearLeftDrive.configOpenloopRamp(seconds);
+    rearRightDrive.configOpenloopRamp(seconds);
+
+    // Closed Loop Ramp
+    frontLeftDrive.configClosedloopRamp(seconds);
+    frontRightDrive.configClosedloopRamp(seconds);
+    rearLeftDrive.configClosedloopRamp(seconds);
+    rearRightDrive.configClosedloopRamp(seconds);
   }
 
   public void stopDrive() {

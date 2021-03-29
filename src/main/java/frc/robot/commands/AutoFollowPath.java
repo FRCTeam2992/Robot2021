@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -81,6 +82,9 @@ public class AutoFollowPath extends CommandBase {
     // Set the Odometry Position to the Trajectory Start Position
     mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(),
         Rotation2d.fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0))));
+
+    // Diaplay the Total Trajectory Time
+    SmartDashboard.putNumber("Auto Time", mTrajectory.getTotalTimeSeconds());
 
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();

@@ -82,6 +82,12 @@ public class Robot extends TimedRobot {
     mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
+    // Set the Drive Motors Current Limit
+    mRobotContainer.mDriveTrain.setDriveCurrentLimit(60.0);
+
+    // Set the Drive Motors Ramp Rate
+    mRobotContainer.mDriveTrain.setDriveRampRate(0.0);
+
     // Reset the Gyro
     mRobotContainer.mDriveTrain.navx.zeroYaw();
 
@@ -115,6 +121,12 @@ public class Robot extends TimedRobot {
     // Set the Drive Train to Brake
     mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
+
+    // Set the Drive Motors Current Limit
+    mRobotContainer.mDriveTrain.setDriveCurrentLimit(40.0);
+
+    // Set the Drive Motors Ramp Rate
+    mRobotContainer.mDriveTrain.setDriveRampRate(0.25);
 
     // Reset the Gyro
     mRobotContainer.mDriveTrain.navx.zeroYaw();

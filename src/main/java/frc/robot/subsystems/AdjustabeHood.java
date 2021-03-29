@@ -26,6 +26,9 @@ public class AdjustabeHood extends SubsystemBase {
   // Homed State
   public boolean isHomed = false;
 
+  // Adjustable Hood Dashboard Update Counter
+  private int dashboardCounter = 0;
+
   public AdjustabeHood() {
     // Adjustables Hood Motors
     hoodMotor = new CANSparkMax(14, MotorType.kBrushless);
@@ -45,9 +48,15 @@ public class AdjustabeHood extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Display Hood Position
-    SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
-    SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
+    // Display Hood Position and Limit Switch State
+    if (dashboardCounter >= 4) {
+      SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
+      SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
+
+      dashboardCounter = 0;
+    } else {
+      dashboardCounter++;
+    }
   }
 
   public void setAdjustableShooterHoodSpeed(double speed) {
