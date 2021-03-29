@@ -26,6 +26,9 @@ public class Shooter extends SubsystemBase {
   // Shooter Set Speed
   public int shooterSetSpeed = Constants.defaultShooterSpeed;
 
+  // Shooter Dashboard Update Counter
+  private int dashboardCounter = 0;
+
   public Shooter() {
     // Shooter Motors
     leadShooter = new TalonSRX(12);
@@ -41,8 +44,14 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // Display the Shooter Set Speed and Current RPM
-    SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
-    SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
+    if (dashboardCounter >= 4) {
+      SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
+      SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
+
+      dashboardCounter = 0;
+    } else {
+      dashboardCounter++;
+    }
   }
 
   public void setShooterSpeed(double speed) {

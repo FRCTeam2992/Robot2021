@@ -15,6 +15,7 @@ public class SwerveTrajectoryGenerator {
     // Trajectory Settings
     private double maxVelocity;
     private double maxAcceleration;
+    private double startRotation = 0.0;
 
     // Waypoints
     private Pose2d startPose;
@@ -86,6 +87,14 @@ public class SwerveTrajectoryGenerator {
         return maxAcceleration;
     }
 
+    public void setStartRotation(double degrees) {
+        startRotation = degrees;
+    }
+
+    public double getStartRotation() {
+        return startRotation;
+    }
+
     public void addWaypoint(double x, double y) {
         interiorWaypoints.add(new Translation2d(x, y));
     }
@@ -116,45 +125,60 @@ public class SwerveTrajectoryGenerator {
             trajectory = TrajectoryGenerator.generateTrajectory(startPose, interiorWaypoints, endPose, config);
         }
 
+        // Sort the Heading Waypoints
         Collections.sort(headingWaypoints);
 
+        // Create a Temporary Heading List
         List<TrajectoryAngleState> tempHeadingList = new ArrayList<>();
 
+        // Process Each Heading
         for (TrajectoryAngleState tempState : headingWaypoints) {
+            // Check for End Time
             if (tempState.getEndTime() > 0.0) {
+                // Step Time State
                 double stepTime = 0.0;
 
+                // Get the Last Set Angle and the Target Set Angle
                 double lastAngle = tempHeadingList.get(tempHeadingList.size() - 1).getAngle();
-                double stateAngle = tempState.getAngle();
+                double targetAngle = tempState.getAngle();
 
-                double angleChange = stateAngle - lastAngle;
+                // Get the Angle Change
+                double deltaAngle = targetAngle - lastAngle;
 
-                if (angleChange > 180.0) {
-                    angleChange -= 360.0;
-                } else if (angleChange < -180.0) {
-                    angleChange += 360.0;
+                // Normalize the Delta Angle (-180 - 180)
+                if (deltaAngle > 180.0) {
+                    deltaAngle -= 360.0;
+                } else if (deltaAngle < -180.0) {
+                    deltaAngle += 360.0;
                 }
 
-                double angleSteps = angleChange / (tempState.getEndTime() - tempState.getTime());
+                // Get the Angle Steps per Second
+                double angleSteps = deltaAngle / (tempState.getEndTime() - tempState.getTime());
 
+                // Interpolate the Angle for every 20 Milliseconds
                 while (stepTime <= (tempState.getEndTime() - tempState.getTime())) {
+                    // Caculate the Step Target Angle
                     double tempAngle = lastAngle + (angleSteps * stepTime);
 
+                    // Normalize the Step Target Angle (-180 - 180)
                     if (tempAngle > 180.0) {
                         tempAngle -= 360.0;
                     } else if (tempAngle < -180.0) {
                         tempAngle += 360.0;
                     }
 
+                    // Add the Step Target Angle to the Heading List
                     tempHeadingList.add(new TrajectoryAngleState(tempState.getTime() + stepTime, tempAngle));
 
+                    // Increase the Step Time State
                     stepTime += 0.02;
                 }
             } else {
+                // Add the Angle State to the Heading List
                 tempHeadingList.add(tempState);
             }
         }
 
-        return new SwerveTrajectory(trajectory, tempHeadingList);
+        return new SwerveTrajectory(trajectory, tempHeadingList, startRotation);
     }
 }

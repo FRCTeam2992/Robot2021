@@ -42,7 +42,7 @@ public class DriveSticks extends CommandBase {
     double y1 = -Robot.mRobotContainer.controller.getY(Hand.kLeft);
     double x2 = -Robot.mRobotContainer.controller.smoothGetRaw(4) * (2.0 / 3.0);
 
-    // Polar deadband
+    // Polar Deadband
     if ((x1 * x1 + y1 * y1) < Constants.polarDeadband * Constants.polarDeadband) {
       x1 = 0.0;
       y1 = 0.0;
@@ -115,6 +115,7 @@ public class DriveSticks extends CommandBase {
       // Calculate the Swerve States
       double[] swerveStates;
 
+      // Check for Field Centric Enabled
       if (Constants.isFieldCentric) {
         swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2, gyroValue);
       } else {

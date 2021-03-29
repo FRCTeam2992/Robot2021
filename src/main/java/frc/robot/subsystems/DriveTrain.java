@@ -219,10 +219,14 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Left Module Angle",
+    // frontLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Right Module Angle",
+    // frontRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Left Module Angle",
+    // rearLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Right Module Angle",
+    // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Left Module Velocity",
@@ -242,9 +246,10 @@ public class DriveTrain extends SubsystemBase {
         frontRightModule.getState(), rearLeftModule.getState(), rearRightModule.getState());
 
     // Display Odometry
-    SmartDashboard.putNumber("Odometry Rotation", latestSwervePose.getRotation().getDegrees());
-    SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
-    SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
+    // SmartDashboard.putNumber("Odometry Rotation",
+    // latestSwervePose.getRotation().getDegrees());
+    // SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
+    // SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
   }
 
   public void setTurnIdleMode(IdleMode mode) {

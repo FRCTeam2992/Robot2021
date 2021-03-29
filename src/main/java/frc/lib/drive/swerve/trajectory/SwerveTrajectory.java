@@ -11,18 +11,24 @@ public class SwerveTrajectory {
     // Variables
     private Trajectory trajectory;
     private List<TrajectoryAngleState> headingWaypoints;
+    private double startRotation;
 
-    public SwerveTrajectory(Trajectory trajectory, List<TrajectoryAngleState> headingWaypoints) {
+    public SwerveTrajectory(Trajectory trajectory, List<TrajectoryAngleState> headingWaypoints, double startRotation) {
         // Save the Variables
         this.trajectory = trajectory;
         this.headingWaypoints = headingWaypoints;
+        this.startRotation = startRotation;
 
         // Sort the Heading Waypoint List
         Collections.sort(headingWaypoints);
     }
 
+    public SwerveTrajectory(Trajectory trajectory, List<TrajectoryAngleState> headingWaypoints) {
+        this(trajectory, headingWaypoints, 0.0);
+    }
+
     public SwerveTrajectory() {
-        this(new Trajectory(), new ArrayList<TrajectoryAngleState>());
+        this(new Trajectory(), new ArrayList<TrajectoryAngleState>(), 0.0);
     }
 
     public void setTrajectory(Trajectory trajectory) {
@@ -42,6 +48,14 @@ public class SwerveTrajectory {
 
     public List<TrajectoryAngleState> getHeadingWavpoints() {
         return headingWaypoints;
+    }
+
+    public void setStartRotation(double degrees) {
+        startRotation = degrees;
+    }
+
+    public double getStartRotation() {
+        return startRotation;
     }
 
     public double getDesiredHeading(double time) {

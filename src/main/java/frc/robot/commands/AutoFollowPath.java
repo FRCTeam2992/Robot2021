@@ -48,11 +48,14 @@ public class AutoFollowPath extends CommandBase {
     // Get the Trajectory
     mTrajectory = mSwerveyTrajectory.getTrajectory();
 
+    // Create the Theta Controller
     ProfiledPIDController thetaController = new ProfiledPIDController(Constants.thetaCorrectionP,
         Constants.thetaCorrectionI, Constants.thetaCorrectionD,
         new TrapezoidProfile.Constraints(Constants.maxThetaVelocity, Constants.maxThetaAcceleration));
 
+    // Enable Wrapping on the Theta Controller
     thetaController.enableContinuousInput(-180.0, 180.0);
+
     // Initialize the Drive Controller
     controller = new HolonomicDriveController(
         new PIDController(Constants.xCorrectionP, Constants.xCorrectionI, Constants.xCorrectionD),
@@ -65,15 +68,19 @@ public class AutoFollowPath extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Set the Swerve Odometry Position to the Trajectory Start Position
+    // Get the Trajectory Start Pose
     Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
+
+    // Get the Transform for the Starting Rotation
+    Transform2d transform = new Pose2d(mTrajectory.getInitialPose().getTranslation(),
+        Rotation2d.fromDegrees(mSwerveyTrajectory.getStartRotation())).minus(mTrajectory.getInitialPose());
+
+    // Rotate the Trajectory
+    mTrajectory = mTrajectory.transformBy(transform);
+
+    // Set the Odometry Position to the Trajectory Start Position
     mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(),
         Rotation2d.fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0))));
-
-    Transform2d transform = new Pose2d(mTrajectory.getInitialPose().getTranslation(), Rotation2d.fromDegrees(-90.0))
-        .minus(mTrajectory.getInitialPose());
-
-    mTrajectory = mTrajectory.transformBy(transform);
 
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
