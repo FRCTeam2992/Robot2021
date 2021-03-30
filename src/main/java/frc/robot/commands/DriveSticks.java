@@ -40,9 +40,9 @@ public class DriveSticks extends CommandBase {
   @Override
   public void execute() {
     // Joystick Inputs (x1 = Strafe, y1 = Speed, x2 = Rotation)
-    double x1 = -Robot.mRobotContainer.controller.getX(Hand.kLeft);
-    double y1 = -Robot.mRobotContainer.controller.getY(Hand.kLeft);
-    double x2 = -Robot.mRobotContainer.controller.smoothGetRaw(4);
+    double x1 = -Robot.mRobotContainer.controller1.getX(Hand.kLeft);
+    double y1 = -Robot.mRobotContainer.controller1.getY(Hand.kLeft);
+    double x2 = -Robot.mRobotContainer.controller1.smoothGetRaw(4);
 
     // Get the Joystick Magnitude
     double xyMagnitude = Math.sqrt((x1 * x1) + (y1 * y1));
@@ -83,7 +83,7 @@ public class DriveSticks extends CommandBase {
       x2 *= (2.0 / 3.0);
 
       // Check for Slow Mode
-      if (Robot.mRobotContainer.controller.getTriggerAxis(Hand.kLeft) >= 0.2) {
+      if (Robot.mRobotContainer.slowModeButton.get()) {
         x1 /= 2.0;
         y1 /= 2.0;
         x2 /= 2.0;
@@ -93,7 +93,7 @@ public class DriveSticks extends CommandBase {
       double gyroValue = mDriveTrain.navx.getYaw();
 
       // Gyro Correction
-      if (Math.abs(x2) <= 0.05 && Constants.isGyroCorrected) {
+      if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {
 
         // Check for Recorded Value
         if (gyroTargetRecorded) {
@@ -137,7 +137,7 @@ public class DriveSticks extends CommandBase {
       }
 
       // Check if LimeLight Button Pressed
-      if (Robot.mRobotContainer.controller.getXButton()) {
+      if (Robot.mRobotContainer.autoAimButton.get()) {
         // Turn On the LimeLight
         mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
 

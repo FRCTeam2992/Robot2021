@@ -30,7 +30,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drive.swerve.SwerveController;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.vision.LimeLight;
-import frc.lib.vision.LimeLight.CameraMode;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {

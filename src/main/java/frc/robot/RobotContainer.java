@@ -7,19 +7,19 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.oi.mhController;
+import frc.lib.oi.controller.DPadButton;
+import frc.lib.oi.controller.TriggerButton;
+import frc.lib.oi.controller.DPadButton.Direction;
 import frc.robot.commands.*;
 import frc.robot.commands.autos.GalacticSearchSelector;
-import frc.robot.commands.groups.AutoIntake;
-import frc.robot.commands.groups.AutoOverride;
-import frc.robot.paths.BarrelPath;
-import frc.robot.paths.BouncePath;
-import frc.robot.paths.SlalomPath;
-import frc.robot.paths.StraightPath;
+import frc.robot.commands.groups.*;
+import frc.robot.paths.*;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -39,15 +39,30 @@ public class RobotContainer {
   // private final ColorWheel mColorWheel;
 
   // Auto Chooser
-  SendableChooser<Command> autoChooser;
+  private SendableChooser<Command> autoChooser;
 
   // Controllers
-  public mhController controller;
+  public mhController controller1;
+  private mhController controller2;
 
-  // Controller Buttons
-  JoystickButton controllerAutoIntake;
-  JoystickButton controllerAutoOverride;
-  JoystickButton controllerGyroReset;
+  // Controller 1 Buttons
+  private JoystickButton gyroResetButton;
+  public TriggerButton slowModeButton;
+  private TriggerButton autoShootButton;
+  public JoystickButton autoAimButton;
+  private JoystickButton increaseShooterSpeedButton;
+  private JoystickButton decreaseShooterSpeedButton;
+
+  // Controller 2 Buttons
+  private JoystickButton autoOverrideButton;
+  private JoystickButton autoIntakeButton;
+  private JoystickButton moveHoodDownButton;
+  private JoystickButton moveHoodUpButton;
+  private JoystickButton shooterToggleButton;
+  private DPadButton setHoodDownButton;
+  private DPadButton setHoodCloseButton;
+  private DPadButton setHoodMidButton;
+  private DPadButton setHoodFarButton;
 
   public RobotContainer() {
 
@@ -147,23 +162,62 @@ public class RobotContainer {
     SmartDashboard.putNumber("xySmoothFactor", Constants.joystickXYSmoothFactor);
     SmartDashboard.putNumber("rotationSmoothFactor", Constants.joystickRotationSmoothFactor);
 
-    // Initialize the Controller
-    controller = new mhController(0);
+    // Initialize the Controllers
+    controller1 = new mhController(0);
+    controller2 = new mhController(1);
 
     // Configure the Buttons
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    // Controller Buttons
-    controllerAutoIntake = new JoystickButton(controller, 1);
-    controllerAutoIntake.whenPressed(new AutoIntake(mIntake, mSpindexer, mEjector));
+    // Controller 1 Buttons
+    gyroResetButton = new JoystickButton(controller1, 8);
+    gyroResetButton.whenPressed(new ResetGyro(mDriveTrain));
 
-    controllerAutoOverride = new JoystickButton(controller, 2);
-    controllerAutoOverride.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
+    slowModeButton = new TriggerButton(controller1, Hand.kLeft, 0.2);
 
-    controllerGyroReset = new JoystickButton(controller, 8);
-    controllerGyroReset.whenPressed(new ResetGyro(mDriveTrain));
+    autoShootButton = new TriggerButton(controller1, Hand.kRight, 0.2);
+    autoShootButton.whenActive(new AutoShoot(mSpindexer, mEjector));
+    autoShootButton.whenInactive(new StopAutoShoot(mSpindexer, mEjector));
+
+    autoAimButton = new JoystickButton(controller1, 1);
+
+    increaseShooterSpeedButton = new JoystickButton(controller1, 6);
+    increaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, 100));
+
+    decreaseShooterSpeedButton = new JoystickButton(controller1, 5);
+    decreaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, -100));
+
+    // Controller 2 Buttons
+    autoOverrideButton = new JoystickButton(controller2, 2);
+    autoOverrideButton.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
+
+    autoIntakeButton = new JoystickButton(controller2, 1);
+    autoIntakeButton.whenPressed(new AutoIntake(mIntake, mSpindexer, mEjector));
+
+    moveHoodUpButton = new JoystickButton(controller2, 6);
+    moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.05));
+    moveHoodUpButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+
+    moveHoodDownButton = new JoystickButton(controller2, 5);
+    moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, -0.05));
+    moveHoodDownButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+
+    shooterToggleButton = new JoystickButton(controller2, 3);
+    shooterToggleButton.toggleWhenPressed(new StartShooter(mShooter));
+
+    setHoodDownButton = new DPadButton(controller2, Direction.DOWN);
+    setHoodDownButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
+
+    setHoodCloseButton = new DPadButton(controller2, Direction.LEFT);
+    setHoodCloseButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 5.0));
+
+    setHoodMidButton = new DPadButton(controller2, Direction.UP);
+    setHoodMidButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 10.0));
+
+    setHoodFarButton = new DPadButton(controller2, Direction.RIGHT);
+    setHoodFarButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 15.0));
   }
 
   private void setupAutoSelector() {
