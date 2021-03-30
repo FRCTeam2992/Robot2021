@@ -60,8 +60,8 @@ public final class Constants {
     public static final double maxPathFollowingAcceleration = 0.5; // (Meters per Second Squared)
 
     // Max Path Following Turn Speeds
-    public static final double maxThetaVelocity = 6.0; // (Radians per Second)
-    public static final double maxThetaAcceleration = 6.0; // (Radians per Second Squared)
+    public static final double maxThetaVelocity = 6.28; // (Radians per Second)
+    public static final double maxThetaAcceleration = 6.28; // (Radians per Second Squared)
 
     // Swerve Module Translations
     public static final Translation2d frontLeftLocation = new Translation2d(0.31115, 0.2794);

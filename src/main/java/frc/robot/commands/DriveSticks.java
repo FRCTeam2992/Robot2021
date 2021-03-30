@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
+import frc.lib.vision.LimeLight.LedMode;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
@@ -18,7 +19,7 @@ public class DriveSticks extends CommandBase {
 
   // Command States
   private double gyroTarget;
-  private boolean gyroTargetRecorded = false;
+  private boolean gyroTargetRecorded;
 
   public DriveSticks(DriveTrain subsystem) {
     // Subsystem Instance
@@ -31,7 +32,8 @@ public class DriveSticks extends CommandBase {
   // Called when the command is initially scheduled./
   @Override
   public void initialize() {
-
+    // Reset the Target Recorded State
+    gyroTargetRecorded = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,39 +44,11 @@ public class DriveSticks extends CommandBase {
     double y1 = -Robot.mRobotContainer.controller.getY(Hand.kLeft);
     double x2 = -Robot.mRobotContainer.controller.smoothGetRaw(4);
 
-    // OLD JOYSTICK SMOOTHING CODE
-    // // Polar Deadband
-    // if ((x1 * x1 + y1 * y1) < Constants.joystickDeadband *
-    // Constants.joystickDeadband) {
-    // x1 = 0.0;
-    // y1 = 0.0;
-    // }
-
-    // if (Math.abs(x2) < Constants.joystickDeadband) {
-    // x2 = 0.0;
-    // }
-
-    // /*
-    // * // Joystick smoothing double magnitude = Math.sqrt(x1*x1 + y1*y1); double
-    // * angle = Math.atan(y1/x1); magnitude = Constants.joystickSmoothFactor *
-    // * Math.pow(magnitude, 3.0) + (1-Constants.joystickSmoothFactor) * magnitude;
-    // x1
-    // * = magnitude * Math.cos(angle); y1 = magnitude * Math.sin(angle);
-    // */
-
-    // x1 = Constants.joystickXYSmoothFactor * Math.pow(x1, 3.0) + (1 -
-    // Constants.joystickXYSmoothFactor) * x1;
-    // y1 = Constants.joystickXYSmoothFactor * Math.pow(y1, 3.0) + (1 -
-    // Constants.joystickXYSmoothFactor) * y1;
-    // x2 = Constants.joystickXYSmoothFactor * Math.pow(x2, 3.0) + (1 -
-    // Constants.joystickXYSmoothFactor) * x2;
-
-    // NEW JOYSTICK SMOOTHING CODE
     // Get the Joystick Magnitude
     double xyMagnitude = Math.sqrt((x1 * x1) + (y1 * y1));
 
     // Check the Magnitude Deadband
-    if (xyMagnitude <= Constants.joystickDeadband) {
+    if (Math.abs(xyMagnitude) <= Constants.joystickDeadband) {
       x1 = 0.0;
       y1 = 0.0;
     } else {
@@ -85,13 +59,16 @@ public class DriveSticks extends CommandBase {
       double smoothedXYMagnitude = (Constants.joystickXYSmoothFactor * Math.pow(xyMagnitude, 3.0))
           + ((1.0 - Constants.joystickXYSmoothFactor) * xyMagnitude);
 
+      // Normalize the Magnitude
+      smoothedXYMagnitude = Math.max(-1.0, Math.min(1.0, smoothedXYMagnitude));
+
       // Convert from Polar to X and Y Coordinates
       x1 = smoothedXYMagnitude * Math.cos(xyAngle);
       y1 = smoothedXYMagnitude * Math.sin(xyAngle);
     }
 
     // Check the Rotation Deadband
-    if (x2 <= Constants.joystickDeadband) {
+    if (Math.abs(x2) <= Constants.joystickDeadband) {
       x2 = 0.0;
     } else {
       // Smooth the Rotation Axis
@@ -106,7 +83,7 @@ public class DriveSticks extends CommandBase {
       x2 *= (2.0 / 3.0);
 
       // Check for Slow Mode
-      if (Robot.mRobotContainer.controller.getBumperPressed(Hand.kLeft)) {
+      if (Robot.mRobotContainer.controller.getTriggerAxis(Hand.kLeft) >= 0.2) {
         x1 /= 2.0;
         y1 /= 2.0;
         x2 /= 2.0;
@@ -157,6 +134,21 @@ public class DriveSticks extends CommandBase {
       } else {
         // Reset the Target Recorded State
         gyroTargetRecorded = false;
+      }
+
+      // Check if LimeLight Button Pressed
+      if (Robot.mRobotContainer.controller.getXButton()) {
+        // Turn On the LimeLight
+        mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
+
+        // Check if LimeLight Has a Target
+        if (mDriveTrain.limeLightCamera.hasTarget()) {
+          // Calculate the Drive Aim Correction
+          x2 = mDriveTrain.limeLightCamera.getTargetXOffset() * Constants.driveAimP;
+        }
+      } else {
+        // Turn Off the LimeLight
+        mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
       }
 
       // Calculate the Swerve States

@@ -162,7 +162,7 @@ public class RobotContainer {
     controllerAutoOverride = new JoystickButton(controller, 2);
     controllerAutoOverride.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
 
-    controllerGyroReset = new JoystickButton(controller, 9);
+    controllerGyroReset = new JoystickButton(controller, 8);
     controllerGyroReset.whenPressed(new ResetGyro(mDriveTrain));
   }
 
