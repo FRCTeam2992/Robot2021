@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.lib.vision.LimeLight.LedMode;
 import frc.robot.commands.HomeAdjustableHood;
 
 /**
@@ -71,7 +72,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledPeriodic() {
-
+    // LimeLight Test Light
+    if (mRobotContainer.autoAimButton.get()) {
+      mRobotContainer.mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
+    } else {
+      mRobotContainer.mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
+    }
   }
 
   /**

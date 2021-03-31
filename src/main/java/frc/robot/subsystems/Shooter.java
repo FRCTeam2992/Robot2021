@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     // Shooter Motors
     leadShooter = new TalonSRX(12);
-    leadShooter.setInverted(false);
+    leadShooter.setInverted(true);
     leadShooter.setNeutralMode(NeutralMode.Coast);
     leadShooter.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
 
