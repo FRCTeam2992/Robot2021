@@ -11,6 +11,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -78,6 +80,9 @@ public class Robot extends TimedRobot {
     } else {
       mRobotContainer.mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
     }
+
+    // Vibrate the Controllers
+    vibrateControllers();
   }
 
   /**
@@ -160,7 +165,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
+    // Vibrate the Controllers
+    vibrateControllers();
   }
 
   /**
@@ -184,6 +190,24 @@ public class Robot extends TimedRobot {
     if (!mRobotContainer.mAdjustabeHood.isHomed
         || lastHoodPosition != mRobotContainer.mAdjustabeHood.getHoodPosition()) {
       new HomeAdjustableHood(mRobotContainer.mAdjustabeHood).schedule(false);
+    }
+  }
+
+  public void vibrateControllers() {
+    if (mRobotContainer.autoShootButton.get()) {
+      mRobotContainer.controller1.setRumble(RumbleType.kLeftRumble,
+          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+      mRobotContainer.controller1.setRumble(RumbleType.kRightRumble,
+          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+      mRobotContainer.controller2.setRumble(RumbleType.kLeftRumble,
+          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+      mRobotContainer.controller2.setRumble(RumbleType.kRightRumble,
+          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+    } else {
+      mRobotContainer.controller1.setRumble(RumbleType.kLeftRumble, 0.0);
+      mRobotContainer.controller1.setRumble(RumbleType.kRightRumble, 0.0);
+      mRobotContainer.controller2.setRumble(RumbleType.kLeftRumble, 0.0);
+      mRobotContainer.controller2.setRumble(RumbleType.kRightRumble, 0.0);
     }
   }
 }

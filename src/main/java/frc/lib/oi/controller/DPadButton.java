@@ -22,7 +22,7 @@ public class DPadButton extends Trigger {
 
     @Override
     public boolean get() {
-        return degreesToDirection(controller.getPOV()) == direction;
+        return degreesToDirection(controller.getPOV()) == direction && controller.getPOV() >= 0;
     }
 
     public Direction degreesToDirection(int degrees) {

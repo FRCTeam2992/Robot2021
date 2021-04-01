@@ -83,7 +83,7 @@ public final class Constants {
     public static final double driveGyroP = 0.005;
 
     // Swerve Auto Aim
-    public static final double driveAimP = 0.0;
+    public static final double driveAimP = 0.015;
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.15;

@@ -76,6 +76,71 @@ public class DriveSticks extends CommandBase {
           + ((1.0 - Constants.joystickRotationSmoothFactor) * x2);
     }
 
+    // Gyro Input (-180 to 180)
+    double gyroValue = mDriveTrain.navx.getYaw();
+
+    // Gyro Correction
+    if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {
+
+      // Check for Recorded Value
+      if (gyroTargetRecorded) {
+        // Get the Gyro Value
+        double tempGyroValue = gyroValue;
+
+        // Normalize the Target Angle (-180 - 180)
+        if (gyroTarget < -180.0) {
+          gyroTarget += 360.0;
+        } else if (gyroTarget > 180) {
+          gyroTarget -= 360.0;
+        }
+
+        // Normalize the Gyro Angle (-180 - 180)
+        if (tempGyroValue > 180.0) {
+          tempGyroValue -= 360;
+        } else if (tempGyroValue < -180) {
+          tempGyroValue += 360;
+        }
+
+        // Get the Gyro Error
+        double gyroError = gyroTarget + tempGyroValue;
+
+        // Normalize the Gyro Error (-180 - 180)
+        if (gyroError > 180.0) {
+          gyroError -= 360.0;
+        } else if (gyroError < -180.0) {
+          gyroError += 360.0;
+        }
+
+        // Calculate Correction Speed
+        x2 = gyroError * Constants.driveGyroP;
+      } else {
+        // Record a Gyro Value
+        gyroTarget = -gyroValue;
+        gyroTargetRecorded = true;
+      }
+    } else {
+      // Reset the Target Recorded State
+      gyroTargetRecorded = false;
+    }
+
+    // Check if LimeLight Button Pressed
+    if (Robot.mRobotContainer.autoAimButton.get()) {
+      // Turn On the LimeLight
+      mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
+
+      // Reset the Target Recorded State
+      gyroTargetRecorded = false;
+
+      // Check if LimeLight Has a Target
+      if (mDriveTrain.limeLightCamera.hasTarget()) {
+        // Calculate the Drive Aim Correction
+        x2 = -mDriveTrain.limeLightCamera.getTargetXOffset() * Constants.driveAimP;
+      }
+    } else {
+      // Turn Off the LimeLight
+      mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
+    }
+
     // Check for Movement
     if (Math.abs(x1) > 0.0 || Math.abs(y1) > 0.0 || Math.abs(x2) > 0.0) {
 
@@ -87,68 +152,6 @@ public class DriveSticks extends CommandBase {
         x1 /= 2.0;
         y1 /= 2.0;
         x2 /= 2.0;
-      }
-
-      // Gyro Input (-180 to 180)
-      double gyroValue = mDriveTrain.navx.getYaw();
-
-      // Gyro Correction
-      if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {
-
-        // Check for Recorded Value
-        if (gyroTargetRecorded) {
-          // Get the Gyro Value
-          double tempGyroValue = gyroValue;
-
-          // Normalize the Target Angle (-180 - 180)
-          if (gyroTarget < -180.0) {
-            gyroTarget += 360.0;
-          } else if (gyroTarget > 180) {
-            gyroTarget -= 360.0;
-          }
-
-          // Normalize the Gyro Angle (-180 - 180)
-          if (tempGyroValue > 180.0) {
-            tempGyroValue -= 360;
-          } else if (tempGyroValue < -180) {
-            tempGyroValue += 360;
-          }
-
-          // Get the Gyro Error
-          double gyroError = gyroTarget + tempGyroValue;
-
-          // Normalize the Gyro Error (-180 - 180)
-          if (gyroError > 180.0) {
-            gyroError -= 360.0;
-          } else if (gyroError < -180.0) {
-            gyroError += 360.0;
-          }
-
-          // Calculate Correction Speed
-          x2 = gyroError * Constants.driveGyroP;
-        } else {
-          // Record a Gyro Value
-          gyroTarget = -gyroValue;
-          gyroTargetRecorded = true;
-        }
-      } else {
-        // Reset the Target Recorded State
-        gyroTargetRecorded = false;
-      }
-
-      // Check if LimeLight Button Pressed
-      if (Robot.mRobotContainer.autoAimButton.get()) {
-        // Turn On the LimeLight
-        mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
-
-        // Check if LimeLight Has a Target
-        if (mDriveTrain.limeLightCamera.hasTarget()) {
-          // Calculate the Drive Aim Correction
-          x2 = mDriveTrain.limeLightCamera.getTargetXOffset() * Constants.driveAimP;
-        }
-      } else {
-        // Turn Off the LimeLight
-        mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
       }
 
       // Calculate the Swerve States

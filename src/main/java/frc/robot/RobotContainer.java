@@ -43,12 +43,12 @@ public class RobotContainer {
 
   // Controllers
   public mhController controller1;
-  private mhController controller2;
+  public mhController controller2;
 
   // Controller 1 Buttons
   private JoystickButton gyroResetButton;
   public TriggerButton slowModeButton;
-  private TriggerButton autoShootButton;
+  public TriggerButton autoShootButton;
   public JoystickButton autoAimButton;
   private JoystickButton increaseShooterSpeedButton;
   private JoystickButton decreaseShooterSpeedButton;
@@ -59,6 +59,8 @@ public class RobotContainer {
   private JoystickButton moveHoodDownButton;
   private JoystickButton moveHoodUpButton;
   private JoystickButton shooterToggleButton;
+  private TriggerButton moveSpindexerForwardButton;
+  private TriggerButton moveSpindexerReverseButton;
   private DPadButton setHoodDownButton;
   private DPadButton setHoodCloseButton;
   private DPadButton setHoodMidButton;
@@ -105,39 +107,55 @@ public class RobotContainer {
     SmartDashboard.putData("Set Swerve -90", new SetSwerveAngle(mDriveTrain, -90.0));
 
     // SmartDashboard Test Data
-    SmartDashboard.putData(new StopShooter(mShooter));
-    SmartDashboard.putData(new StartShooter(mShooter));
-    SmartDashboard.putData("Set Shooter +100", new ChangeShooterSpeed(mShooter, 100));
-    SmartDashboard.putData("Set Shooter -100", new ChangeShooterSpeed(mShooter, -100));
+    // SmartDashboard.putData(new StopShooter(mShooter));
+    // SmartDashboard.putData(new StartShooter(mShooter));
+    // SmartDashboard.putData("Set Shooter +100", new ChangeShooterSpeed(mShooter,
+    // 100));
+    // SmartDashboard.putData("Set Shooter -100", new ChangeShooterSpeed(mShooter,
+    // -100));
 
-    SmartDashboard.putData(new StopAdjustableHood(mAdjustabeHood));
-    SmartDashboard.putData(new HomeAdjustableHood(mAdjustabeHood));
-    SmartDashboard.putData("Set Hood 2", new SetAdjustableHoodPosition(mAdjustabeHood, 1));
-    SmartDashboard.putData("Set Hood 4", new SetAdjustableHoodPosition(mAdjustabeHood, 4));
-    SmartDashboard.putData("Set Hood 6", new SetAdjustableHoodPosition(mAdjustabeHood, 6));
-    SmartDashboard.putData("Set Hood 8", new SetAdjustableHoodPosition(mAdjustabeHood, 8));
-    SmartDashboard.putData("Set Hood 10", new SetAdjustableHoodPosition(mAdjustabeHood, 10));
-    SmartDashboard.putData("Set Hood 12", new SetAdjustableHoodPosition(mAdjustabeHood, 12.0));
-    SmartDashboard.putData("Set Hood 14.5", new SetAdjustableHoodPosition(mAdjustabeHood, 14.5));
-    SmartDashboard.putData("Set Hood 15.25", new SetAdjustableHoodPosition(mAdjustabeHood, 15.25));
-    SmartDashboard.putData("Move Hood 0.05", new MoveAdjustableHood(mAdjustabeHood, 0.05));
-    SmartDashboard.putData("Move Hood -0.05", new MoveAdjustableHood(mAdjustabeHood, -0.05));
+    // SmartDashboard.putData(new StopAdjustableHood(mAdjustabeHood));
+    // SmartDashboard.putData(new HomeAdjustableHood(mAdjustabeHood));
+    // SmartDashboard.putData("Set Hood 2", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 1));
+    // SmartDashboard.putData("Set Hood 4", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 4));
+    // SmartDashboard.putData("Set Hood 6", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 6));
+    // SmartDashboard.putData("Set Hood 8", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 8));
+    // SmartDashboard.putData("Set Hood 10", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 10));
+    // SmartDashboard.putData("Set Hood 12", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 12.0));
+    // SmartDashboard.putData("Set Hood 14.5", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 14.5));
+    // SmartDashboard.putData("Set Hood 15.25", new
+    // SetAdjustableHoodPosition(mAdjustabeHood, 15.25));
+    // SmartDashboard.putData("Move Hood 0.05", new
+    // MoveAdjustableHood(mAdjustabeHood, 0.05));
+    // SmartDashboard.putData("Move Hood -0.05", new
+    // MoveAdjustableHood(mAdjustabeHood, -0.05));
 
-    SmartDashboard.putData("Move Intake 1.0", new MoveIntake(mIntake, 1.0));
-    SmartDashboard.putData("Move Intake -1.0", new MoveIntake(mIntake, -1.0));
+    // SmartDashboard.putData("Move Intake 1.0", new MoveIntake(mIntake, 1.0));
+    // SmartDashboard.putData("Move Intake -1.0", new MoveIntake(mIntake, -1.0));
 
-    SmartDashboard.putData("Move Spindexer 0.6", new MoveSpindexer(mSpindexer, 0.6));
-    SmartDashboard.putData("Move Spindexer -0.75", new MoveSpindexer(mSpindexer, -0.5));
+    // SmartDashboard.putData("Move Spindexer 0.6", new MoveSpindexer(mSpindexer,
+    // 0.6));
+    // SmartDashboard.putData("Move Spindexer -0.75", new MoveSpindexer(mSpindexer,
+    // -0.5));
 
-    SmartDashboard.putData("Intake Out", new DeployIntake(mIntake, true));
-    SmartDashboard.putData("Intake In", new DeployIntake(mIntake, false));
+    // SmartDashboard.putData("Intake Out", new DeployIntake(mIntake, true));
+    // SmartDashboard.putData("Intake In", new DeployIntake(mIntake, false));
 
-    SmartDashboard.putData("Move Ejector 0.8", new MoveEjector(mEjector, 0.8));
-    SmartDashboard.putData("Move Ejector -0.1", new MoveEjector(mEjector, -0.1));
+    // SmartDashboard.putData("Move Ejector 0.8", new MoveEjector(mEjector, 0.8));
+    // SmartDashboard.putData("Move Ejector -0.1", new MoveEjector(mEjector, -0.1));
 
-    SmartDashboard.putData("Auto Intake", new AutoIntake(mIntake, mSpindexer, mEjector));
-    SmartDashboard.putData("Auto Override", new AutoOverride(mIntake, mSpindexer, mEjector));
-    SmartDashboard.putData("Auto Shoot", new AutoShoot(mSpindexer, mEjector));
+    // SmartDashboard.putData("Auto Intake", new AutoIntake(mIntake, mSpindexer,
+    // mEjector));
+    // SmartDashboard.putData("Auto Override", new AutoOverride(mIntake, mSpindexer,
+    // mEjector));
+    // SmartDashboard.putData("Auto Shoot", new AutoShoot(mSpindexer, mEjector));
 
     // Setup the Autonomous Selector
     setupAutoSelector();
@@ -162,7 +180,7 @@ public class RobotContainer {
     slowModeButton = new TriggerButton(controller1, Hand.kLeft, 0.2);
 
     autoShootButton = new TriggerButton(controller1, Hand.kRight, 0.2);
-    autoShootButton.whenActive(new AutoShoot(mSpindexer, mEjector));
+    autoShootButton.whileActiveContinuous(new AutoShoot(mSpindexer, mEjector));
     autoShootButton.whenInactive(new StopAutoShoot(mSpindexer, mEjector));
 
     autoAimButton = new JoystickButton(controller1, 1);
@@ -181,27 +199,38 @@ public class RobotContainer {
     autoIntakeButton.whenPressed(new AutoIntake(mIntake, mSpindexer, mEjector));
 
     moveHoodUpButton = new JoystickButton(controller2, 6);
-    moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.05));
+    moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.1));
     moveHoodUpButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     moveHoodDownButton = new JoystickButton(controller2, 5);
-    moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, -0.05));
+    moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, -0.1));
     moveHoodDownButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     shooterToggleButton = new JoystickButton(controller2, 3);
     shooterToggleButton.toggleWhenPressed(new StartShooter(mShooter));
 
+    moveSpindexerForwardButton = new TriggerButton(controller2, Hand.kRight, 0.2);
+    moveSpindexerForwardButton.whenActive(new MoveSpindexer(mSpindexer, 0.4));
+    moveSpindexerForwardButton.whenInactive(new StopSpindexer(mSpindexer));
+
+    moveSpindexerReverseButton = new TriggerButton(controller2, Hand.kLeft, 0.2);
+    moveSpindexerReverseButton.whenActive(new MoveSpindexer(mSpindexer, -0.4));
+    moveSpindexerReverseButton.whenInactive(new StopSpindexer(mSpindexer));
+
     setHoodDownButton = new DPadButton(controller2, Direction.DOWN);
     setHoodDownButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
 
     setHoodCloseButton = new DPadButton(controller2, Direction.LEFT);
-    setHoodCloseButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 5.0));
+    setHoodCloseButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 2.3));
+    setHoodCloseButton.whenActive(new SetShooterSpeed(mShooter, 3500));
 
     setHoodMidButton = new DPadButton(controller2, Direction.UP);
-    setHoodMidButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 10.0));
+    setHoodMidButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.8));
+    setHoodMidButton.whenActive(new SetShooterSpeed(mShooter, 5000));
 
     setHoodFarButton = new DPadButton(controller2, Direction.RIGHT);
-    setHoodFarButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 15.0));
+    setHoodFarButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 10.9));
+    setHoodFarButton.whenActive(new SetShooterSpeed(mShooter, 6200));
   }
 
   private void setupAutoSelector() {
