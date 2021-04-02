@@ -160,9 +160,10 @@ public class RobotContainer {
     // Setup the Autonomous Selector
     setupAutoSelector();
 
-    // Display the Joystick Smooth Factors
+    // Display the Joystick Settings
     SmartDashboard.putNumber("xySmoothFactor", Constants.joystickXYSmoothFactor);
     SmartDashboard.putNumber("rotationSmoothFactor", Constants.joystickRotationSmoothFactor);
+    SmartDashboard.putBoolean("isLeftStrafe", true);
 
     // Initialize the Controllers
     controller1 = new mhController(0);

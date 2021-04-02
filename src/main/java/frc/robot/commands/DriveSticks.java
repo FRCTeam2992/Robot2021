@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.SwerveModuleFalconNeo;
 import frc.lib.vision.LimeLight.LedMode;
@@ -16,6 +17,9 @@ public class DriveSticks extends CommandBase {
 
   // Subsystem Instance
   private DriveTrain mDriveTrain;
+
+  // Joystick Settings
+  private boolean isLeftStrafe = true;
 
   // Command States
   private double gyroTarget;
@@ -34,15 +38,28 @@ public class DriveSticks extends CommandBase {
   public void initialize() {
     // Reset the Target Recorded State
     gyroTargetRecorded = false;
+
+    // Get the Joystick Settings
+    isLeftStrafe = SmartDashboard.getBoolean("isLeftStrafe", true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Joystick Inputs (x1 = Strafe, y1 = Speed, x2 = Rotation)
-    double x1 = -Robot.mRobotContainer.controller1.getX(Hand.kLeft);
-    double y1 = -Robot.mRobotContainer.controller1.getY(Hand.kLeft);
-    double x2 = -Robot.mRobotContainer.controller1.smoothGetRaw(4);
+    double x1;
+    double y1;
+    double x2;
+
+    if (isLeftStrafe) {
+      x1 = -Robot.mRobotContainer.controller1.getX(Hand.kLeft);
+      y1 = -Robot.mRobotContainer.controller1.getY(Hand.kLeft);
+      x2 = -Robot.mRobotContainer.controller1.getRawAxis(4);
+    } else {
+      x1 = -Robot.mRobotContainer.controller1.getRawAxis(4);
+      y1 = -Robot.mRobotContainer.controller1.getRawAxis(5);
+      x2 = -Robot.mRobotContainer.controller1.getX(Hand.kLeft);
+    }
 
     // Get the Joystick Magnitude
     double xyMagnitude = Math.sqrt((x1 * x1) + (y1 * y1));
@@ -79,50 +96,6 @@ public class DriveSticks extends CommandBase {
     // Gyro Input (-180 to 180)
     double gyroValue = mDriveTrain.navx.getYaw();
 
-    // Gyro Correction
-    if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {
-
-      // Check for Recorded Value
-      if (gyroTargetRecorded) {
-        // Get the Gyro Value
-        double tempGyroValue = gyroValue;
-
-        // Normalize the Target Angle (-180 - 180)
-        if (gyroTarget < -180.0) {
-          gyroTarget += 360.0;
-        } else if (gyroTarget > 180) {
-          gyroTarget -= 360.0;
-        }
-
-        // Normalize the Gyro Angle (-180 - 180)
-        if (tempGyroValue > 180.0) {
-          tempGyroValue -= 360;
-        } else if (tempGyroValue < -180) {
-          tempGyroValue += 360;
-        }
-
-        // Get the Gyro Error
-        double gyroError = gyroTarget + tempGyroValue;
-
-        // Normalize the Gyro Error (-180 - 180)
-        if (gyroError > 180.0) {
-          gyroError -= 360.0;
-        } else if (gyroError < -180.0) {
-          gyroError += 360.0;
-        }
-
-        // Calculate Correction Speed
-        x2 = gyroError * Constants.driveGyroP;
-      } else {
-        // Record a Gyro Value
-        gyroTarget = -gyroValue;
-        gyroTargetRecorded = true;
-      }
-    } else {
-      // Reset the Target Recorded State
-      gyroTargetRecorded = false;
-    }
-
     // Check if LimeLight Button Pressed
     if (Robot.mRobotContainer.autoAimButton.get()) {
       // Turn On the LimeLight
@@ -152,6 +125,50 @@ public class DriveSticks extends CommandBase {
         x1 /= 2.0;
         y1 /= 2.0;
         x2 /= 2.0;
+      }
+
+      // Gyro Correction
+      if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {
+
+        // Check for Recorded Value
+        if (gyroTargetRecorded) {
+          // Get the Gyro Value
+          double tempGyroValue = gyroValue;
+
+          // Normalize the Target Angle (-180 - 180)
+          if (gyroTarget < -180.0) {
+            gyroTarget += 360.0;
+          } else if (gyroTarget > 180) {
+            gyroTarget -= 360.0;
+          }
+
+          // Normalize the Gyro Angle (-180 - 180)
+          if (tempGyroValue > 180.0) {
+            tempGyroValue -= 360;
+          } else if (tempGyroValue < -180) {
+            tempGyroValue += 360;
+          }
+
+          // Get the Gyro Error
+          double gyroError = gyroTarget + tempGyroValue;
+
+          // Normalize the Gyro Error (-180 - 180)
+          if (gyroError > 180.0) {
+            gyroError -= 360.0;
+          } else if (gyroError < -180.0) {
+            gyroError += 360.0;
+          }
+
+          // Calculate Correction Speed
+          x2 = gyroError * Constants.driveGyroP;
+        } else {
+          // Record a Gyro Value
+          gyroTarget = -gyroValue;
+          gyroTargetRecorded = true;
+        }
+      } else {
+        // Reset the Target Recorded State
+        gyroTargetRecorded = false;
       }
 
       // Calculate the Swerve States
