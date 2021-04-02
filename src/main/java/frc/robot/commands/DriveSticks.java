@@ -89,12 +89,20 @@ public class DriveSticks extends CommandBase {
       x2 = 0.0;
     } else {
       // Smooth the Rotation Axis
-      x2 = (Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
-          + ((1.0 - Constants.joystickRotationSmoothFactor) * x2);
-    }
+      // x2 = (Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
+      // + ((1.0 - Constants.joystickRotationSmoothFactor) * x2);
 
-    // Gyro Input (-180 to 180)
-    double gyroValue = mDriveTrain.navx.getYaw();
+      // Smooth the Rotation Axis and Apply Inverse Deadband
+      if (x2 >= 0.0) {
+        x2 = Constants.joystickRotationInverseDeadband + (1.0 - Constants.joystickRotationInverseDeadband)
+            * ((Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
+                + ((1.0 - Constants.joystickRotationSmoothFactor) * x2));
+      } else {
+        x2 = -Constants.joystickRotationInverseDeadband + (1.0 - Constants.joystickRotationInverseDeadband)
+            * ((Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
+                + ((1.0 - Constants.joystickRotationSmoothFactor) * x2));
+      }
+    }
 
     // Check if LimeLight Button Pressed
     if (Robot.mRobotContainer.autoAimButton.get()) {
@@ -126,6 +134,9 @@ public class DriveSticks extends CommandBase {
         y1 /= 2.0;
         x2 /= 2.0;
       }
+
+      // Gyro Input (-180 to 180)
+      double gyroValue = mDriveTrain.navx.getYaw();
 
       // Gyro Correction
       if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {
