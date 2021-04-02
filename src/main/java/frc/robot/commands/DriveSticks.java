@@ -93,13 +93,19 @@ public class DriveSticks extends CommandBase {
       // + ((1.0 - Constants.joystickRotationSmoothFactor) * x2);
 
       // Smooth the Rotation Axis and Apply Inverse Deadband
+      double tempInverseDeadband = Constants.joystickRotationInverseDeadband;
+
+      if (Robot.mRobotContainer.slowModeButton.get()) {
+        tempInverseDeadband *= 6.0;
+      }
+
       if (x2 >= 0.0) {
-        x2 = Constants.joystickRotationInverseDeadband + (1.0 - Constants.joystickRotationInverseDeadband)
-            * ((Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
+        x2 = tempInverseDeadband
+            + (1.0 - tempInverseDeadband) * ((Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
                 + ((1.0 - Constants.joystickRotationSmoothFactor) * x2));
       } else {
-        x2 = -Constants.joystickRotationInverseDeadband + (1.0 - Constants.joystickRotationInverseDeadband)
-            * ((Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
+        x2 = -tempInverseDeadband
+            + (1.0 - tempInverseDeadband) * ((Constants.joystickRotationSmoothFactor * Math.pow(x2, 3.0))
                 + ((1.0 - Constants.joystickRotationSmoothFactor) * x2));
       }
     }
@@ -122,6 +128,13 @@ public class DriveSticks extends CommandBase {
       mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
     }
 
+    // Fixed Rotation Buttons
+    if (Robot.mRobotContainer.controller1.getBumper(Hand.kLeft)) {
+      x2 = 0.7;
+    } else if (Robot.mRobotContainer.controller1.getBumper(Hand.kRight)) {
+      x2 = -0.7;
+    }
+
     // Check for Movement
     if (Math.abs(x1) > 0.0 || Math.abs(y1) > 0.0 || Math.abs(x2) > 0.0) {
 
@@ -132,7 +145,9 @@ public class DriveSticks extends CommandBase {
       if (Robot.mRobotContainer.slowModeButton.get()) {
         x1 /= 2.0;
         y1 /= 2.0;
-        x2 /= 2.0;
+        x2 /= 6.0;
+
+        gyroTargetRecorded = false;
       }
 
       // Gyro Input (-180 to 180)
