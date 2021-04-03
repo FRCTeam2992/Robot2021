@@ -9,7 +9,11 @@ public class BarrelPath extends SwerveTrajectoryGenerator {
         // Setup
         super(subsystem.BarrelTrajectory);
 
+        // Set the Start Rotation
+        setStartRotation(0.0);
+
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
+        addTimedHeadingWaypoint(8.0, 9.0, -45.0);
     }
 }

@@ -15,10 +15,10 @@ public class SlalomPath extends SwerveTrajectoryGenerator {
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
         addHeadingWaypoint(0.1, 30.0);
-        addHeadingWaypoint(1.5, -30.0);
-        addTimedHeadingWaypoint(2.75, 3.5, -130.0);
-        addTimedHeadingWaypoint(3.5, 4.25, 130.0);
-        addTimedHeadingWaypoint(4.25, 5.0, 30.0);
-        addTimedHeadingWaypoint(5.5, 7.0, -30.0);
+        addTimedHeadingWaypoint(0.5, 2.0, -30.0);
+        // addTimedHeadingWaypoint(2.75, 3.15, -130.0);
+        // addTimedHeadingWaypoint(3.15, 3.65, 130.0);
+        addTimedHeadingWaypoint(3.0, 4.0, 15.0);
+        addTimedHeadingWaypoint(4.5, 6.0, -30.0);
     }
 }

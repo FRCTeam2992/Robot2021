@@ -9,6 +9,9 @@ public class BouncePath extends SwerveTrajectoryGenerator {
         // Setup
         super(subsystem.BounceTrajectory);
 
+        // Set the Start Rotation
+        setStartRotation(-90.0);
+
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
     }
