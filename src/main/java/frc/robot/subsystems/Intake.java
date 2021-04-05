@@ -45,4 +45,8 @@ public class Intake extends SubsystemBase {
   public void deployIntake(boolean toggle) {
     intakeDeploySolenoid.set(toggle);
   }
+
+  public boolean getIntakeSolenoid() {
+    return intakeDeploySolenoid.get();
+  }
 }

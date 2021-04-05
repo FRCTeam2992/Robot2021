@@ -9,10 +9,12 @@ public class GalacticSearchBBlue extends SwerveTrajectoryGenerator {
         // Setup
         super(subsystem.GalacticSearchBBlueTrajectory);
 
+        // Set the Start Rotation
+        setStartRotation(0.0);
+
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
-        addHeadingWaypoint(0.5, 45.0);
-        addHeadingWaypoint(1.5, -80.0);
-        addHeadingWaypoint(2.0, 45.0);
+        addHeadingWaypoint(1.0, -30.0);
+        addHeadingWaypoint(1.2, 30.0);
     }
 }

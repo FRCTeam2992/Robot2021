@@ -5,7 +5,6 @@
 package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.DeployIntake;
 import frc.robot.commands.StopEjector;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopSpindexer;
@@ -17,7 +16,7 @@ public class AutoOverride extends ParallelCommandGroup {
 
   public AutoOverride(Intake mIntake, Spindexer mSpindexer, Ejector mEjector) {
     // Add Commands
-    addCommands(new StopIntake(mIntake), new StopSpindexer(mSpindexer), new DeployIntake(mIntake, false),
+    addCommands(new StopIntake(mIntake), new StopSpindexer(mSpindexer),
         new StopEjector(mEjector));
   }
 }

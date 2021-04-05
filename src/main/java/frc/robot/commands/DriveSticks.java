@@ -121,7 +121,7 @@ public class DriveSticks extends CommandBase {
       // Check if LimeLight Has a Target
       if (mDriveTrain.limeLightCamera.hasTarget()) {
         // Calculate the Drive Aim Correction
-        x2 = -mDriveTrain.limeLightCamera.getTargetXOffset() * Constants.driveAimP;
+        x2 = -(mDriveTrain.limeLightCamera.getTargetXOffset() - 2.0) * Constants.driveAimP;
       }
     } else {
       // Turn Off the LimeLight
@@ -129,11 +129,11 @@ public class DriveSticks extends CommandBase {
     }
 
     // Fixed Rotation Buttons
-    if (Robot.mRobotContainer.controller1.getBumper(Hand.kLeft)) {
-      x2 = 0.7;
-    } else if (Robot.mRobotContainer.controller1.getBumper(Hand.kRight)) {
-      x2 = -0.7;
-    }
+    // if (Robot.mRobotContainer.controller1.getBumper(Hand.kLeft)) {
+    //   x2 = 0.7;
+    // } else if (Robot.mRobotContainer.controller1.getBumper(Hand.kRight)) {
+    //   x2 = -0.7;
+    // }
 
     // Check for Movement
     if (Math.abs(x1) > 0.0 || Math.abs(y1) > 0.0 || Math.abs(x2) > 0.0) {

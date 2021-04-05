@@ -131,8 +131,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // Set the Drive Train to Brake
-    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Coast);
-    mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kCoast);
+    mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
+    mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
 
     // Set the Drive Motors Current Limit
     mRobotContainer.mDriveTrain.setDriveCurrentLimit(40.0);

@@ -61,10 +61,11 @@ public class RobotContainer {
   private JoystickButton shooterToggleButton;
   private TriggerButton moveSpindexerForwardButton;
   private TriggerButton moveSpindexerReverseButton;
-  private DPadButton setHoodDownButton;
-  private DPadButton setHoodCloseButton;
-  private DPadButton setHoodMidButton;
-  private DPadButton setHoodFarButton;
+  private DPadButton zone1Button;
+  private DPadButton zone2Button;
+  private DPadButton zone3Button;
+  private DPadButton zone4Button;
+  private JoystickButton toggleIntakeButton;
 
   public RobotContainer() {
 
@@ -218,20 +219,24 @@ public class RobotContainer {
     moveSpindexerReverseButton.whenActive(new MoveSpindexer(mSpindexer, -0.4));
     moveSpindexerReverseButton.whenInactive(new StopSpindexer(mSpindexer));
 
-    setHoodDownButton = new DPadButton(controller2, Direction.DOWN);
-    setHoodDownButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
+    zone4Button = new DPadButton(controller2, Direction.DOWN);
+    zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.4));
+    zone4Button.whenActive(new SetShooterSpeed(mShooter, 5500));
 
-    setHoodCloseButton = new DPadButton(controller2, Direction.LEFT);
-    setHoodCloseButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 2.3));
-    setHoodCloseButton.whenActive(new SetShooterSpeed(mShooter, 3500));
+    zone1Button = new DPadButton(controller2, Direction.LEFT);
+    zone1Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.93));
+    zone1Button.whenActive(new SetShooterSpeed(mShooter, 3300));
 
-    setHoodMidButton = new DPadButton(controller2, Direction.UP);
-    setHoodMidButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.8));
-    setHoodMidButton.whenActive(new SetShooterSpeed(mShooter, 5000));
+    zone2Button = new DPadButton(controller2, Direction.UP);
+    zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 5.97));
+    zone2Button.whenActive(new SetShooterSpeed(mShooter, 4200));
 
-    setHoodFarButton = new DPadButton(controller2, Direction.RIGHT);
-    setHoodFarButton.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 10.9));
-    setHoodFarButton.whenActive(new SetShooterSpeed(mShooter, 6200));
+    zone3Button = new DPadButton(controller2, Direction.RIGHT);
+    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 8.71));
+    zone3Button.whenActive(new SetShooterSpeed(mShooter, 5200));
+
+    toggleIntakeButton = new JoystickButton(controller2, 4);
+    toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
   }
 
   private void setupAutoSelector() {
