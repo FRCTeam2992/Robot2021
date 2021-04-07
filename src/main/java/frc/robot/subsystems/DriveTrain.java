@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -88,6 +89,8 @@ public class DriveTrain extends SubsystemBase {
   public Trajectory GalacticSearchABlueTrajectory;
   public Trajectory GalacticSearchBRedTrajectory;
   public Trajectory GalacticSearchBBlueTrajectory;
+  public Trajectory PowerPortForward;
+  public Trajectory PowerPortBackward;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
@@ -230,7 +233,7 @@ public class DriveTrain extends SubsystemBase {
     // rearRightModule.getWheelSpeedMeters());
 
     // Display Gyro Angle
-    // SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+    SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
     // Update the Odometry
     latestSwervePose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
@@ -306,6 +309,9 @@ public class DriveTrain extends SubsystemBase {
         .resolve("output/GalacticSearchBRed.wpilib.json");
     Path galacticSearchBBluePath = Filesystem.getDeployDirectory().toPath()
         .resolve("output/GalacticSearchBBlue.wpilib.json");
+    Path powerPortForwardPath = Filesystem.getDeployDirectory().toPath().resolve("output/PowerPortForward.wpilib.json");
+    Path powerPortBackwardPath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/PowerPortBackward.wpilib.json");
 
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
@@ -315,6 +321,8 @@ public class DriveTrain extends SubsystemBase {
       GalacticSearchABlueTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchABluePath);
       GalacticSearchBRedTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchBRedPath);
       GalacticSearchBBlueTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchBBluePath);
+      PowerPortForward = TrajectoryUtil.fromPathweaverJson(powerPortForwardPath);
+      PowerPortBackward = TrajectoryUtil.fromPathweaverJson(powerPortBackwardPath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();

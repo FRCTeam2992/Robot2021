@@ -52,6 +52,8 @@ public class RobotContainer {
   public JoystickButton autoAimButton;
   private JoystickButton increaseShooterSpeedButton;
   private JoystickButton decreaseShooterSpeedButton;
+  private JoystickButton powerPortForwardButton;
+  private JoystickButton powerPortBackwardButton;
 
   // Controller 2 Buttons
   private JoystickButton autoOverrideButton;
@@ -193,6 +195,14 @@ public class RobotContainer {
     decreaseShooterSpeedButton = new JoystickButton(controller1, 5);
     decreaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, -100));
 
+    powerPortForwardButton = new JoystickButton(controller1, 2);
+    powerPortForwardButton.toggleWhenPressed(
+        new AutoFollowPath(mDriveTrain, new PowerPortForward(mDriveTrain).generateSwerveTrajectory()));
+
+    powerPortBackwardButton = new JoystickButton(controller1, 3);
+    powerPortBackwardButton.toggleWhenPressed(
+        new AutoFollowPath(mDriveTrain, new PowerPortBackward(mDriveTrain).generateSwerveTrajectory()));
+
     // Controller 2 Buttons
     autoOverrideButton = new JoystickButton(controller2, 2);
     autoOverrideButton.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
@@ -220,20 +230,20 @@ public class RobotContainer {
     moveSpindexerReverseButton.whenInactive(new StopSpindexer(mSpindexer));
 
     zone4Button = new DPadButton(controller2, Direction.DOWN);
-    zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.4));
-    zone4Button.whenActive(new SetShooterSpeed(mShooter, 5500));
+    zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.59));
+    zone4Button.whenActive(new SetShooterSpeed(mShooter, 5300));
 
     zone1Button = new DPadButton(controller2, Direction.LEFT);
     zone1Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.93));
-    zone1Button.whenActive(new SetShooterSpeed(mShooter, 3300));
+    zone1Button.whenActive(new SetShooterSpeed(mShooter, 3200));
 
     zone2Button = new DPadButton(controller2, Direction.UP);
     zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 5.97));
-    zone2Button.whenActive(new SetShooterSpeed(mShooter, 4200));
+    zone2Button.whenActive(new SetShooterSpeed(mShooter, 4000));
 
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
-    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 8.71));
-    zone3Button.whenActive(new SetShooterSpeed(mShooter, 5200));
+    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.24)); //8.71
+    zone3Button.whenActive(new SetShooterSpeed(mShooter, 5700)); //3000
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));

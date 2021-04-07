@@ -115,9 +115,6 @@ public class DriveSticks extends CommandBase {
       // Turn On the LimeLight
       mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
 
-      // Reset the Target Recorded State
-      gyroTargetRecorded = false;
-
       // Check if LimeLight Has a Target
       if (mDriveTrain.limeLightCamera.hasTarget()) {
         // Calculate the Drive Aim Correction
@@ -130,9 +127,9 @@ public class DriveSticks extends CommandBase {
 
     // Fixed Rotation Buttons
     // if (Robot.mRobotContainer.controller1.getBumper(Hand.kLeft)) {
-    //   x2 = 0.7;
+    // x2 = 0.7;
     // } else if (Robot.mRobotContainer.controller1.getBumper(Hand.kRight)) {
-    //   x2 = -0.7;
+    // x2 = -0.7;
     // }
 
     // Check for Movement
@@ -143,15 +140,19 @@ public class DriveSticks extends CommandBase {
 
       // Check for Slow Mode
       if (Robot.mRobotContainer.slowModeButton.get()) {
-        x1 /= 2.0;
-        y1 /= 2.0;
+        x1 *= 0.6;
+        y1 *= 0.6;
         x2 /= 6.0;
 
-        gyroTargetRecorded = false;
+        // gyroTargetRecorded = false;
       }
 
       // Gyro Input (-180 to 180)
       double gyroValue = mDriveTrain.navx.getYaw();
+
+      if (Math.abs(x1) <= Constants.joystickDeadband && Math.abs(y1) <= Constants.joystickDeadband) {
+        gyroTargetRecorded = false;
+      }
 
       // Gyro Correction
       if (Math.abs(x2) <= Constants.joystickDeadband && Constants.isGyroCorrected) {

@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.trajectory.SwerveTrajectory;
+import frc.lib.vision.LimeLight.LedMode;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
 public class AutoFollowPath extends CommandBase {
@@ -89,6 +91,8 @@ public class AutoFollowPath extends CommandBase {
     // Reset and Start the Elapsed Timer
     elapsedTimer.reset();
     elapsedTimer.start();
+
+    // mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -102,6 +106,12 @@ public class AutoFollowPath extends CommandBase {
 
     // Get the Desired Heading
     double heading = mSwerveyTrajectory.getDesiredHeading(currentTime);
+
+    // if (mDriveTrain.limeLightCamera.hasTarget() &&
+    // Robot.mRobotContainer.autoAimButton.get()) {
+    // heading = mDriveTrain.latestSwervePose.getRotation().getDegrees()
+    // - (mDriveTrain.limeLightCamera.getTargetXOffset() - 2.0);
+    // }
 
     // Get the Ajusted Speeds
     ChassisSpeeds adjustSpeeds = controller.calculate(mDriveTrain.latestSwervePose, latestState,
@@ -121,6 +131,8 @@ public class AutoFollowPath extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     mDriveTrain.stopDrive();
+
+    // mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
   }
 
   // Returns true when the command should end.
