@@ -14,5 +14,6 @@ public class BouncePath extends SwerveTrajectoryGenerator {
 
         // Heading Waypoints
         addHeadingWaypoint(0.0, 0.0);
+        addHeadingWaypoint(6.4, -35.0);
     }
 }

@@ -92,7 +92,7 @@ public class AutoFollowPath extends CommandBase {
     elapsedTimer.reset();
     elapsedTimer.start();
 
-    // mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
+    //mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -132,7 +132,7 @@ public class AutoFollowPath extends CommandBase {
   public void end(boolean interrupted) {
     mDriveTrain.stopDrive();
 
-    // mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
+    //mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
   }
 
   // Returns true when the command should end.

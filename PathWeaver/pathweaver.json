@@ -4,6 +4,6 @@
   "maxVelocity": 4.5,
   "maxAcceleration": 5.7,
   "wheelBase": 0.6223,
-  "gameName": "Slalom Path",
+  "gameName": "Galactic Search A",
   "outputDir": "../src/main/deploy"
 }

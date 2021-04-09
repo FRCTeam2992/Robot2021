@@ -242,7 +242,7 @@ public class RobotContainer {
     zone2Button.whenActive(new SetShooterSpeed(mShooter, 4000));
 
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
-    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.24)); //8.71
+    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.71)); //8.71
     zone3Button.whenActive(new SetShooterSpeed(mShooter, 5700)); //3000
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
