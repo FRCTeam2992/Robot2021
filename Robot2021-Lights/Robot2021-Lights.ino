@@ -49,7 +49,8 @@ void loop() {
   //CJCodeButGood();
   //ColorTest();
   //5heartMeter();
-  ColorMixies();
+  //ColorMixies();
+  rileyCode();
 }
 void BackgroundColor() {
   for (int i = 0; i <= 99; i++) {
@@ -183,7 +184,7 @@ void CJCodeButGood() {
 void blueChase() {
   for (int i = 0; i < SPINDEXER_COUNT; i++) {
     setSpindexerPixel(i, white);
-    setSpindexerPixel(i - 10, rPurple);
+    setSpindexerPixel(i - 10, blue);
 
     if (i == 0) {
       setSpindexerPixel(SPINDEXER_COUNT - 10, black);
@@ -217,11 +218,11 @@ void blueChase() {
     setSpindexerPixel(i + 10, black);
 
     spindexerStrip.show();
-    delay(15);
+    delay(5);
   }
   for (int i = 0; i <= 98; i++) {
-    setSpindexerPixel(i, white);
-    setSpindexerPixel(i - 10, rLime);
+    setSpindexerPixel(i, blue);
+    setSpindexerPixel(i - 10, blue);
 
     spindexerStrip.show();
     delay(15);
@@ -231,7 +232,7 @@ void blueChase() {
     setSpindexerPixel(i + 10, black);
 
     spindexerStrip.show();
-    delay(15);
+    delay(5);
   }
 }
 
@@ -504,6 +505,60 @@ int hh = 70;
   q++;
 }
 
+void rileyCode() {
+  for (int i = 0; i < SPINDEXER_COUNT; i++) {
+    setSpindexerPixel(i, white);
+    setSpindexerPixel(i - 10, blue);
+
+    if (i == 0) {
+      setSpindexerPixel(SPINDEXER_COUNT - 10, white);
+    } else if (i == 1) {
+      setSpindexerPixel(SPINDEXER_COUNT - 9, white);
+    } else if (i == 2) {
+      setSpindexerPixel(SPINDEXER_COUNT - 8, white);
+    } else if (i == 3) {
+      setSpindexerPixel(SPINDEXER_COUNT - 7, white);
+    } else if (i == 4) {
+      setSpindexerPixel(SPINDEXER_COUNT - 6, white);
+    } else if (i == 5) {
+      setSpindexerPixel(SPINDEXER_COUNT - 5, white);
+    } else if (i == 6) {
+      setSpindexerPixel(SPINDEXER_COUNT - 4, white);
+    } else if (i == 7) {
+      setSpindexerPixel(SPINDEXER_COUNT - 3, white);
+    } else if (i == 8) {
+      setSpindexerPixel(SPINDEXER_COUNT - 2, white);
+    } else if (i == 9) {
+      setSpindexerPixel(SPINDEXER_COUNT - 1, white);
+    } else if (i == 10) {
+      setSpindexerPixel(SPINDEXER_COUNT, white);
+    }
+
+    spindexerStrip.show();
+    delay(15);
+  }
+  for (int i = 88; i >= 0; i--) {
+    setSpindexerPixel(i, white);
+    setSpindexerPixel(i + 10, black);
+
+    spindexerStrip.show();
+    delay(5);
+  }
+  for (int i = 0; i <= 98; i++) {
+    setSpindexerPixel(i, blue);
+    setSpindexerPixel(i - 10, white);
+
+    spindexerStrip.show();
+    delay(15);
+  }
+  for (int i = 88; i >= 0; i--) {
+    setSpindexerPixel(i, white);
+    setSpindexerPixel(i + 10, black);
+
+    spindexerStrip.show();
+    delay(5);
+  }
+}
 
 
 
