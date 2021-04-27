@@ -18,7 +18,7 @@ public final class Constants {
     public static final int teleClimbLimit = 4000;
 
     // Shooter Variables
-    public static final int defaultShooterSpeed = 5200;
+    public static final int defaultShooterSpeed = 3500;
     public static final int shooterEncoderPulses = 2048;
 
     // Adjustable Hood Variables

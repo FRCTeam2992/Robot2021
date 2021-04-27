@@ -2,8 +2,8 @@
 
 // Spindexer Lights
 #define SPINDEXER_PIN 6
-#define SPINDEXER_COUNT 99
-#define SPINDEXER_REAL_COUNT 203
+#define SPINDEXER_COUNT 72
+#define SPINDEXER_REAL_COUNT 145
 
 // Spindexer Lights
 Adafruit_NeoPixel spindexerStrip = Adafruit_NeoPixel(SPINDEXER_REAL_COUNT, SPINDEXER_PIN, NEO_GRB + NEO_KHZ800);
@@ -49,21 +49,59 @@ void loop() {
   //CJCodeButGood();
   //ColorTest();
   //5heartMeter();
-  ColorMixies();
+  //ColorMixies();
+  Dissolve();
 }
 void BackgroundColor() {
-  for (int i = 0; i <= 99; i++) {
-    setSpindexerPixel(i, black);
+  for (int i = 0; i <= 300; i++) {
+    setSpindexerPixel(i, blue);
   }
   spindexerStrip.show();
   delay(10);
-  // ColorTest();
+}
+
+void RandomReRoll() {
+  int fff = random (0, SPINDEXER_COUNT);
+  if (spindexerStrip.getPixelColor(fff) == white) {
+    RandomReRoll();
+  }
 }
 
 void ColorTest() {
   for (int i = 1; i <= 99; i++) {
     setSpindexerPixel(i, lime);
     spindexerStrip.show();
+  }
+}
+
+
+void Dissolve() {
+  for (int i = 0; i < SPINDEXER_COUNT; i++) {
+    int randomPixel = random(0, SPINDEXER_COUNT);
+
+    while (spindexerStrip.getPixelColor(randomPixel) == white) {
+      randomPixel = random (0, SPINDEXER_COUNT);
+    }
+
+    setSpindexerPixel(randomPixel, white);
+
+    spindexerStrip.show();
+
+    delay(30);
+  }
+
+   for (int i = 0; i < SPINDEXER_COUNT; i++) {
+    int randomPixel = random(0, SPINDEXER_COUNT);
+
+    while (spindexerStrip.getPixelColor(randomPixel) == blue) {
+      randomPixel = random (0, SPINDEXER_COUNT);
+    }
+
+    setSpindexerPixel(randomPixel, blue);
+
+    spindexerStrip.show();
+
+    delay(30);
   }
 }
 
@@ -342,11 +380,11 @@ int b = 3;
 int hh = 20;
 void coollightsv2() {
 
-  if (p == 7){
+  if (p == 7) {
     p = 0;
   }
-  
-if (q == 7){
+
+  if (q == 7) {
     q = 0;
   }
 
@@ -453,11 +491,11 @@ if (q == 7){
     setSpindexerPixel(i, j, k, l);
     //setSpindexerPixel(i, 255, 255, 255);
     //setSpindexerPixel(i - 5, j, k, l);
-    
-    if (i == 0){
+
+    if (i == 0) {
       setSpindexerPixel(93, y, u, w);
-      }
-    
+    }
+
     if (i == 0) {
       setSpindexerPixel(94, y, u, w);
     }
@@ -477,25 +515,25 @@ if (q == 7){
     if (i == 4) {
       setSpindexerPixel(98, y, u, w);
     }
-    
-  if (b == 1);{
-int h = 30;
-}
-  if (b == 2);{
-int hh = 25;
-}
-  if (b == 3);{
-int hh = 20;
-}
-  if (b == 4);{
-int hh = 80;
-}
-  if (b == 5);{
-    int hh = 80;
+
+    if (b == 1); {
+      int h = 30;
     }
-  if (b == 6);{
-int hh = 70;
-}
+    if (b == 2); {
+      int hh = 25;
+    }
+    if (b == 3); {
+      int hh = 20;
+    }
+    if (b == 4); {
+      int hh = 80;
+    }
+    if (b == 5); {
+      int hh = 80;
+    }
+    if (b == 6); {
+      int hh = 70;
+    }
     delay(hh);
     spindexerStrip.show();
   }
@@ -510,10 +548,10 @@ int hh = 70;
 
 void setSpindexerPixel(int index, int r, int g, int b) {
   spindexerStrip.setPixelColor(index, r, g, b);
-  //spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, r, g, b);
+  spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, r, g, b);
 }
 
 void setSpindexerPixel(int index, uint32_t color) {
   spindexerStrip.setPixelColor(index, color);
-  //spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
+  spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
 }
