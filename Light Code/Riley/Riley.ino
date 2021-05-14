@@ -1,4 +1,4 @@
-#include <Adafruit_NeoPixel.h>
+ #include <Adafruit_NeoPixel.h>
 
 // Spindexer Lights
 #define SPINDEXER_PIN 6
@@ -91,7 +91,6 @@ void alternatingColorBounce() {
   bool wasBlue = false;
 
   for  (int i = 0; i < SPINDEXER_COUNT; i += 6) {
-
     if (wasBlue) {
       setSpindexerPixel(i, white);
       wasBlue = false;
@@ -101,7 +100,7 @@ void alternatingColorBounce() {
     }
     spindexerStrip.show();
     delay(20);
-  }
+  }   
   wasBlue = true;
   for (int i = 96; i >= 0; i -= 6) {
     if (wasBlue) {
