@@ -18,9 +18,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.trajectory.SwerveTrajectory;
-import frc.lib.vision.LimeLight.LedMode;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
 public class AutoFollowPath extends CommandBase {

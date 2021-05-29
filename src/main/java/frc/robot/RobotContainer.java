@@ -52,8 +52,8 @@ public class RobotContainer {
   public JoystickButton autoAimButton;
   private JoystickButton increaseShooterSpeedButton;
   private JoystickButton decreaseShooterSpeedButton;
-  private JoystickButton powerPortForwardButton;
-  private JoystickButton powerPortBackwardButton;
+  // private JoystickButton powerPortForwardButton;
+  // private JoystickButton powerPortBackwardButton;
 
   // Controller 2 Buttons
   private JoystickButton autoOverrideButton;
@@ -104,8 +104,9 @@ public class RobotContainer {
     // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
 
     // SmartDashboard Auto Data
-    SmartDashboard.putData("Straight Drive",
-        new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory()));
+    // SmartDashboard.putData("Straight Drive",
+    // new AutoFollowPath(mDriveTrain, new
+    // StraightPath().generateSwerveTrajectory()));
     SmartDashboard.putData("Set Swerve 0", new SetSwerveAngle(mDriveTrain, 0.0));
     SmartDashboard.putData("Set Swerve -90", new SetSwerveAngle(mDriveTrain, -90.0));
 
@@ -195,13 +196,15 @@ public class RobotContainer {
     decreaseShooterSpeedButton = new JoystickButton(controller1, 5);
     decreaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, -100));
 
-    powerPortForwardButton = new JoystickButton(controller1, 2);
-    powerPortForwardButton.toggleWhenPressed(
-        new AutoFollowPath(mDriveTrain, new PowerPortForward(mDriveTrain).generateSwerveTrajectory()));
+    // powerPortForwardButton = new JoystickButton(controller1, 2);
+    // powerPortForwardButton.toggleWhenPressed(
+    // new AutoFollowPath(mDriveTrain, new
+    // PowerPortForward(mDriveTrain).generateSwerveTrajectory()));
 
-    powerPortBackwardButton = new JoystickButton(controller1, 3);
-    powerPortBackwardButton.toggleWhenPressed(
-        new AutoFollowPath(mDriveTrain, new PowerPortBackward(mDriveTrain).generateSwerveTrajectory()));
+    // powerPortBackwardButton = new JoystickButton(controller1, 3);
+    // powerPortBackwardButton.toggleWhenPressed(
+    // new AutoFollowPath(mDriveTrain, new
+    // PowerPortBackward(mDriveTrain).generateSwerveTrajectory()));
 
     // Controller 2 Buttons
     autoOverrideButton = new JoystickButton(controller2, 2);
@@ -242,8 +245,8 @@ public class RobotContainer {
     zone2Button.whenActive(new SetShooterSpeed(mShooter, 3500));
 
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
-    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.71)); //8.71
-    zone3Button.whenActive(new SetShooterSpeed(mShooter, 3500)); //3000
+    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.71)); // 8.71
+    zone3Button.whenActive(new SetShooterSpeed(mShooter, 3500)); // 3000
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));

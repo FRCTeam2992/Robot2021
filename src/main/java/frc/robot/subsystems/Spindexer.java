@@ -21,7 +21,7 @@ public class Spindexer extends SubsystemBase {
   public Spindexer() {
     // Spindexer Motors
     spinnerMotor = new VictorSPX(10);
-    spinnerMotor.setInverted(true);
+    spinnerMotor.setInverted(false);
     spinnerMotor.setNeutralMode(NeutralMode.Coast);
   }
 

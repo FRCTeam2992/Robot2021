@@ -18,7 +18,7 @@ public class Ejector extends SubsystemBase {
   public Ejector() {
     // Ejector Motors
     ejectorMotor = new VictorSPX(11);
-    ejectorMotor.setInverted(false);
+    ejectorMotor.setInverted(true);
     ejectorMotor.setNeutralMode(NeutralMode.Coast);
   }
 
