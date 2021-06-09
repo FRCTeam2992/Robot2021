@@ -136,9 +136,9 @@ public class DriveSticks extends CommandBase {
     if (Math.abs(x1) > 0.0 || Math.abs(y1) > 0.0 || Math.abs(x2) > 0.0) {
 
       // Demo Slow Mode
-      x1 /= 5;
-      y1 /= 5;
-      x2 /= 5;
+      // x1 /= 4;
+      // y1 /= 4;
+      // x2 /= 4;
 
       // Slow the Rotation
       x2 *= (2.0 / 3.0);

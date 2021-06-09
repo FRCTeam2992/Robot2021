@@ -91,6 +91,7 @@ public class DriveTrain extends SubsystemBase {
   public Trajectory GalacticSearchBBlueTrajectory;
   public Trajectory PowerPortForward;
   public Trajectory PowerPortBackward;
+  public Trajectory TeamNumberPath;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
@@ -308,6 +309,7 @@ public class DriveTrain extends SubsystemBase {
     Path powerPortForwardPath = Filesystem.getDeployDirectory().toPath().resolve("output/PowerPortForward.wpilib.json");
     Path powerPortBackwardPath = Filesystem.getDeployDirectory().toPath()
         .resolve("output/PowerPortBackward.wpilib.json");
+    Path teamNumerPath = Filesystem.getDeployDirectory().toPath().resolve("output/2992LetterPath.wpilib.json");
 
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
@@ -319,6 +321,7 @@ public class DriveTrain extends SubsystemBase {
       GalacticSearchBBlueTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchBBluePath);
       PowerPortForward = TrajectoryUtil.fromPathweaverJson(powerPortForwardPath);
       PowerPortBackward = TrajectoryUtil.fromPathweaverJson(powerPortBackwardPath);
+      TeamNumberPath = TrajectoryUtil.fromPathweaverJson(teamNumerPath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();

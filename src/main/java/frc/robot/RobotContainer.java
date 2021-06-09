@@ -258,6 +258,7 @@ public class RobotContainer {
     Command barrelAuto = new AutoFollowPath(mDriveTrain, new BarrelPath(mDriveTrain).generateSwerveTrajectory());
     Command bounceAuto = new AutoFollowPath(mDriveTrain, new BouncePath(mDriveTrain).generateSwerveTrajectory());
     Command galacticSearchAuto = new GalacticSearchSelector(mDriveTrain, mIntake, mSpindexer, mEjector);
+    Command teamNumberAuto = new AutoFollowPath(mDriveTrain, new TeamNumberPath(mDriveTrain).generateSwerveTrajectory());
 
     // Auto Choose
     autoChooser = new SendableChooser<>();
@@ -267,6 +268,7 @@ public class RobotContainer {
     autoChooser.addOption("Barrel", barrelAuto);
     autoChooser.addOption("Bounce", bounceAuto);
     autoChooser.addOption("Galactic Search", galacticSearchAuto);
+    autoChooser.addOption("2992 Draw", teamNumberAuto);
 
     // Display the Chooser on Dashboard
     SmartDashboard.putData("Auto Selector", autoChooser);
