@@ -56,8 +56,10 @@ void Dissolve() {
 
     setSpindexerPixel(randomPixel, white);
     spindexerStrip.show();
-    delay(30);
+    delay(25);
   }
+
+  delay(100);
 
   for (int i = 0; i < SPINDEXER_COUNT; i++) {
     int randomPixel = random(0, SPINDEXER_COUNT);
@@ -68,7 +70,58 @@ void Dissolve() {
 
     setSpindexerPixel(randomPixel, blue);
     spindexerStrip.show();
-    delay(30);
+    delay(25);
+  }
+  delay(100);
+}
+
+
+void SectionDissolve() {
+  //Middle Section
+  for (int i = 0; i < SPINDEXER_COUNT / 3; i++) {
+    int randomPixel = random((SPINDEXER_COUNT / 2) - SPINDEXER_COUNT / 6, (SPINDEXER_COUNT / 2) + SPINDEXER_COUNT / 6);
+
+    while (spindexerStrip.getPixelColor(randomPixel) == white) {
+      randomPixel = random((SPINDEXER_COUNT / 2) - SPINDEXER_COUNT / 6, (SPINDEXER_COUNT / 2) + SPINDEXER_COUNT / 6);
+    }
+
+    setSpindexerPixel(randomPixel, white);
+    spindexerStrip.show();
+    delay(50);
+  }
+
+  //IN-BETWEEN SECTIONS
+  for (int i = 0; i < SPINDEXER_COUNT / 3; i++) {
+    int randomPixel = random((SPINDEXER_COUNT / 2) - (SPINDEXER_COUNT / 3), (SPINDEXER_COUNT / 2) - (SPINDEXER_COUNT / 6));
+    int randomPixil = random((SPINDEXER_COUNT / 2) + (SPINDEXER_COUNT / 6), (SPINDEXER_COUNT / 2) + (SPINDEXER_COUNT / 3));
+
+    while (spindexerStrip.getPixelColor(randomPixel) == white) {
+      randomPixel = random((SPINDEXER_COUNT / 2) - (SPINDEXER_COUNT / 3), (SPINDEXER_COUNT / 2) - (SPINDEXER_COUNT / 6));
+    }
+    while (spindexerStrip.getPixelColor(randomPixil) == white) {
+      randomPixil = random((SPINDEXER_COUNT / 2) + (SPINDEXER_COUNT / 6), (SPINDEXER_COUNT / 2) + (SPINDEXER_COUNT / 3));
+    }
+    setSpindexerPixel(randomPixel, white);
+    setSpindexerPixel(randomPixil, white);
+    spindexerStrip.show();
+    delay(50);
+  }
+
+  //OUTER SECTIONS
+  for (int i = 0; i < SPINDEXER_COUNT / 3; i++) {
+    int randomPixel = random(0, (SPINDEXER_COUNT / 2) - (SPINDEXER_COUNT / 3));
+    int randomPixil = random((SPINDEXER_COUNT / 2) + (SPINDEXER_COUNT / 3), SPINDEXER_COUNT);
+
+    while (spindexerStrip.getPixelColor(randomPixel) == white) {
+      randomPixel = random(0, (SPINDEXER_COUNT / 2) - (SPINDEXER_COUNT / 3));
+    }
+    while (spindexerStrip.getPixelColor(randomPixil) == white) {
+      randomPixil = random((SPINDEXER_COUNT / 2) + (SPINDEXER_COUNT / 3), SPINDEXER_COUNT);
+    }
+    setSpindexerPixel(randomPixel, white);
+    setSpindexerPixel(randomPixil, white);
+    spindexerStrip.show();
+    delay(50);
   }
 }
 
@@ -80,20 +133,4 @@ void setSpindexerPixel(int index, int r, int g, int b) {
 void setSpindexerPixel(int index, uint32_t color) {
   spindexerStrip.setPixelColor(index, color);
   spindexerStrip.setPixelColor((SPINDEXER_REAL_COUNT - 1) - index, color);
-}
-
-void SectionDissolve() {
-  //Middle Section
-  for (int i; i > SPINDEXER_COUNT / 3; i++) {
-    int randomPixel = random((SPINDEXER_COUNT / 2) - SPINDEXER_COUNT / 6, (SPINDEXER_COUNT / 2) + SPINDEXER_COUNT / 6);
-
-    while (spindexerStrip.getPixelColor(randomPixel) == white) {
-      randomPixel = random ((SPINDEXER_COUNT / 2) - SPINDEXER_COUNT / 6, (SPINDEXER_COUNT / 2) + SPINDEXER_COUNT / 6);
-    }
-
-    setSpindexerPixel(randomPixel, white);
-    spindexerStrip.show();
-    delay(30);
-  }
- 
 }
