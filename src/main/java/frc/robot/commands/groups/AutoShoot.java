@@ -14,7 +14,7 @@ public class AutoShoot extends ParallelCommandGroup {
 
   public AutoShoot(Spindexer mSpindexer, Ejector mEjector) {
     // Add Commands
-    addCommands(new MoveEjector(mEjector, 1.0), new MoveSpindexer(mSpindexer, -0.75)); // spindexer -0.75
+    addCommands(new MoveEjector(mEjector, 0.8), new MoveSpindexer(mSpindexer, -0.35)); // spindexer -0.75
     // -0.17%
   }
 }
