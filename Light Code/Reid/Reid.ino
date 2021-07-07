@@ -42,8 +42,8 @@ void setup() {
 }
 
 void loop() {
-  //Dissolve();
-  SectionDissolve();
+  Dissolve();
+  //SectionDissolve();
 }
 
 void Dissolve() {
