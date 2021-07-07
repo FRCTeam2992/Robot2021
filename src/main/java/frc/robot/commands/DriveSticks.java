@@ -116,9 +116,11 @@ public class DriveSticks extends CommandBase {
       mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
 
       // Check if LimeLight Has a Target
-      if (mDriveTrain.limeLightCamera.hasTarget()) {
+      if (mDriveTrain.limeLightCamera.hasTarget() && Math.abs(mDriveTrain.limeLightCamera.getTargetXOffset()) > 1.0) {
         // Calculate the Drive Aim Correction
         x2 = -mDriveTrain.limeLightCamera.getTargetXOffset() * Constants.driveAimP;
+
+        gyroTargetRecorded = false;
       }
     } else {
       // Turn Off the LimeLight
