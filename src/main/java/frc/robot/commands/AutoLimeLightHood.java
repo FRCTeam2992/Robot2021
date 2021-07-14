@@ -5,24 +5,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.vision.LimeLight.LedMode;
+import frc.robot.Constants;
+import frc.robot.subsystems.AdjustabeHood;
+import frc.robot.subsystems.DriveTrain;
 
 public class AutoLimeLightHood extends CommandBase {
-  /** Creates a new AutoLimeLightHood. */
-  public AutoLimeLightHood() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private AdjustabeHood mAdjustabeHood;
+  private DriveTrain mDriveTrain;
+
+  public AutoLimeLightHood(AdjustabeHood subsystemA, DriveTrain subsystemD) {
+    mAdjustabeHood = subsystemA;
+    mDriveTrain = subsystemD;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
+    double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight);
+    int targetPostion = mAdjustabeHood.presetPostions.getShooterSpeed(currentDistance);
+    mAdjustabeHood.setHoodPosition(targetPostion);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
+
+  }
 
   // Returns true when the command should end.
   @Override
