@@ -56,7 +56,7 @@ void Dissolve() {
 
     setSpindexerPixel(randomPixel, white);
     spindexerStrip.show();
-    delay(25);
+    delay(15);
   }
 
   delay(100);

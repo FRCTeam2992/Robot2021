@@ -84,7 +84,7 @@ public final class Constants {
     public static final double driveGyroP = 0.005;
 
     // Swerve Auto Aim
-    public static final double driveAimP = 0.013;
+    public static final double driveAimP = 0.013; // 0.025
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.15;
@@ -111,4 +111,9 @@ public final class Constants {
     public static final double thetaCorrectionP = 6.0;
     public static final double thetaCorrectionI = 0.0;
     public static final double thetaCorrectionD = 0.0;
+
+    // Lime Light Camera Values
+    public static final double cameraAngle = 49.8;
+    public static final double cameraHeight = 24;
+    public static final double targetHeight = 84;
 }

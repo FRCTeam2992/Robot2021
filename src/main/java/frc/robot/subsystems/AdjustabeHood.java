@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.ShooterSpeeds;
 import frc.robot.Constants;
 
 public class AdjustabeHood extends SubsystemBase {
@@ -29,6 +30,9 @@ public class AdjustabeHood extends SubsystemBase {
   // Adjustable Hood Dashboard Update Counter
   private int dashboardCounter = 0;
 
+  //Preset Positions
+  public ShooterSpeeds presetPostions;
+
   public AdjustabeHood() {
     // Adjustables Hood Motors
     hoodMotor = new CANSparkMax(14, MotorType.kBrushless);
@@ -44,6 +48,12 @@ public class AdjustabeHood extends SubsystemBase {
 
     // Adjustable Hood Limit Switch
     limitSwitch = new DigitalInput(0);
+
+    presetPostions = new ShooterSpeeds();
+    presetPostions.addSetpoint(10, 45);
+    presetPostions.addSetpoint(10, 45);
+    presetPostions.addSetpoint(10, 45);
+    presetPostions.addSetpoint(10, 45);
   }
 
   @Override
