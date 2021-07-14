@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.util.ShooterSpeeds;
+import frc.lib.util.DistanceDatabase;
 import frc.robot.Constants;
 
 public class AdjustabeHood extends SubsystemBase {
@@ -31,7 +31,7 @@ public class AdjustabeHood extends SubsystemBase {
   private int dashboardCounter = 0;
 
   //Preset Positions
-  public ShooterSpeeds presetPostions;
+  public DistanceDatabase presetPostions;
 
   public AdjustabeHood() {
     // Adjustables Hood Motors
@@ -49,7 +49,7 @@ public class AdjustabeHood extends SubsystemBase {
     // Adjustable Hood Limit Switch
     limitSwitch = new DigitalInput(0);
 
-    presetPostions = new ShooterSpeeds();
+    presetPostions = new DistanceDatabase();
     presetPostions.addSetpoint(10, 45);
     presetPostions.addSetpoint(10, 45);
     presetPostions.addSetpoint(10, 45);

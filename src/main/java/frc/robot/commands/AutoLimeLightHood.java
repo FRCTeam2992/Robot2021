@@ -30,7 +30,7 @@ public class AutoLimeLightHood extends CommandBase {
   public void execute() {
     mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
     double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight);
-    int targetPostion = mAdjustabeHood.presetPostions.getShooterSpeed(currentDistance);
+    int targetPostion = mAdjustabeHood.presetPostions.getSetpoint(currentDistance);
     mAdjustabeHood.setHoodPosition(targetPostion);
   }
 

@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.util.ShooterSpeeds;
+import frc.lib.util.DistanceDatabase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase {
   private int dashboardCounter = 0;
 
   //Presets for shooter speed
-  public ShooterSpeeds presetSpeeds;
+  public DistanceDatabase presetSpeeds;
 
 
   public Shooter() {
@@ -45,7 +45,7 @@ public class Shooter extends SubsystemBase {
     followShooter.setInverted(true);
     followShooter.follow(leadShooter);
     
-    presetSpeeds = new ShooterSpeeds();
+    presetSpeeds = new DistanceDatabase();
     presetSpeeds.addSetpoint(10, 3000);
     presetSpeeds.addSetpoint(20, 4000);
     presetSpeeds.addSetpoint(30, 5000);
