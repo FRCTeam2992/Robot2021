@@ -241,6 +241,9 @@ public class DriveTrain extends SubsystemBase {
     // latestSwervePose.getRotation().getDegrees());
     // SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
     // SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
+
+    SmartDashboard.putNumber("Limelight Distance", limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight));
+
   }
 
   public void setTurnIdleMode(IdleMode mode) {
