@@ -50,10 +50,10 @@ public class AdjustabeHood extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
 
     presetPostions = new DistanceDatabase();
-    presetPostions.addSetpoint(10, 45);
-    presetPostions.addSetpoint(10, 45);
-    presetPostions.addSetpoint(10, 45);
-    presetPostions.addSetpoint(10, 45);
+    presetPostions.addSetpoint(10, 10);
+    presetPostions.addSetpoint(10, 10);
+    presetPostions.addSetpoint(10, 10);
+    presetPostions.addSetpoint(10, 10);
   }
 
   @Override
@@ -62,6 +62,7 @@ public class AdjustabeHood extends SubsystemBase {
     if (dashboardCounter >= 4) {
       SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
       SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
+
 
       dashboardCounter = 0;
     } else {

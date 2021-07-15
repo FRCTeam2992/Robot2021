@@ -29,9 +29,13 @@ public class AutoLimeLightHood extends CommandBase {
   @Override
   public void execute() {
     mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
-    double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight);
-    int targetPostion = mAdjustabeHood.presetPostions.getSetpoint(currentDistance);
-    mAdjustabeHood.setHoodPosition(targetPostion);
+    if (mDriveTrain.limeLightCamera.hasTarget()) {
+
+      double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle,
+          Constants.cameraHeight, Constants.targetHeight);
+      int targetPostion = mAdjustabeHood.presetPostions.getSetpoint(currentDistance);
+      mAdjustabeHood.setHoodPosition(targetPostion);
+    }
   }
 
   // Called once the command ends or is interrupted.

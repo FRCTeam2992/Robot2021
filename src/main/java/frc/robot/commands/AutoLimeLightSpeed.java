@@ -29,10 +29,13 @@ public class AutoLimeLightSpeed extends CommandBase {
   @Override
   public void execute() {
     mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
-   
-    double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight);
-    int targetSpeed = mShooter.presetSpeeds.getSetpoint(currentDistance);
-    mShooter.shooterSetSpeed = targetSpeed;
+
+    if (mDriveTrain.limeLightCamera.hasTarget()) {
+      double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle,
+          Constants.cameraHeight, Constants.targetHeight);
+      int targetSpeed = mShooter.presetSpeeds.getSetpoint(currentDistance);
+      mShooter.shooterSetSpeed = targetSpeed;
+    }
   }
 
   // Called once the command ends or is interrupted.
