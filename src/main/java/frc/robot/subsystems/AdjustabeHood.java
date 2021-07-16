@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.lang.annotation.Target;
+
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -30,8 +32,12 @@ public class AdjustabeHood extends SubsystemBase {
   // Adjustable Hood Dashboard Update Counter
   private int dashboardCounter = 0;
 
+<<<<<<< Updated upstream
   //Preset Positions
   public DistanceDatabase presetPostions;
+=======
+  public double hoodTarget = 0;
+>>>>>>> Stashed changes
 
   public AdjustabeHood() {
     // Adjustables Hood Motors
@@ -78,6 +84,11 @@ public class AdjustabeHood extends SubsystemBase {
 
   public void setHoodPosition(double position) {
     hoodMotor.getPIDController().setReference(position, ControlType.kPosition);
+    hoodTarget = position;
+  }
+
+  public void startHood() {
+    hoodMotor.getPIDController().setReference(hoodTarget, ControlType.kPosition);
   }
 
   public boolean getLimitState() {
@@ -86,6 +97,14 @@ public class AdjustabeHood extends SubsystemBase {
 
   public double getHoodPosition() {
     return hoodMotor.getEncoder().getPosition();
+  }
+
+  public double getHoodTarget() {
+    return hoodTarget;
+  }
+
+  public void setHoodTarget(double target) {
+    hoodTarget = target;
   }
 
   public void zeroHoodMotor() {

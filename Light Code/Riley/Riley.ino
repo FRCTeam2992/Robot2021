@@ -14,6 +14,7 @@ uint32_t orange = spindexerStrip.Color(255, 50, 0);
 uint32_t yellow = spindexerStrip.Color(255, 160, 0);
 uint32_t green = spindexerStrip.Color(0, 255, 0);
 uint32_t blue = spindexerStrip.Color(0, 29, 220);
+uint32_t moreBlue = spindexerStrip.Color(0, 0, 203);
 uint32_t purple = spindexerStrip.Color(255, 0, 255);
 uint32_t white = spindexerStrip.Color(255, 255, 255);
 uint32_t black = spindexerStrip.Color(0, 0, 0);
@@ -26,8 +27,8 @@ void setup() {
 }
 
 void loop() {
-  //rileyCode();
-  alternatingColorBounce();
+  rileyCode();
+  //alternatingColorBounce();
 }
 // bounce color switch
 void rileyCode() {
@@ -90,27 +91,27 @@ void rileyCode() {
 void alternatingColorBounce() {
   bool wasBlue = false;
 
-  for  (int i = 0; i < SPINDEXER_COUNT; i += 6) {
+  for  (int i = 0; i < SPINDEXER_COUNT; i += 8) {
     if (wasBlue) {
       setSpindexerPixel(i, white);
       wasBlue = false;
     } else {
-      setSpindexerPixel(i, blue);
+      setSpindexerPixel(i, moreBlue);
       wasBlue = true;
     }
     spindexerStrip.show();
     delay(20);
   }   
   wasBlue = true;
-  for (int i = 96; i >= 0; i -= 6) {
+  for (int i = 96; i >= 0; i -= 8) {
     if (wasBlue) {
       setSpindexerPixel(i, white);
       wasBlue = false;
     } else {
-      setSpindexerPixel(i, blue);
+      setSpindexerPixel(i, moreBlue);
       wasBlue = true;
     }
-    for (int i = 96; i >= 0; i -= 6) {
+    for (int i = 96; i >= 0; i -= 8) {
       spindexerStrip.show();
       delay(0);
     }
