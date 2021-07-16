@@ -46,10 +46,12 @@ public class Shooter extends SubsystemBase {
     followShooter.follow(leadShooter);
     
     presetSpeeds = new DistanceDatabase();
-    presetSpeeds.addSetpoint(10, 3000);
-    presetSpeeds.addSetpoint(20, 4000);
-    presetSpeeds.addSetpoint(30, 5000);
-    presetSpeeds.addSetpoint(40, 6000);
+    presetSpeeds.addSetpoint(17.5, 3600);
+    presetSpeeds.addSetpoint(30.5, 4000);
+    presetSpeeds.addSetpoint(44.5, 4100);
+    presetSpeeds.addSetpoint(54, 4300);
+    presetSpeeds.addSetpoint(65.4, 4800);
+    presetSpeeds.addSetpoint(72, 5100);
   }
 
   @Override

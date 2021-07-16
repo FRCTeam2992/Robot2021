@@ -44,18 +44,5 @@ public class TeamNumberPath extends SwerveTrajectoryGenerator {
         addTimedHeadingWaypoint(19.89, 21.06, 180);
         addTimedHeadingWaypoint(21.23, 22.23, 270);
         addTimedHeadingWaypoint(22.23, 23.4, 0);
-
-        // addTimedHeadingWaypoint(0, 10.0, 180);
-        // addTimedHeadingWaypoint(10, 20, 359);
-
     }
-
-    public void autoTurns(double totalTime, int numOfTurns) {
-        double timeIncrements = totalTime / (numOfTurns * 4);
-
-        for(int i = 0; i <= numOfTurns * 4; i++) {
-            
-        }
-        }
-
 }

@@ -17,6 +17,8 @@ public class AutoLimeLightHood extends CommandBase {
   public AutoLimeLightHood(AdjustabeHood subsystemA, DriveTrain subsystemD) {
     mAdjustabeHood = subsystemA;
     mDriveTrain = subsystemD;
+    
+    addRequirements(subsystemA);
 
   }
 
@@ -33,7 +35,7 @@ public class AutoLimeLightHood extends CommandBase {
 
       double currentDistance = mDriveTrain.limeLightCamera.getDistanceToTarget(Constants.cameraAngle,
           Constants.cameraHeight, Constants.targetHeight);
-      int targetPostion = mAdjustabeHood.presetPostions.getSetpoint(currentDistance);
+      double targetPostion = mAdjustabeHood.presetPostions.getSetpoint(currentDistance);
       mAdjustabeHood.setHoodPosition(targetPostion);
     }
   }

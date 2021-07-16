@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +18,7 @@ import frc.lib.oi.controller.DPadButton;
 import frc.lib.oi.controller.TriggerButton;
 import frc.lib.oi.controller.DPadButton.Direction;
 import frc.robot.commands.*;
+import frc.robot.commands.autos.CenterTrenchAuto;
 import frc.robot.commands.autos.GalacticSearchSelector;
 import frc.robot.commands.groups.*;
 import frc.robot.paths.*;
@@ -175,6 +177,9 @@ public class RobotContainer {
 
     // Configure the Buttons
     configureButtonBindings();
+
+    // calls function to start camera
+    initCamera();
   }
 
   private void configureButtonBindings() {
@@ -189,6 +194,9 @@ public class RobotContainer {
     autoShootButton.whenInactive(new StopAutoShoot(mSpindexer, mEjector));
 
     autoAimButton = new JoystickButton(controller1, 1);
+    autoAimButton.whileHeld(new AutoLimeLightSpeed(mShooter, mDriveTrain));
+    autoAimButton.whenPressed(new AutoLimeLightHood(mAdjustabeHood, mDriveTrain));
+    autoAimButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     increaseShooterSpeedButton = new JoystickButton(controller1, 6);
     increaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, 100));
@@ -233,23 +241,24 @@ public class RobotContainer {
     moveSpindexerReverseButton.whenInactive(new StopSpindexer(mSpindexer));
 
     zone4Button = new DPadButton(controller2, Direction.DOWN);
-    zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0));
-    zone4Button.whenActive(new SetShooterSpeed(mShooter, 5300));
+    zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 5.7));
+    zone4Button.whenActive(new SetShooterSpeed(mShooter, 4300));
 
     zone1Button = new DPadButton(controller2, Direction.LEFT);
-    zone1Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0 ));
-    zone1Button.whenActive(new SetShooterSpeed(mShooter, 3900));
+    zone1Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 1.357));
+    zone1Button.whenActive(new SetShooterSpeed(mShooter, 3600));
 
     zone2Button = new DPadButton(controller2, Direction.UP);
-    zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 8.5));
-    zone2Button.whenActive(new SetShooterSpeed(mShooter, 5400));
+    zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0));
+    zone2Button.whenActive(new SetShooterSpeed(mShooter, 0));
 
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
-    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 10.55)); // 8.71
-    zone3Button.whenActive(new SetShooterSpeed(mShooter, 5900)); // 3000
+    zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.57)); // 8.71
+    zone3Button.whenActive(new SetShooterSpeed(mShooter, 5100)); // 3000
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
+
   }
 
   private void setupAutoSelector() {
@@ -258,7 +267,9 @@ public class RobotContainer {
     Command barrelAuto = new AutoFollowPath(mDriveTrain, new BarrelPath(mDriveTrain).generateSwerveTrajectory());
     Command bounceAuto = new AutoFollowPath(mDriveTrain, new BouncePath(mDriveTrain).generateSwerveTrajectory());
     Command galacticSearchAuto = new GalacticSearchSelector(mDriveTrain, mIntake, mSpindexer, mEjector);
-    Command teamNumberAuto = new AutoFollowPath(mDriveTrain, new TeamNumberPath(mDriveTrain).generateSwerveTrajectory());
+    Command teamNumberAuto = new AutoFollowPath(mDriveTrain,
+        new TeamNumberPath(mDriveTrain).generateSwerveTrajectory());
+    Command centerTrenchAuto = new CenterTrenchAuto(mDriveTrain, mShooter, mSpindexer, mEjector, mIntake, mAdjustabeHood);
 
     // Auto Choose
     autoChooser = new SendableChooser<>();
@@ -269,6 +280,7 @@ public class RobotContainer {
     autoChooser.addOption("Bounce", bounceAuto);
     autoChooser.addOption("Galactic Search", galacticSearchAuto);
     autoChooser.addOption("2992 Draw", teamNumberAuto);
+    autoChooser.addOption("Center Trench", centerTrenchAuto);
 
     // Display the Chooser on Dashboard
     SmartDashboard.putData("Auto Selector", autoChooser);
@@ -276,5 +288,9 @@ public class RobotContainer {
 
   public Command getAutoCommand() {
     return autoChooser.getSelected();
+  }
+
+  public void initCamera() {
+    CameraServer.getInstance().startAutomaticCapture("Driver Camera", 1);
   }
 }

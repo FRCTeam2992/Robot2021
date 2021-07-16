@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.drive.swerve.trajectory.SwerveTrajectory;
+import frc.lib.vision.LimeLight.LedMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
@@ -90,7 +91,7 @@ public class AutoFollowPath extends CommandBase {
     elapsedTimer.reset();
     elapsedTimer.start();
 
-    //mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
+    mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -105,10 +106,9 @@ public class AutoFollowPath extends CommandBase {
     // Get the Desired Heading
     double heading = mSwerveyTrajectory.getDesiredHeading(currentTime);
 
-    // if (mDriveTrain.limeLightCamera.hasTarget() &&
-    // Robot.mRobotContainer.autoAimButton.get()) {
-    // heading = mDriveTrain.latestSwervePose.getRotation().getDegrees()
-    // - (mDriveTrain.limeLightCamera.getTargetXOffset() - 2.0);
+    // if (mDriveTrain.limeLightCamera.hasTarget() && Robot.mRobotContainer.autoAimButton.get()) {
+    //   heading = mDriveTrain.latestSwervePose.getRotation().getDegrees()
+    //       - (mDriveTrain.limeLightCamera.getTargetXOffset());
     // }
 
     // Get the Ajusted Speeds
@@ -130,7 +130,7 @@ public class AutoFollowPath extends CommandBase {
   public void end(boolean interrupted) {
     mDriveTrain.stopDrive();
 
-    //mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
+    mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
   }
 
   // Returns true when the command should end.

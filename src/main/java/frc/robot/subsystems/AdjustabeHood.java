@@ -50,10 +50,12 @@ public class AdjustabeHood extends SubsystemBase {
     limitSwitch = new DigitalInput(0);
 
     presetPostions = new DistanceDatabase();
-    presetPostions.addSetpoint(10, 10);
-    presetPostions.addSetpoint(10, 10);
-    presetPostions.addSetpoint(10, 10);
-    presetPostions.addSetpoint(10, 10);
+    presetPostions.addSetpoint(17.5, 1.375);
+    presetPostions.addSetpoint(30.5, 4.452);
+    presetPostions.addSetpoint(44.5, 5.119);
+    presetPostions.addSetpoint(54, 5.7);
+    presetPostions.addSetpoint(65.4, 6.9);
+    presetPostions.addSetpoint(72, 7.57);
   }
 
   @Override
