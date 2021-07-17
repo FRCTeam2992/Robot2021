@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -74,15 +73,19 @@ public class AutoFollowPath extends CommandBase {
     Pose2d trajectoryStartPose = mTrajectory.getInitialPose();
 
     // Get the Transform for the Starting Rotation
-    Transform2d transform = new Pose2d(mTrajectory.getInitialPose().getTranslation(),
-        Rotation2d.fromDegrees(mSwerveyTrajectory.getStartRotation())).minus(mTrajectory.getInitialPose());
+    // Transform2d transform = new Pose2d(mTrajectory.getInitialPose().getTranslation(),
+    //     Rotation2d.fromDegrees(0.0)).minus(mTrajectory.getInitialPose());
+
+    // mSwerveyTrajectory.getStartRotation()
 
     // Rotate the Trajectory
-    mTrajectory = mTrajectory.transformBy(transform);
+    // mTrajectory = mTrajectory.transformBy(transform);
 
     // Set the Odometry Position to the Trajectory Start Position
     mDriveTrain.setOdometryPosition(new Pose2d(trajectoryStartPose.getX(), trajectoryStartPose.getY(),
-        Rotation2d.fromDegrees(mSwerveyTrajectory.getDesiredHeading(0.0))));
+        Rotation2d.fromDegrees(-mDriveTrain.navx.getYaw())));
+
+    // mSwerveyTrajectory.getDesiredHeading(0.0)
 
     // Diaplay the Total Trajectory Time
     SmartDashboard.putNumber("Auto Time", mTrajectory.getTotalTimeSeconds());
