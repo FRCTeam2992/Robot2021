@@ -23,6 +23,8 @@ public class ShooterAtSpeed extends CommandBase {
     mShooter = subsystem;
 
     mTimeout = timeout;
+
+    timeroutTimer = new Timer();
   }
   // Called when the command is initially scheduled.
   @Override

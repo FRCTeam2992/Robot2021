@@ -18,6 +18,7 @@ import frc.lib.oi.controller.DPadButton;
 import frc.lib.oi.controller.TriggerButton;
 import frc.lib.oi.controller.DPadButton.Direction;
 import frc.robot.commands.*;
+import frc.robot.commands.autos.CenterTrenchAuto;
 import frc.robot.commands.autos.GalacticSearchSelector;
 import frc.robot.commands.groups.*;
 import frc.robot.paths.*;
@@ -275,6 +276,7 @@ public class RobotContainer {
     Command galacticSearchAuto = new GalacticSearchSelector(mDriveTrain, mIntake, mSpindexer, mEjector);
     Command teamNumberAuto = new AutoFollowPath(mDriveTrain,
         new TeamNumberPath(mDriveTrain).generateSwerveTrajectory());
+    Command centerTrenchAuto = new CenterTrenchAuto(mShooter, mAdjustabeHood, mDriveTrain, mSpindexer, mEjector);
 
     // Auto Choose
     autoChooser = new SendableChooser<>();
@@ -285,6 +287,7 @@ public class RobotContainer {
     autoChooser.addOption("Bounce", bounceAuto);
     autoChooser.addOption("Galactic Search", galacticSearchAuto);
     autoChooser.addOption("2992 Draw", teamNumberAuto);
+    autoChooser.addOption("Center Trench", centerTrenchAuto);
 
     // Display the Chooser on Dashboard
     SmartDashboard.putData("Auto Selector", autoChooser);
