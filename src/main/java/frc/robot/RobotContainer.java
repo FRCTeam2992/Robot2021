@@ -162,10 +162,12 @@ public class RobotContainer {
     // mEjector));
     // SmartDashboard.putData("Auto Shoot", new AutoShoot(mSpindexer, mEjector));
 
-    SmartDashboard.putData("Auto Rotate 30", new AutoDriveRotate(mDriveTrain, 30, false, 10));
-    SmartDashboard.putData("Auto Rotate -30", new AutoDriveRotate(mDriveTrain, -30, false, 10));
-    SmartDashboard.putData("Auto Rotate 30 LimeLight", new AutoDriveRotate(mDriveTrain, 30, true, 10));
-    SmartDashboard.putData("Auto Rotate -30 LimeLight", new AutoDriveRotate(mDriveTrain, -30, true, 10));
+    SmartDashboard.putData("Start Hood", new StartHood(mAdjustabeHood));
+    SmartDashboard.putData("Set Hood 0", new SetHoodTarget(mAdjustabeHood, 0));
+    SmartDashboard.putData("Set Hood 1", new SetHoodTarget(mAdjustabeHood, 1));
+    SmartDashboard.putData("Set Hood 13", new SetHoodTarget(mAdjustabeHood, 13));
+    SmartDashboard.putData("Shooter At Setpoint", new ShooterAtSetSpeed(mShooter, 100));
+    SmartDashboard.putData("Is Home", new HoodIsHomed(mAdjustabeHood));
 
     // Setup the Autonomous Selector
     setupAutoSelector();

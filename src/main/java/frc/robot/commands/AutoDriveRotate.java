@@ -20,6 +20,8 @@ public class AutoDriveRotate extends CommandBase {
 
   private Timer timeoutTimer;
 
+  private int atSetpointCounter = 0;
+
   /** Creates a new AutoDriveRotate. */
   public AutoDriveRotate(DriveTrain subsystem, double targetRotation, boolean useLimeLight, double timeout) {
     mDriveTrain = subsystem;
@@ -49,7 +51,7 @@ public class AutoDriveRotate extends CommandBase {
     double correctionSpeed;
 
     if (mUseLimeLight && mDriveTrain.limeLightCamera.hasTarget()) {
-      correctionSpeed = -mDriveTrain.limeLightCamera.getTargetXOffset() * Constants.driveAimP;
+      correctionSpeed = -mDriveTrain.limeLightCamera.getTargetXOffset() * (Constants.driveAimP / 2.0);
     } else {
       // Get the Gyro Value
       double gyroValue = mDriveTrain.navx.getYaw();
@@ -69,7 +71,7 @@ public class AutoDriveRotate extends CommandBase {
       }
 
       // Get the Gyro Error
-      double gyroError = mTargetRotation + gyroValue;
+      double gyroError = gyroValue - mTargetRotation;
 
       // Normalize the Gyro Error (-180 - 180)
       if (gyroError > 180.0) {
@@ -79,36 +81,36 @@ public class AutoDriveRotate extends CommandBase {
       }
 
       // Calculate Correction Speed
-      correctionSpeed = gyroError * Constants.driveGyroP;
+      correctionSpeed = gyroError * 0.008;
+    }
 
-      // Calculate the Swerve States
-      double[] swerveStates;
+    // Calculate the Swerve States
+    double[] swerveStates;
 
-      // Check for Field Centric Enabled
-      if (Constants.isFieldCentric) {
-        swerveStates = mDriveTrain.swerveController.calculate(0.0, 0.0, correctionSpeed, gyroValue);
-      } else {
-        swerveStates = mDriveTrain.swerveController.calculate(0.0, 0.0, correctionSpeed);
-      }
+    // Check for Field Centric Enabled
+    if (Constants.isFieldCentric) {
+      swerveStates = mDriveTrain.swerveController.calculate(0.0, 0.0, correctionSpeed, mDriveTrain.navx.getYaw());
+    } else {
+      swerveStates = mDriveTrain.swerveController.calculate(0.0, 0.0, correctionSpeed);
+    }
 
-      // Get the Swerve Modules
-      SwerveModuleFalconNeo frontLeft = mDriveTrain.frontLeftModule;
-      SwerveModuleFalconNeo frontRight = mDriveTrain.frontRightModule;
-      SwerveModuleFalconNeo rearLeft = mDriveTrain.rearLeftModule;
-      SwerveModuleFalconNeo rearRight = mDriveTrain.rearRightModule;
+    // Get the Swerve Modules
+    SwerveModuleFalconNeo frontLeft = mDriveTrain.frontLeftModule;
+    SwerveModuleFalconNeo frontRight = mDriveTrain.frontRightModule;
+    SwerveModuleFalconNeo rearLeft = mDriveTrain.rearLeftModule;
+    SwerveModuleFalconNeo rearRight = mDriveTrain.rearRightModule;
 
-      // Command the Swerve Modules
-      if (Constants.isVelocityControlled) {
-        frontLeft.setDriveVelocity(swerveStates[0], swerveStates[1]);
-        frontRight.setDriveVelocity(swerveStates[2], swerveStates[3]);
-        rearLeft.setDriveVelocity(swerveStates[4], swerveStates[5]);
-        rearRight.setDriveVelocity(swerveStates[6], swerveStates[7]);
-      } else {
-        frontLeft.setDrive(swerveStates[0], swerveStates[1]);
-        frontRight.setDrive(swerveStates[2], swerveStates[3]);
-        rearLeft.setDrive(swerveStates[4], swerveStates[5]);
-        rearRight.setDrive(swerveStates[6], swerveStates[7]);
-      }
+    // Command the Swerve Modules
+    if (Constants.isVelocityControlled) {
+      frontLeft.setDriveVelocity(swerveStates[0], swerveStates[1]);
+      frontRight.setDriveVelocity(swerveStates[2], swerveStates[3]);
+      rearLeft.setDriveVelocity(swerveStates[4], swerveStates[5]);
+      rearRight.setDriveVelocity(swerveStates[6], swerveStates[7]);
+    } else {
+      frontLeft.setDrive(swerveStates[0], swerveStates[1]);
+      frontRight.setDrive(swerveStates[2], swerveStates[3]);
+      rearLeft.setDrive(swerveStates[4], swerveStates[5]);
+      rearRight.setDrive(swerveStates[6], swerveStates[7]);
     }
   }
 
@@ -126,9 +128,21 @@ public class AutoDriveRotate extends CommandBase {
   @Override
   public boolean isFinished() {
     if(mUseLimeLight) {
-      return Math.abs(mDriveTrain.limeLightCamera.getTargetXOffset()) < 1.0 || timeoutTimer.get() > mTimeout;
+      if(Math.abs(mDriveTrain.limeLightCamera.getTargetXOffset()) < 1.0 & mDriveTrain.limeLightCamera.hasTarget()) {
+        atSetpointCounter++;
+      } else {
+        atSetpointCounter = 0;
+      }
+
+      return atSetpointCounter >= 3 || timeoutTimer.get() > mTimeout;
     } else {
-      return Math.abs(mDriveTrain.navx.getYaw() - mTargetRotation) < 1.0 || timeoutTimer.get() > mTimeout;
+      if(Math.abs(mDriveTrain.navx.getYaw() - mTargetRotation) < 1.0) {
+        atSetpointCounter++;
+      } else {
+        atSetpointCounter = 0;
+      }
+
+      return atSetpointCounter >= 3 || timeoutTimer.get() > mTimeout;
     }
   }
 }
