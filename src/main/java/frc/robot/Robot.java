@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
     mRobotContainer.mDriveTrain.resetOdometry();
 
     // Home the Ajustable Hood
-    runHoodHome();
+    //runHoodHome();
 
     // Get the Autonomous Command
     autoCommand = mRobotContainer.getAutoCommand();

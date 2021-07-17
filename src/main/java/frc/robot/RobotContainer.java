@@ -18,10 +18,9 @@ import frc.lib.oi.controller.DPadButton;
 import frc.lib.oi.controller.TriggerButton;
 import frc.lib.oi.controller.DPadButton.Direction;
 import frc.robot.commands.*;
-import frc.robot.commands.autos.CenterTrenchAuto;
-import frc.robot.commands.autos.GalacticSearchSelector;
+import frc.robot.commands.autos.CenterTrenchFiveAuto;
+import frc.robot.commands.autos.RightTrenchFiveAuto;
 import frc.robot.commands.groups.*;
-import frc.robot.paths.*;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -249,8 +248,8 @@ public class RobotContainer {
     zone1Button.whenActive(new SetShooterSpeed(mShooter, 3600));
 
     zone2Button = new DPadButton(controller2, Direction.UP);
-    zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0));
-    zone2Button.whenActive(new SetShooterSpeed(mShooter, 0));
+    zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.2));
+    zone2Button.whenActive(new SetShooterSpeed(mShooter, 4500));
 
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
     zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.57)); // 8.71
@@ -263,24 +262,32 @@ public class RobotContainer {
 
   private void setupAutoSelector() {
     // Auto Commands
-    Command slalomAuto = new AutoFollowPath(mDriveTrain, new SlalomPath(mDriveTrain).generateSwerveTrajectory());
-    Command barrelAuto = new AutoFollowPath(mDriveTrain, new BarrelPath(mDriveTrain).generateSwerveTrajectory());
-    Command bounceAuto = new AutoFollowPath(mDriveTrain, new BouncePath(mDriveTrain).generateSwerveTrajectory());
-    Command galacticSearchAuto = new GalacticSearchSelector(mDriveTrain, mIntake, mSpindexer, mEjector);
-    Command teamNumberAuto = new AutoFollowPath(mDriveTrain,
-        new TeamNumberPath(mDriveTrain).generateSwerveTrajectory());
-    Command centerTrenchAuto = new CenterTrenchAuto(mShooter, mAdjustabeHood, mDriveTrain, mSpindexer, mEjector, mIntake);
+    // Command slalomAuto = new AutoFollowPath(mDriveTrain, new
+    // SlalomPath(mDriveTrain).generateSwerveTrajectory());
+    // Command barrelAuto = new AutoFollowPath(mDriveTrain, new
+    // BarrelPath(mDriveTrain).generateSwerveTrajectory());
+    // Command bounceAuto = new AutoFollowPath(mDriveTrain, new
+    // BouncePath(mDriveTrain).generateSwerveTrajectory());
+    // Command galacticSearchAuto = new GalacticSearchSelector(mDriveTrain, mIntake,
+    // mSpindexer, mEjector);
+    // Command teamNumberAuto = new AutoFollowPath(mDriveTrain,
+    // new TeamNumberPath(mDriveTrain).generateSwerveTrajectory());
+    Command centerTrenchFiveAuto = new CenterTrenchFiveAuto(mShooter, mAdjustabeHood, mDriveTrain, mSpindexer, mEjector,
+        mIntake);
+    Command rightTrenchFiveAuto = new RightTrenchFiveAuto(mShooter, mAdjustabeHood, mDriveTrain, mSpindexer, mEjector,
+        mIntake);
 
     // Auto Choose
     autoChooser = new SendableChooser<>();
 
     // Add Commands to the Chooser
-    autoChooser.setDefaultOption("Slalom", slalomAuto);
-    autoChooser.addOption("Barrel", barrelAuto);
-    autoChooser.addOption("Bounce", bounceAuto);
-    autoChooser.addOption("Galactic Search", galacticSearchAuto);
-    autoChooser.addOption("2992 Draw", teamNumberAuto);
-    autoChooser.addOption("Center Trench", centerTrenchAuto);
+    // autoChooser.setDefaultOption("Slalom", slalomAuto);
+    // autoChooser.addOption("Barrel", barrelAuto);
+    // autoChooser.addOption("Bounce", bounceAuto);
+    // autoChooser.addOption("Galactic Search", galacticSearchAuto);
+    // autoChooser.addOption("2992 Draw", teamNumberAuto);
+    autoChooser.addOption("Center Trench (5 Balls)", centerTrenchFiveAuto);
+    autoChooser.addOption("Right Trench (5 Balls)", rightTrenchFiveAuto);
 
     // Display the Chooser on Dashboard
     SmartDashboard.putData("Auto Selector", autoChooser);
