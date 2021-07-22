@@ -7,18 +7,29 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class SetSwerveAngle extends CommandBase {
+public class SetSwerveModuleAngles extends CommandBase {
 
+  // Subsystem Instance
   private DriveTrain mDriveTrain;
 
-  private double angle;
+  // Saved Variables
+  private double flAngle;
+  private double frAngle;
+  private double rlAngle;
+  private double rrAngle;
 
-  public SetSwerveAngle(DriveTrain subsystem, double angle) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public SetSwerveModuleAngles(DriveTrain subsystem, double flAngle, double frAngle, double rlAngle, double rrAngle) {
+    // Subsystem Instance
+    mDriveTrain = subsystem;
+
+    // Set the Subsystem Requirements
     addRequirements(subsystem);
 
-    mDriveTrain = subsystem;
-    this.angle = angle;
+    // Saved Variables
+    this.flAngle = flAngle;
+    this.frAngle = frAngle;
+    this.rlAngle = rlAngle;
+    this.rrAngle = rrAngle;
   }
 
   // Called when the command is initially scheduled.
@@ -30,15 +41,16 @@ public class SetSwerveAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mDriveTrain.frontLeftModule.setTurnAngle(angle);
-    mDriveTrain.frontRightModule.setTurnAngle(angle);
-    mDriveTrain.rearLeftModule.setTurnAngle(angle);
-    mDriveTrain.rearRightModule.setTurnAngle(angle);
+    mDriveTrain.frontLeftModule.setTurnAngle(flAngle);
+    mDriveTrain.frontRightModule.setTurnAngle(frAngle);
+    mDriveTrain.rearLeftModule.setTurnAngle(rlAngle);
+    mDriveTrain.rearRightModule.setTurnAngle(rrAngle);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

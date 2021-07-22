@@ -96,7 +96,7 @@ public class DriveSticks extends CommandBase {
       double tempInverseDeadband = Constants.joystickRotationInverseDeadband;
 
       if (Robot.mRobotContainer.slowModeButton.get()) {
-        tempInverseDeadband *= 6.0;
+        tempInverseDeadband /= 0.6;
       }
 
       if (x2 >= 0.0) {
@@ -127,13 +127,6 @@ public class DriveSticks extends CommandBase {
       mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
     }
 
-    // Fixed Rotation Buttons
-    // if (Robot.mRobotContainer.controller1.getBumper(Hand.kLeft)) {
-    // x2 = 0.7;
-    // } else if (Robot.mRobotContainer.controller1.getBumper(Hand.kRight)) {
-    // x2 = -0.7;
-    // }
-
     // Check for Movement
     if (Math.abs(x1) > 0.0 || Math.abs(y1) > 0.0 || Math.abs(x2) > 0.0) {
 
@@ -149,9 +142,7 @@ public class DriveSticks extends CommandBase {
       if (Robot.mRobotContainer.slowModeButton.get()) {
         x1 *= 0.6;
         y1 *= 0.6;
-        x2 /= 6.0;
-
-        // gyroTargetRecorded = false;
+        x2 *= 0.6;
       }
 
       // Gyro Input (-180 to 180)
@@ -210,7 +201,7 @@ public class DriveSticks extends CommandBase {
 
       // Check for Field Centric Enabled
       if (Constants.isFieldCentric) {
-        swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2, gyroValue);
+        swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2, gyroValue + 180.0);
       } else {
         swerveStates = mDriveTrain.swerveController.calculate(x1, y1, x2);
       }

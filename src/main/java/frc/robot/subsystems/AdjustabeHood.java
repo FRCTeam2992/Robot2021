@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.util.DistanceDatabase;
 import frc.robot.Constants;
 
 public class AdjustabeHood extends SubsystemBase {
@@ -30,9 +29,7 @@ public class AdjustabeHood extends SubsystemBase {
   // Adjustable Hood Dashboard Update Counter
   private int dashboardCounter = 0;
 
-  //Preset Positions
-  public DistanceDatabase presetPostions;
-
+  // Hood Set Target
   public double hoodTarget = 0;
 
   public AdjustabeHood() {
@@ -50,23 +47,14 @@ public class AdjustabeHood extends SubsystemBase {
 
     // Adjustable Hood Limit Switch
     limitSwitch = new DigitalInput(0);
-
-    presetPostions = new DistanceDatabase();
-    presetPostions.addSetpoint(17.5, 1.375);
-    presetPostions.addSetpoint(30.5, 4.452);
-    presetPostions.addSetpoint(44.5, 5.119);
-    presetPostions.addSetpoint(54, 5.7);
-    presetPostions.addSetpoint(65.4, 6.9);
-    presetPostions.addSetpoint(72, 7.57);
   }
 
   @Override
   public void periodic() {
     // Display Hood Position and Limit Switch State
-    if (dashboardCounter >= 4) {
+    if (dashboardCounter >= 5) {
       SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
       SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
-
 
       dashboardCounter = 0;
     } else {

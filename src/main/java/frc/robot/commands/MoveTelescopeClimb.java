@@ -40,7 +40,8 @@ public class MoveTelescopeClimb extends CommandBase {
   @Override
   public void execute() {
     // Encoder Limit Switch
-    if (mTelescopeClimb.getTelescopePosition() >= Constants.teleClimbLimit && mTelescopeSpeed > 0.0) {
+    if ((mTelescopeClimb.getTelescopePosition() >= Constants.teleClimbLimit && mTelescopeSpeed > 0.0)
+        || (mTelescopeClimb.getTelescopePosition() <= 0.0 && mTelescopeSpeed < 0.0)) {
       mTelescopeClimb.setTelescopeSpeed(0.0);
     } else {
       mTelescopeClimb.setTelescopeSpeed(mTelescopeSpeed);

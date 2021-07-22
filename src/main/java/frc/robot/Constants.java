@@ -45,8 +45,8 @@ public final class Constants {
     public static final boolean isVelocityControlled = true;
     public static final boolean isGyroCorrected = true;
     public static final double joystickDeadband = 0.1;
-    public static double joystickXYSmoothFactor = 1.0;
-    public static double joystickRotationSmoothFactor = 1.0;
+    public static double joystickXYSmoothFactor = 0.5;
+    public static double joystickRotationSmoothFactor = 0.5;
     public static double joystickRotationInverseDeadband = 0.14;
 
     // Length and Width of the Robot in Meters (Inches: 22.0 x 24.5)
@@ -74,7 +74,7 @@ public final class Constants {
     public static final double driveGearRatio = (40.0 / 16.0) * (18.0 / 26.0) * (60.0 / 15.0);
     public static final double driveWheelDiameter = 0.1016;
 
-    // Analog Encoder Offsets (Degrees) - Opposite of Reading - Bevel Gear to Right
+    // Analog Encoder Offsets (Degrees) - Opposite of Raw Reading - Bevel Gear to Right
     public static final double frontLeftOffset = -45.0;
     public static final double frontRightOffset = -122.9;
     public static final double rearLeftOffset = 84.1;
@@ -84,7 +84,7 @@ public final class Constants {
     public static final double driveGyroP = 0.005;
 
     // Swerve Auto Aim
-    public static final double driveAimP = 0.018; // 0.025
+    public static final double driveAimP = 0.018;
 
     // Swerve Drive PID (Velocity Control)
     public static final double driveP = 0.15;
@@ -112,7 +112,7 @@ public final class Constants {
     public static final double thetaCorrectionI = 0.0;
     public static final double thetaCorrectionD = 0.0;
 
-    // Lime Light Camera Values
+    // LimeLight Camera Variables
     public static final double cameraAngle = 49.8;
     public static final double cameraHeight = 34;
     public static final double targetHeight = 81.25;

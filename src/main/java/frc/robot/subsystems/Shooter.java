@@ -15,7 +15,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.util.DistanceDatabase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
@@ -30,10 +29,6 @@ public class Shooter extends SubsystemBase {
   // Shooter Dashboard Update Counter
   private int dashboardCounter = 0;
 
-  //Presets for shooter speed
-  public DistanceDatabase presetSpeeds;
-
-
   public Shooter() {
     // Shooter Motors
     leadShooter = new TalonSRX(12);
@@ -44,20 +39,12 @@ public class Shooter extends SubsystemBase {
     followShooter = new VictorSPX(13);
     followShooter.setInverted(true);
     followShooter.follow(leadShooter);
-    
-    presetSpeeds = new DistanceDatabase();
-    presetSpeeds.addSetpoint(17.5, 3600);
-    presetSpeeds.addSetpoint(30.5, 4000);
-    presetSpeeds.addSetpoint(44.5, 4100);
-    presetSpeeds.addSetpoint(54, 4300);
-    presetSpeeds.addSetpoint(65.4, 4800);
-    presetSpeeds.addSetpoint(72, 5100);
   }
 
   @Override
   public void periodic() {
     // Display the Shooter Set Speed and Current RPM
-    if (dashboardCounter >= 4) {
+    if (dashboardCounter >= 5) {
       SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
       SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
 

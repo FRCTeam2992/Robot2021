@@ -94,9 +94,15 @@ public class DriveTrain extends SubsystemBase {
   public Trajectory TeamNumberPath;
   public Trajectory CenterTrenchFiveTrajectory;
   public Trajectory RightTrenchFiveTrajectory;
+  public Trajectory CenterTrenchThreeTrajectory;
+  public Trajectory RightTrenchThreeTrajectory;
+  public Trajectory CenterShieldGeneratorTrajectory;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
+
+  // DriveTrain Dashboard Update Counter
+  private int dashboardCounter = 0;
 
   public DriveTrain() {
     // Drive Motors
@@ -216,10 +222,14 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    // SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Left Module Angle",
+    // frontLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Right Module Angle",
+    // frontRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Left Module Angle",
+    // rearLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Right Module Angle",
+    // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Left Module Velocity",
@@ -231,8 +241,19 @@ public class DriveTrain extends SubsystemBase {
     // SmartDashboard.putNumber("Rear Right Module Velocity",
     // rearRightModule.getWheelSpeedMeters());
 
-    // Display Gyro Angle
-    SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+    // DriveTrain Dashboard Update
+    if (dashboardCounter >= 5) {
+      // Display LimeLight Distance to Target
+      SmartDashboard.putNumber("Limelight Distance",
+          limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight));
+
+      // Display Gyro Angle
+      SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
+
+      dashboardCounter = 0;
+    } else {
+      dashboardCounter++;
+    }
 
     // Update the Odometry
     latestSwervePose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
@@ -243,9 +264,6 @@ public class DriveTrain extends SubsystemBase {
     // latestSwervePose.getRotation().getDegrees());
     // SmartDashboard.putNumber("Odometry X", latestSwervePose.getX());
     // SmartDashboard.putNumber("Odometry Y", latestSwervePose.getY());
-
-    SmartDashboard.putNumber("Limelight Distance", limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight));
-
   }
 
   public void setTurnIdleMode(IdleMode mode) {
@@ -317,6 +335,11 @@ public class DriveTrain extends SubsystemBase {
     Path teamNumerPath = Filesystem.getDeployDirectory().toPath().resolve("output/2992LetterPath.wpilib.json");
     Path centerTrenchFivePath = Filesystem.getDeployDirectory().toPath().resolve("output/CenterTrenchFive.wpilib.json");
     Path rightTrenchFivePath = Filesystem.getDeployDirectory().toPath().resolve("output/RightTrenchFive.wpilib.json");
+    Path centerTrenchThreePath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/CenterTrenchThree.wpilib.json");
+    Path rightTrenchThreePath = Filesystem.getDeployDirectory().toPath().resolve("output/RightTrenchThree.wpilib.json");
+    Path centerShieldGeneratorPath = Filesystem.getDeployDirectory().toPath()
+        .resolve("output/CenterShieldGenerator.wpilib.json");
 
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
@@ -331,6 +354,9 @@ public class DriveTrain extends SubsystemBase {
       TeamNumberPath = TrajectoryUtil.fromPathweaverJson(teamNumerPath);
       CenterTrenchFiveTrajectory = TrajectoryUtil.fromPathweaverJson(centerTrenchFivePath);
       RightTrenchFiveTrajectory = TrajectoryUtil.fromPathweaverJson(rightTrenchFivePath);
+      CenterTrenchThreeTrajectory = TrajectoryUtil.fromPathweaverJson(centerTrenchThreePath);
+      RightTrenchThreeTrajectory = TrajectoryUtil.fromPathweaverJson(rightTrenchThreePath);
+      CenterShieldGeneratorTrajectory = TrajectoryUtil.fromPathweaverJson(centerShieldGeneratorPath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();

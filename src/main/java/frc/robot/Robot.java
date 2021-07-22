@@ -106,9 +106,6 @@ public class Robot extends TimedRobot {
     // Reset the Odometry
     mRobotContainer.mDriveTrain.resetOdometry();
 
-    // Home the Ajustable Hood
-    //runHoodHome();
-
     // Get the Autonomous Command
     autoCommand = mRobotContainer.getAutoCommand();
 
@@ -123,6 +120,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+
   }
 
   /**
@@ -130,6 +128,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    // Cancel the Auto Command
+    if (autoCommand != null) {
+      autoCommand.cancel();
+    }
+
     // Set the Drive Train to Brake
     mRobotContainer.mDriveTrain.setDriveNeutralMode(NeutralMode.Brake);
     mRobotContainer.mDriveTrain.setTurnIdleMode(IdleMode.kBrake);
@@ -141,18 +144,13 @@ public class Robot extends TimedRobot {
     mRobotContainer.mDriveTrain.setDriveRampRate(0.25);
 
     // Reset the Gyro
-    mRobotContainer.mDriveTrain.navx.zeroYaw();
+    // mRobotContainer.mDriveTrain.navx.zeroYaw();
 
     // Reset the Odometry
-    mRobotContainer.mDriveTrain.resetOdometry();
+    // mRobotContainer.mDriveTrain.resetOdometry();
 
     // Home the Ajustable Hood
     runHoodHome();
-
-    // Cancel the Auto Command
-    if (autoCommand != null) {
-      autoCommand.cancel();
-    }
 
     // Update the Joystick Smooth Factors
     Constants.joystickXYSmoothFactor = SmartDashboard.getNumber("xySmoothFactor", Constants.joystickXYSmoothFactor);
