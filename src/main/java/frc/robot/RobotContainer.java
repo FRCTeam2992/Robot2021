@@ -39,11 +39,11 @@ public class RobotContainer {
   private final Shooter mShooter;
   public final AdjustabeHood mAdjustabeHood;
   private final Ejector mEjector;
+  private final TelescopeClimb mTelescopeClimb;
 
   // Subsytem Instances (Disabled)
   // private final Turret mTurret;
   // private final ClimbSlide mClimeSlide;
-  // private final TelescopeClimb mTelescopeClimb;
   // private final ColorWheel mColorWheel;
 
   // Auto Chooser
@@ -102,6 +102,9 @@ public class RobotContainer {
     mEjector = new Ejector();
     mEjector.setDefaultCommand(new StopEjector(mEjector));
 
+    mTelescopeClimb = new TelescopeClimb();
+    mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
+
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();
     // mTurret.setDefaultCommand(new StopTurret(mTurret));
@@ -112,9 +115,7 @@ public class RobotContainer {
     // mColorWheel = new ColorWheel();
     // mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
 
-    // mTelescopeClimb = new TelescopeClimb();
-    // mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
-
+   
     // Setup the Autonomous Selector
     setupAutoSelector();
 
@@ -192,15 +193,19 @@ public class RobotContainer {
     zone1Button.whenActive(new SetShooterSpeed(mShooter, 3800));
 
     zone2Button = new DPadButton(controller2, Direction.UP);
-    zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
+    // zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
+    zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
+    zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
 
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
     zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.0));
     zone3Button.whenActive(new SetShooterSpeed(mShooter, 5300));
 
     zone4Button = new DPadButton(controller2, Direction.DOWN);
-    zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.15));
-    zone4Button.whenActive(new SetShooterSpeed(mShooter, 4400));
+    // zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.15));
+    // zone4Button.whenActive(new SetShooterSpeed(mShooter, 4400));
+    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
+    zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
