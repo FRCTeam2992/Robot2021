@@ -9,18 +9,17 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TelescopeClimb extends SubsystemBase {
 
   // Telescope Climb Motors
-  private TalonSRX teleClimbMotor;
+  private TalonFX teleClimbMotor;
 
   public TelescopeClimb() {
     // Telescope Climb Motors
-    teleClimbMotor = new TalonSRX(15);
+    teleClimbMotor = new TalonFX(15);
     teleClimbMotor.setNeutralMode(NeutralMode.Brake);
     teleClimbMotor.setInverted(false);
   }
