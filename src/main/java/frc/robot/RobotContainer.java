@@ -204,7 +204,7 @@ public class RobotContainer {
     zone4Button = new DPadButton(controller2, Direction.DOWN);
     // zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.15));
     // zone4Button.whenActive(new SetShooterSpeed(mShooter, 4400));
-    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
+    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.7));
     zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
