@@ -75,6 +75,10 @@ public class RobotContainer {
   private DPadButton zone3Button;
   private DPadButton zone4Button;
   private JoystickButton toggleIntakeButton;
+  private JoystickButton climbModeOnButton;
+  private JoystickButton climbModeOffButton;
+
+  private boolean toggleClimbMode;
 
   // Power Cell Interpolator
   private PowerCellInterpolator powerCellInterpolator;
@@ -115,7 +119,6 @@ public class RobotContainer {
     // mColorWheel = new ColorWheel();
     // mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
 
-   
     // Setup the Autonomous Selector
     setupAutoSelector();
 
@@ -163,6 +166,31 @@ public class RobotContainer {
     lockSwerveDriveButton.whenReleased(new DriveSticks(mDriveTrain));
 
     // Controller 2 Buttons
+    
+    climbModeOnButton = new JoystickButton(controller2, 7);
+    climbModeOnButton.whenPressed(ClimbModeOn());
+    
+    climbModeOffButton = new JoystickButton(controller2, 8);
+    climbModeOffButton.whenPressed(ClimbModeOff());
+    
+    
+    //Climb mode switch
+    if (toggleClimbMode) {
+      zone2Button = new DPadButton(controller2, Direction.UP);
+      zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
+      zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
+
+      zone4Button = new DPadButton(controller2, Direction.DOWN);
+
+      zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
+      zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
+    }
+
+    // zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
+
+    // zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.15));
+    // zone4Button.whenActive(new SetShooterSpeed(mShooter, 4400));
+
     autoOverrideButton = new JoystickButton(controller2, 2);
     autoOverrideButton.whenPressed(new AutoOverride(mIntake, mSpindexer, mEjector));
 
@@ -192,20 +220,9 @@ public class RobotContainer {
     zone1Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 1.8));
     zone1Button.whenActive(new SetShooterSpeed(mShooter, 3800));
 
-    zone2Button = new DPadButton(controller2, Direction.UP);
-    // zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
-    zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
-    zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
-
     zone3Button = new DPadButton(controller2, Direction.RIGHT);
     zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.0));
     zone3Button.whenActive(new SetShooterSpeed(mShooter, 5300));
-
-    zone4Button = new DPadButton(controller2, Direction.DOWN);
-    // zone4Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 7.15));
-    // zone4Button.whenActive(new SetShooterSpeed(mShooter, 4400));
-    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
-    zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
@@ -265,5 +282,15 @@ public class RobotContainer {
     powerCellInterpolator.addDataPoint(new PowerCellDataPoint(76.5, 5100, 6000, 8.4, 7.1));
     powerCellInterpolator.addDataPoint(new PowerCellDataPoint(81, 5300, 6000, 9, 7.1));
     powerCellInterpolator.addDataPoint(new PowerCellDataPoint(87.5, 5600, 6000, 8, 7.1));
+  }
+
+  private Command ClimbModeOn() {
+    toggleClimbMode = true;
+    return null;
+  }
+
+  private Command ClimbModeOff() {
+    toggleClimbMode = false;
+    return null;
   }
 }
