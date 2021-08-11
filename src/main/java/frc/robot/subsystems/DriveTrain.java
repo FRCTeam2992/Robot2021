@@ -91,18 +91,9 @@ public class DriveTrain extends SubsystemBase {
   public Trajectory GalacticSearchBBlueTrajectory;
   public Trajectory PowerPortForward;
   public Trajectory PowerPortBackward;
-  public Trajectory TeamNumberPath;
-  public Trajectory CenterTrenchFiveTrajectory;
-  public Trajectory RightTrenchFiveTrajectory;
-  public Trajectory CenterTrenchThreeTrajectory;
-  public Trajectory RightTrenchThreeTrajectory;
-  public Trajectory CenterShieldGeneratorTrajectory;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
-
-  // DriveTrain Dashboard Update Counter
-  private int dashboardCounter = 0;
 
   public DriveTrain() {
     // Drive Motors
@@ -241,19 +232,8 @@ public class DriveTrain extends SubsystemBase {
     // SmartDashboard.putNumber("Rear Right Module Velocity",
     // rearRightModule.getWheelSpeedMeters());
 
-    // DriveTrain Dashboard Update
-    if (dashboardCounter >= 5) {
-      // Display LimeLight Distance to Target
-      SmartDashboard.putNumber("Limelight Distance",
-          limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight));
-
-      // Display Gyro Angle
-      SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
-
-      dashboardCounter = 0;
-    } else {
-      dashboardCounter++;
-    }
+    // Display Gyro Angle
+    SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
     // Update the Odometry
     latestSwervePose = swerveDriveOdometry.update(Rotation2d.fromDegrees(-navx.getYaw()), frontLeftModule.getState(),
@@ -332,14 +312,6 @@ public class DriveTrain extends SubsystemBase {
     Path powerPortForwardPath = Filesystem.getDeployDirectory().toPath().resolve("output/PowerPortForward.wpilib.json");
     Path powerPortBackwardPath = Filesystem.getDeployDirectory().toPath()
         .resolve("output/PowerPortBackward.wpilib.json");
-    Path teamNumerPath = Filesystem.getDeployDirectory().toPath().resolve("output/2992LetterPath.wpilib.json");
-    Path centerTrenchFivePath = Filesystem.getDeployDirectory().toPath().resolve("output/CenterTrenchFive.wpilib.json");
-    Path rightTrenchFivePath = Filesystem.getDeployDirectory().toPath().resolve("output/RightTrenchFive.wpilib.json");
-    Path centerTrenchThreePath = Filesystem.getDeployDirectory().toPath()
-        .resolve("output/CenterTrenchThree.wpilib.json");
-    Path rightTrenchThreePath = Filesystem.getDeployDirectory().toPath().resolve("output/RightTrenchThree.wpilib.json");
-    Path centerShieldGeneratorPath = Filesystem.getDeployDirectory().toPath()
-        .resolve("output/CenterShieldGenerator.wpilib.json");
 
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
@@ -351,15 +323,9 @@ public class DriveTrain extends SubsystemBase {
       GalacticSearchBBlueTrajectory = TrajectoryUtil.fromPathweaverJson(galacticSearchBBluePath);
       PowerPortForward = TrajectoryUtil.fromPathweaverJson(powerPortForwardPath);
       PowerPortBackward = TrajectoryUtil.fromPathweaverJson(powerPortBackwardPath);
-      TeamNumberPath = TrajectoryUtil.fromPathweaverJson(teamNumerPath);
-      CenterTrenchFiveTrajectory = TrajectoryUtil.fromPathweaverJson(centerTrenchFivePath);
-      RightTrenchFiveTrajectory = TrajectoryUtil.fromPathweaverJson(rightTrenchFivePath);
-      CenterTrenchThreeTrajectory = TrajectoryUtil.fromPathweaverJson(centerTrenchThreePath);
-      RightTrenchThreeTrajectory = TrajectoryUtil.fromPathweaverJson(rightTrenchThreePath);
-      CenterShieldGeneratorTrajectory = TrajectoryUtil.fromPathweaverJson(centerShieldGeneratorPath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();
-    }
+    } 
   }
 }

@@ -284,13 +284,13 @@ public class RobotContainer {
     powerCellInterpolator.addDataPoint(new PowerCellDataPoint(87.5, 5600, 6000, 8, 7.1));
   }
 
-  private Command ClimbModeOn() {
-    toggleClimbMode = true;
-    return null;
-  }
+  // private Command ClimbModeOn() {
+  //   toggleClimbMode = true;
+  //   return null;
+  // }
 
-  private Command ClimbModeOff() {
-    toggleClimbMode = false;
-    return null;
-  }
+  // private Command ClimbModeOff() {
+  //   toggleClimbMode = false;
+  //   return null;
+  // }
 }
