@@ -285,5 +285,5 @@ public class RobotContainer {
     powerCellInterpolator.addDataPoint(new PowerCellDataPoint(87.5, 5600, 6000, 8, 7.1));
   }
 
-  
 }
+
