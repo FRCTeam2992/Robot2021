@@ -18,6 +18,9 @@ public class ClimbSlide extends SubsystemBase {
   // Climb Slide Motors
   private VictorSPX slideMotor;
 
+  // varibles
+  public boolean toggleClimbMode;
+
   public ClimbSlide() {
     // Climb Slide Motors
     slideMotor = new VictorSPX(16);
@@ -31,6 +34,10 @@ public class ClimbSlide extends SubsystemBase {
   }
 
   public void setSlideSpeed(double speed) {
-    slideMotor.set(ControlMode.PercentOutput, speed);
+    if (toggleClimbMode) {
+      slideMotor.set(ControlMode.PercentOutput, speed);
+    } else {
+      slideMotor.set(ControlMode.PercentOutput, 0);
+    }
   }
 }

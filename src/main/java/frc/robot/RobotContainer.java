@@ -119,6 +119,7 @@ public class RobotContainer {
     // mColorWheel = new ColorWheel();
     // mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
 
+
     // Setup the Autonomous Selector
     setupAutoSelector();
 
@@ -167,15 +168,15 @@ public class RobotContainer {
 
     // Controller 2 Buttons
     
-    climbModeOnButton = new JoystickButton(controller2, 7);
-    climbModeOnButton.whenPressed(ClimbModeOn());
+    // climbModeOnButton = new JoystickButton(controller2, 7);
+    // climbModeOnButton.whenPressed(ClimbModeOn());
     
-    climbModeOffButton = new JoystickButton(controller2, 8);
-    climbModeOffButton.whenPressed(ClimbModeOff());
+    // climbModeOffButton = new JoystickButton(controller2, 8);
+    // climbModeOffButton.whenPressed(ClimbModeOff());
     
     
     //Climb mode switch
-    if (toggleClimbMode) {
+   
       zone2Button = new DPadButton(controller2, Direction.UP);
       zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
       zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
@@ -184,7 +185,7 @@ public class RobotContainer {
 
       zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
       zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
-    }
+    
 
     // zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
 
@@ -284,13 +285,5 @@ public class RobotContainer {
     powerCellInterpolator.addDataPoint(new PowerCellDataPoint(87.5, 5600, 6000, 8, 7.1));
   }
 
-  private Command ClimbModeOn() {
-    toggleClimbMode = true;
-    return null;
-  }
-
-  private Command ClimbModeOff() {
-    toggleClimbMode = false;
-    return null;
-  }
+  
 }
