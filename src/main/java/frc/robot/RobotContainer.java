@@ -78,7 +78,6 @@ public class RobotContainer {
   private JoystickButton climbModeOnButton;
   private JoystickButton climbModeOffButton;
 
-  private boolean toggleClimbMode;
 
   // Power Cell Interpolator
   private PowerCellInterpolator powerCellInterpolator;
