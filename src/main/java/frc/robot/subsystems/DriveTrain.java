@@ -108,6 +108,7 @@ public class DriveTrain extends SubsystemBase {
     // Drive Motors
     frontLeftDrive = new TalonFX(1);
     frontLeftDrive.setInverted(false);
+    frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
@@ -115,6 +116,7 @@ public class DriveTrain extends SubsystemBase {
 
     frontRightDrive = new TalonFX(3);
     frontRightDrive.setInverted(false);
+    frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
@@ -122,6 +124,7 @@ public class DriveTrain extends SubsystemBase {
 
     rearLeftDrive = new TalonFX(5);
     rearLeftDrive.setInverted(false);
+    rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
@@ -129,6 +132,7 @@ public class DriveTrain extends SubsystemBase {
 
     rearRightDrive = new TalonFX(7);
     rearRightDrive.setInverted(false);
+    rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
