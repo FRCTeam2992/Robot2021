@@ -54,7 +54,7 @@ public final class Constants {
     public static final double swerveLength = 0.6223;
 
     // Max Swerve Speed (Velocity Control)
-    public static final double swerveMaxSpeed = 4.5; // (Meters per Second)
+    public static final double swerveMaxSpeed = 2; // (Meters per Second)
 
     // Max Path Following Drive Speeds
     public static final double maxPathFollowingVelocity = 2.0; // (Meters per Second)
