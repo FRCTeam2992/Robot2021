@@ -78,6 +78,7 @@ public class RobotContainer {
   private JoystickButton climbModeOnButton;
   private JoystickButton climbModeOffButton;
 
+  private boolean toggleClimbMode;
 
   // Power Cell Interpolator
   private PowerCellInterpolator powerCellInterpolator;
@@ -226,6 +227,13 @@ public class RobotContainer {
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
+    
+    zone4Button = new DPadButton(controller2, Direction.UP);
+    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.50));
+
+    zone2Button =  new DPadButton(controller2, Direction.DOWN);
+    zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.50));
+
   }
 
   private void setupAutoSelector() {
