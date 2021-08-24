@@ -48,13 +48,9 @@ void loop() {
   //CJCode();
   //CJCodeButGood();
   //ColorTest();
-  //5heartMeter();
+  5heartMeter();
   //ColorMixies();
-<<<<<<< HEAD
-  Dissolve();
-=======
-  rileyCode();
->>>>>>> 9ad63805187060352eea8f56021b4c2f8099e749
+  //Dissolve();
 }
 void BackgroundColor() {
   for (int i = 0; i <= 300; i++) {
