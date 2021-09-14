@@ -107,7 +107,7 @@ public class RobotContainer {
     mEjector.setDefaultCommand(new StopEjector(mEjector));
 
     mTelescopeClimb = new TelescopeClimb();
-    mTelescopeClimb.setDefaultCommand(new StopTelescopeClimb(mTelescopeClimb));
+    mTelescopeClimb.setDefaultCommand(new ClimbSticks(mTelescopeClimb, false));
 
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();
@@ -233,7 +233,7 @@ public class RobotContainer {
 
     zone2Button =  new DPadButton(controller2, Direction.DOWN);
     zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.50));
-
+  
   }
 
   private void setupAutoSelector() {
