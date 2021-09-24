@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class PowerCellInterpolator {
 
     // Saved Lists
@@ -61,8 +63,12 @@ public class PowerCellInterpolator {
             }
         }
 
+        SmartDashboard.putNumber("Shooter Speed", tempShooterSpeed);
+
         return tempShooterSpeed;
     }
+
+    
 
     public double calculateHoodPosition(double distance, double damagePercentage) {
         double tempHoodPosition = 0.0;
@@ -100,6 +106,10 @@ public class PowerCellInterpolator {
                         / (upperDataPoint.getDistance() - lowerDataPoint.getDistance()));
             }
         }
+
+        SmartDashboard.putNumber("Distance", distance);
+        SmartDashboard.putNumber("Hood Position", tempHoodPosition);
+        
 
         return tempHoodPosition;
     }

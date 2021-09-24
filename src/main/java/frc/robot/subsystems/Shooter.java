@@ -29,6 +29,8 @@ public class Shooter extends SubsystemBase {
   // Shooter Dashboard Update Counter
   private int dashboardCounter = 0;
 
+  private boolean isShooterOn;
+
   public Shooter() {
     // Shooter Motors
     leadShooter = new TalonSRX(12);
@@ -47,6 +49,16 @@ public class Shooter extends SubsystemBase {
     if (dashboardCounter >= 5) {
       SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
       SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
+
+      if (getShooterRPM() > 0){
+        isShooterOn = true;
+
+        SmartDashboard.putBoolean("isShooterOn", true);
+      }
+
+      else {
+        SmartDashboard.putBoolean("isShooterOn", false);
+      }
 
       dashboardCounter = 0;
     } else {

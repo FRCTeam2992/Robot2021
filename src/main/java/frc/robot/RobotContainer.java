@@ -278,18 +278,18 @@ public class RobotContainer {
   private void initInterpolator() {
     powerCellInterpolator = new PowerCellInterpolator();
 
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(14.5, 3800, 3800, 1.8, 1.8));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(22.5, 3800, 3800, 3.8, 3.8));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(30.3, 4000, 4000, 5.2, 5.2));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(36.5, 4000, 4000, 5.2, 5.2));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(42.5, 4000, 4400, 6, 6));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(51.5, 4400, 4800, 7.15, 6.7));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(60, 4500, 5400, 7.15, 7.1));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(65, 4700, 5700, 7.5, 7.1));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(69.5, 5100, 5800, 8.4, 7.1));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(76.5, 5100, 6000, 8.4, 7.1));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(81, 5300, 6000, 9, 7.1));
-    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(87.5, 5600, 6000, 8, 7.1));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(14.5, 3800, 3800, 4.3, 1.8));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(22.5, 3800, 3800, 6.3, 3.8));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(30.3, 4000, 4000, 7.7, 5.2));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(36.5, 4000, 4000, 7.7, 5.2));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(42.5, 4000, 4400, 8.5, 6));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(51.5, 4400, 4800, 9.65, 6.7));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(60, 4500, 5400, 9.65, 7.1));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(65, 4700, 5700, 10, 7.1));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(69.5, 5100, 5800, 10.9, 7.1));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(76.5, 5100, 6000, 10.9, 7.1));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(81, 5300, 6000, 11.5, 7.1));
+    powerCellInterpolator.addDataPoint(new PowerCellDataPoint(87.5, 5600, 6000, 10.5 , 7.1));
   }
 
 }
