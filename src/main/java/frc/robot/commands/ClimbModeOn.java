@@ -5,11 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.subsystems.TelescopeClimb;
+
 
 public class ClimbModeOn extends CommandBase {
 
+  private TelescopeClimb mTelescopeClimb;
 
-  public ClimbModeOn() {
+  private boolean climbToggle = false;
+
+  public ClimbModeOn(TelescopeClimb subsystem) {
+
+    mTelescopeClimb = subsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -19,6 +27,8 @@ public class ClimbModeOn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    climbToggle = !climbToggle;
+    mTelescopeClimb.toggleClimbMode = climbToggle;
   }
 
   // Called once the command ends or is interrupted.

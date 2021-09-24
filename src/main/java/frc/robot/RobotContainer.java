@@ -75,10 +75,7 @@ public class RobotContainer {
   private DPadButton zone3Button;
   private DPadButton zone4Button;
   private JoystickButton toggleIntakeButton;
-  private JoystickButton climbModeOnButton;
-  private JoystickButton climbModeOffButton;
-
-  private boolean toggleClimbMode;
+  private JoystickButton toggleClimb;
 
   // Power Cell Interpolator
   private PowerCellInterpolator powerCellInterpolator;
@@ -108,7 +105,6 @@ public class RobotContainer {
 
     mTelescopeClimb = new TelescopeClimb();
     mTelescopeClimb.setDefaultCommand(new ClimbSticks(mTelescopeClimb, false));
-
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();
     // mTurret.setDefaultCommand(new StopTurret(mTurret));
@@ -168,15 +164,11 @@ public class RobotContainer {
 
     // Controller 2 Buttons
     
-    // climbModeOnButton = new JoystickButton(controller2, 7);
-    // climbModeOnButton.whenPressed(ClimbModeOn());
-    
-    // climbModeOffButton = new JoystickButton(controller2, 8);
-    // climbModeOffButton.whenPressed(ClimbModeOff());
-    
     
     //Climb mode switch
-   
+      toggleClimb = new JoystickButton(controller2, 8);
+      toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb));
+
       zone2Button = new DPadButton(controller2, Direction.UP);
       zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
       zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
@@ -185,7 +177,7 @@ public class RobotContainer {
 
       zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
       zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
-    
+     
 
     // zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
 
