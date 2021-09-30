@@ -13,8 +13,6 @@ public class ClimbModeOn extends CommandBase {
 
   private TelescopeClimb mTelescopeClimb;
 
-  private boolean climbToggle = false;
-
   public ClimbModeOn(TelescopeClimb subsystem) {
 
     mTelescopeClimb = subsystem;
@@ -22,13 +20,14 @@ public class ClimbModeOn extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climbToggle = !climbToggle;
-    mTelescopeClimb.toggleClimbMode = climbToggle;
+    mTelescopeClimb.toggleClimbMode= !mTelescopeClimb.toggleClimbMode;
   }
 
   // Called once the command ends or is interrupted.
