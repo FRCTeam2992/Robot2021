@@ -166,8 +166,8 @@ public class RobotContainer {
     
     
     //Climb mode switch
-      toggleClimb = new JoystickButton(controller2, 8);
-      toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb));
+      // toggleClimb = new JoystickButton(controller2, 8);
+      // toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb));
 
       //Climb Buttons
       zone2Button = new DPadButton(controller2, Direction.UP);
