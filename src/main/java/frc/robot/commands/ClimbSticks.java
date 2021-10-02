@@ -32,14 +32,14 @@ public class ClimbSticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double y1;
+    double climbY;
 
-    y1 = -Robot.mRobotContainer.controller2.getY(Hand.kLeft);
+    climbY = -Robot.mRobotContainer.controller2.getY(Hand.kLeft);
 
-    if (Math.abs(y1) >= Constants.joystickDeadband || !mClimbMode){
-      y1 = 0.0;
+    if (Math.abs(climbY) >= Constants.joystickDeadband || !mClimbMode){
+      climbY = 0.0;
     } else {
-       double climbValue = y1;
+       double climbValue;
     }
   }
 
@@ -52,4 +52,7 @@ public class ClimbSticks extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+
 }
+
