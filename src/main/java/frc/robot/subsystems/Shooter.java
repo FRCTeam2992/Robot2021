@@ -63,6 +63,7 @@ public class Shooter extends SubsystemBase {
       dashboardCounter = 0;
     } else {
       dashboardCounter++;
+      isShooterOn = false;
     }
   }
 

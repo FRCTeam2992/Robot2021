@@ -5,15 +5,24 @@
 package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.DeployIntake;
 import frc.robot.commands.MoveEjector;
+import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveSpindexer;
+import frc.robot.commands.StopIntake;
 import frc.robot.subsystems.Ejector;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Spindexer;
 
 public class AutoShoot extends ParallelCommandGroup {
 
-  public AutoShoot(Spindexer mSpindexer, Ejector mEjector) {
+  public AutoShoot(Spindexer mSpindexer, Ejector mEjector, Intake mIntake) {
     // Add Commands
-    addCommands(new MoveEjector(mEjector, 1), new MoveSpindexer(mSpindexer, -0.45));
+    addCommands(
+      new MoveEjector(mEjector, 1), new MoveSpindexer(mSpindexer, -0.45), new MoveIntake(mIntake, 1),
+      new SequentialCommandGroup(
+          new DeployIntake(mIntake, false), new WaitCommand(2), new StopIntake(mIntake)));
   }
 }
