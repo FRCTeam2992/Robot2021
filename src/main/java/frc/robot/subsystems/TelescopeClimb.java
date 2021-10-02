@@ -17,7 +17,7 @@ public class TelescopeClimb extends SubsystemBase {
   // Telescope Climb Motors
   private TalonFX teleClimbMotor;
 
-  public boolean toggleClimbMode;
+  public boolean toggleClimbMode = false;
 
   public TelescopeClimb() {
     // Telescope Climb Motors
