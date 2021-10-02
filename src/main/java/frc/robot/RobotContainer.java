@@ -76,6 +76,7 @@ public class RobotContainer {
   private DPadButton zone4Button;
   private JoystickButton toggleIntakeButton;
   private JoystickButton toggleClimb;
+  private JoystickButton reverseEjector;
 
   // Power Cell Interpolator
   private PowerCellInterpolator powerCellInterpolator;
@@ -166,8 +167,8 @@ public class RobotContainer {
     
     
     //Climb mode switch
-      // toggleClimb = new JoystickButton(controller2, 8);
-      // toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb));
+       toggleClimb = new JoystickButton(controller2, 8);
+       toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb));
 
       //Climb Buttons
       zone2Button = new DPadButton(controller2, Direction.UP);
@@ -175,7 +176,6 @@ public class RobotContainer {
       zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
 
       zone4Button = new DPadButton(controller2, Direction.DOWN);
-
       zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
       zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
      
@@ -220,13 +220,10 @@ public class RobotContainer {
 
     toggleIntakeButton = new JoystickButton(controller2, 4);
     toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
-    
-    zone4Button = new DPadButton(controller2, Direction.UP);
-    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.50));
 
-    zone2Button =  new DPadButton(controller2, Direction.DOWN);
-    zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.50));
-  
+    reverseEjector = new JoystickButton(controller2, 10);
+    reverseEjector.whenPressed(new MoveEjector(mEjector, -1.0));
+    reverseEjector.whenReleased(new StopEjector(mEjector));
   }
 
   private void setupAutoSelector() {
