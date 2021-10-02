@@ -17,6 +17,8 @@ public class TelescopeClimb extends SubsystemBase {
   // Telescope Climb Motors
   private TalonFX teleClimbMotor;
 
+  public boolean toggleClimbMode;
+
   public TelescopeClimb() {
     // Telescope Climb Motors
     teleClimbMotor = new TalonFX(15);
@@ -30,7 +32,12 @@ public class TelescopeClimb extends SubsystemBase {
   }
 
   public void setTelescopeSpeed(double speed) {
-    teleClimbMotor.set(ControlMode.PercentOutput, speed);
+    if (toggleClimbMode){
+      teleClimbMotor.set(ControlMode.PercentOutput, speed);
+    }
+    else {
+      teleClimbMotor.set(ControlMode.PercentOutput, 0);
+    }
   }
 
   public double getTelescopePosition() {
