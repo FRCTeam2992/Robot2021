@@ -16,6 +16,7 @@ import frc.robot.commands.ShooterAtSpeed;
 import frc.robot.commands.StartHood;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.groups.AutoIntake;
+import frc.robot.commands.groups.AutoOverride;
 import frc.robot.commands.groups.AutoShoot;
 import frc.robot.paths.CenterTrenchThreePath;
 import frc.robot.subsystems.AdjustabeHood;
@@ -30,9 +31,9 @@ public class CenterTrenchThreeAuto extends SequentialCommandGroup {
   public CenterTrenchThreeAuto(Shooter shooter, AdjustabeHood adjustabeHood, DriveTrain driveTrain, Spindexer spindexer, Ejector ejector, Intake intake) {
 
     addCommands(
-      new SetShooterSpeed(shooter, 4300),
+      new SetShooterSpeed(shooter, 4500),
       
-      new SetHoodTarget(adjustabeHood, 7.0),
+      new SetHoodTarget(adjustabeHood, 9.0),
       
       new ParallelRaceGroup(
         new ParallelCommandGroup(
@@ -47,15 +48,18 @@ public class CenterTrenchThreeAuto extends SequentialCommandGroup {
             new AutoDriveRotate(driveTrain, 60, true, 2), 
             new ShooterAtSpeed(shooter, 2)
           ),
-          new AutoShoot(spindexer, ejector).withTimeout(1.5),
-          new SetHoodTarget(adjustabeHood, 7.0),
-          new SetShooterSpeed(shooter, 4300),
-          new ParallelRaceGroup(
+          new AutoShoot(spindexer, ejector, intake).withTimeout(1.5),
+          new SetHoodTarget(adjustabeHood, 9.0),
+          new SetShooterSpeed(shooter, 4500),
+          new ParallelCommandGroup(
             new AutoFollowPath(driveTrain, new CenterTrenchThreePath(driveTrain).generateSwerveTrajectory()),
-            new AutoIntake(intake, spindexer, ejector)
+            new SequentialCommandGroup(
+              new AutoIntake(intake, spindexer, ejector).withTimeout(2.75),
+              new AutoOverride(intake, spindexer, ejector).withTimeout(1)
+            )
           ),
           new AutoDriveRotate(driveTrain, 60, true, 1),
-          new AutoShoot(spindexer, ejector).withTimeout(5)
+          new AutoShoot(spindexer, ejector, intake).withTimeout(5)
         )
       )
     );

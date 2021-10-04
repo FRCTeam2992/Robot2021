@@ -16,6 +16,7 @@ import frc.robot.commands.ShooterAtSpeed;
 import frc.robot.commands.StartHood;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.groups.AutoIntake;
+import frc.robot.commands.groups.AutoOverride;
 import frc.robot.commands.groups.AutoShoot;
 import frc.robot.paths.RightTrenchThreePath;
 import frc.robot.subsystems.AdjustabeHood;
@@ -28,11 +29,10 @@ import frc.robot.subsystems.Spindexer;
 public class RightTrenchThreeAuto extends SequentialCommandGroup {
 
   public RightTrenchThreeAuto(Shooter shooter, AdjustabeHood adjustabeHood, DriveTrain driveTrain, Spindexer spindexer, Ejector ejector, Intake intake) {
-
     addCommands(
-      new SetShooterSpeed(shooter, 4400),
+      new SetShooterSpeed(shooter, 4500),
       
-      new SetHoodTarget(adjustabeHood, 7.2),
+      new SetHoodTarget(adjustabeHood, 9.0),
       
       new ParallelRaceGroup(
         new ParallelCommandGroup(
@@ -44,20 +44,24 @@ public class RightTrenchThreeAuto extends SequentialCommandGroup {
         ),
         new SequentialCommandGroup(
           new ParallelCommandGroup(
-            new AutoDriveRotate(driveTrain, 37, true, 2), 
+            new AutoDriveRotate(driveTrain, 60, true, 2), 
             new ShooterAtSpeed(shooter, 2)
           ),
-          new AutoShoot(spindexer, ejector).withTimeout(1.5),
-          new SetHoodTarget(adjustabeHood, 7.2),
-          new SetShooterSpeed(shooter, 4400),
-          new ParallelRaceGroup(
+          new AutoShoot(spindexer, ejector, intake).withTimeout(1.5),
+          new SetHoodTarget(adjustabeHood, 9.0),
+          new SetShooterSpeed(shooter, 4500),
+          new ParallelCommandGroup(
             new AutoFollowPath(driveTrain, new RightTrenchThreePath(driveTrain).generateSwerveTrajectory()),
-            new AutoIntake(intake, spindexer, ejector)
+            new SequentialCommandGroup(
+              new AutoIntake(intake, spindexer, ejector).withTimeout(2.25),
+              new AutoOverride(intake, spindexer, ejector).withTimeout(1)
+            )
           ),
-          new AutoDriveRotate(driveTrain, 37, true, 1),
-          new AutoShoot(spindexer, ejector).withTimeout(5)
+          new AutoDriveRotate(driveTrain, 60, true, 1),
+          new AutoShoot(spindexer, ejector, intake).withTimeout(5)
         )
       )
     );
+    
   }
 }

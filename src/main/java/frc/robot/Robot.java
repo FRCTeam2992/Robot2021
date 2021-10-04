@@ -37,6 +37,9 @@ public class Robot extends TimedRobot {
   // Auto Instances
   private Command autoCommand;
 
+  //
+  private int vibrateCounter = 0;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -192,20 +195,27 @@ public class Robot extends TimedRobot {
   }
 
   public void vibrateControllers() {
-    if (mRobotContainer.autoShootButton.get()) {
-      mRobotContainer.controller1.setRumble(RumbleType.kLeftRumble,
-          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
-      mRobotContainer.controller1.setRumble(RumbleType.kRightRumble,
-          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
-      mRobotContainer.controller2.setRumble(RumbleType.kLeftRumble,
-          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
-      mRobotContainer.controller2.setRumble(RumbleType.kRightRumble,
-          mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+    if (vibrateCounter >= 10) {
+
+      if (mRobotContainer.autoShootButton.get()) {
+        mRobotContainer.controller1.setRumble(RumbleType.kLeftRumble,
+            mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+        mRobotContainer.controller1.setRumble(RumbleType.kRightRumble,
+            mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+        mRobotContainer.controller2.setRumble(RumbleType.kLeftRumble,
+            mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+        mRobotContainer.controller2.setRumble(RumbleType.kRightRumble,
+            mRobotContainer.controller1.getTriggerAxis(Hand.kRight));
+      } else {
+        mRobotContainer.controller1.setRumble(RumbleType.kLeftRumble, 0.0);
+        mRobotContainer.controller1.setRumble(RumbleType.kRightRumble, 0.0);
+        mRobotContainer.controller2.setRumble(RumbleType.kLeftRumble, 0.0);
+        mRobotContainer.controller2.setRumble(RumbleType.kRightRumble, 0.0);
+      }
+
+      vibrateCounter = 0;
     } else {
-      mRobotContainer.controller1.setRumble(RumbleType.kLeftRumble, 0.0);
-      mRobotContainer.controller1.setRumble(RumbleType.kRightRumble, 0.0);
-      mRobotContainer.controller2.setRumble(RumbleType.kLeftRumble, 0.0);
-      mRobotContainer.controller2.setRumble(RumbleType.kRightRumble, 0.0);
+      vibrateCounter++;
     }
   }
 }

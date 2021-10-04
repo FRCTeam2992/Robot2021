@@ -4,28 +4,23 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+
 import frc.robot.subsystems.AdjustabeHood;
 
-public class StartHood extends CommandBase {
-
+public class HoodSticks extends CommandBase {
   // Subsystem Instance
   private AdjustabeHood mAdjustabeHood;
 
-  // Saved Variables
+  private double mAdjustableShooterHoodSpeed;
 
-  // Command States
-  private boolean isDone = false;
-
-  public StartHood(AdjustabeHood subsystem) {
-    // Subsystem Instance
+  public HoodSticks(AdjustabeHood subsystem) {
     mAdjustabeHood = subsystem;
 
-    
-    // Set the Subsystem Requirement
     addRequirements(mAdjustabeHood);
-
   }
 
   // Called when the command is initially scheduled.
@@ -36,29 +31,37 @@ public class StartHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (mAdjustabeHood.isHomed) {
-      double moveDistance = mAdjustabeHood.getHoodTarget() - mAdjustabeHood.getHoodPosition();
+    double hoodY;
+    hoodY = -Robot.mRobotContainer.controller2.getY(Hand.kRight);
 
-      if ((moveDistance < 0 && !mAdjustabeHood.getLimitState())
-          || (moveDistance > 0 && mAdjustabeHood.getHoodPosition() < Constants.maxHoodRotations)) {
-        mAdjustabeHood.startHood();
+    if(Math.abs(hoodY) <= Constants.joystickDeadband){
+      hoodY = 0.0;
+    } 
+    hoodY = Math.pow(hoodY, 3);
+
+
+    if (mAdjustabeHood.isHomed) {
+      if ((mAdjustableShooterHoodSpeed < 0.0 && !mAdjustabeHood.getLimitState())
+          || (mAdjustableShooterHoodSpeed > 0.0 && mAdjustabeHood.getHoodPosition() < Constants.maxHoodRotations)) {
+        mAdjustabeHood.setAdjustableShooterHoodSpeed(mAdjustableShooterHoodSpeed);
+
+        if (mAdjustabeHood.getLimitState()) {
+          mAdjustabeHood.zeroHoodMotor();
+        }
       } else {
         mAdjustabeHood.setAdjustableShooterHoodSpeed(0.0);
       }
-    } else {
-      isDone = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mAdjustabeHood.setAdjustableShooterHoodSpeed(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isDone;
+    return false;
   }
 }

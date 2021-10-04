@@ -47,7 +47,7 @@ public class CenterShieldGeneratorAuto extends SequentialCommandGroup {
             new AutoDriveRotate(driveTrain, 60, true, 2), 
             new ShooterAtSpeed(shooter, 2)
           ),
-          new AutoShoot(spindexer, ejector).withTimeout(1.5),
+          new AutoShoot(spindexer, ejector, intake).withTimeout(1.5),
           new SetHoodTarget(adjustabeHood, 7.0),
           new SetShooterSpeed(shooter, 4300),
           new ParallelRaceGroup(
@@ -55,7 +55,7 @@ public class CenterShieldGeneratorAuto extends SequentialCommandGroup {
             new AutoIntake(intake, spindexer, ejector)
           ),
           new AutoDriveRotate(driveTrain, 60, true, 1),
-          new AutoShoot(spindexer, ejector).withTimeout(5)
+          new AutoShoot(spindexer, ejector, intake).withTimeout(5)
         )
       )
     );

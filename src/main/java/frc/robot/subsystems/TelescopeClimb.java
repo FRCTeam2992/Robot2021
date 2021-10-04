@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TelescopeClimb extends SubsystemBase {
@@ -24,10 +26,13 @@ public class TelescopeClimb extends SubsystemBase {
     teleClimbMotor = new TalonFX(15);
     teleClimbMotor.setNeutralMode(NeutralMode.Brake);
     teleClimbMotor.setInverted(false);
+    teleClimbMotor.getSensorCollection().setIntegratedSensorPosition(0.0, 100);
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Climb Mode", toggleClimbMode);
+    //SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
 
   }
 

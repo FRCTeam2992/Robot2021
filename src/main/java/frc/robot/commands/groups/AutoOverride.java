@@ -20,8 +20,8 @@ public class AutoOverride extends ParallelCommandGroup {
 
   public AutoOverride(Intake mIntake, Spindexer mSpindexer, Ejector mEjector) {
     // Add Commands
-    addCommands(new MoveIntake(mIntake, 1), new StopSpindexer(mSpindexer), new StopEjector(mEjector),
+    addCommands( new StopSpindexer(mSpindexer), new StopEjector(mEjector),
         new SequentialCommandGroup(
-          new DeployIntake(mIntake, false), new WaitCommand(2), new StopIntake(mIntake)));
+        new MoveIntake(mIntake, 1),  new DeployIntake(mIntake, false), new WaitCommand(2), new StopIntake(mIntake)));
   }
 }

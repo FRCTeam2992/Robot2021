@@ -14,13 +14,13 @@ public class ClimbSticks extends CommandBase {
   //Subsystem
   private TelescopeClimb mTelescopeClimb;
 
-  private boolean mClimbMode;
+  
 
-  public ClimbSticks(TelescopeClimb subsystem, boolean climbMode) {
+  public ClimbSticks(TelescopeClimb subsystem) {
 
     mTelescopeClimb = subsystem;
 
-    mClimbMode = climbMode;
+  
 
     addRequirements(subsystem);
   }
@@ -33,14 +33,14 @@ public class ClimbSticks extends CommandBase {
   @Override
   public void execute() {
     double climbY;
-
+   
     climbY = -Robot.mRobotContainer.controller2.getY(Hand.kLeft);
 
-    if (Math.abs(climbY) >= Constants.joystickDeadband || !mClimbMode){
+    if (Math.abs(climbY) <= Constants.joystickDeadband*2){
       climbY = 0.0;
-    } else {
-       double climbValue;
-    }
+    }      
+    climbY = climbY * climbY * climbY;
+    mTelescopeClimb.setTelescopeSpeed(climbY);
   }
 
   // Called once the command ends or is interrupted.

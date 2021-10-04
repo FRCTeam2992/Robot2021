@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -23,6 +22,8 @@ public class Intake extends SubsystemBase {
   // Intake Solenoids
   private Solenoid intakeDeploySolenoid;
 
+  private double intakeSpeed = 0.0;
+
   public Intake() {
     // Intake Motors
     intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
@@ -35,11 +36,13 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    //intakeMotor.set(intakeSpeed);
   }
 
   public void setIntakeSpeed(double speed) {
+    intakeSpeed = speed;
     intakeMotor.set(speed);
+
   }
 
   public void deployIntake(boolean toggle) {
@@ -50,7 +53,3 @@ public class Intake extends SubsystemBase {
     return intakeDeploySolenoid.get();
   }
 }
-
-
-
-

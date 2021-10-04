@@ -99,13 +99,13 @@ public class RobotContainer {
     mShooter.setDefaultCommand(new StopShooter(mShooter));
 
     mAdjustabeHood = new AdjustabeHood();
-    mAdjustabeHood.setDefaultCommand(new StopAdjustableHood(mAdjustabeHood));
+    mAdjustabeHood.setDefaultCommand(new HoodSticks(mAdjustabeHood));
 
     mEjector = new Ejector();
     mEjector.setDefaultCommand(new StopEjector(mEjector));
 
     mTelescopeClimb = new TelescopeClimb();
-    mTelescopeClimb.setDefaultCommand(new ClimbSticks(mTelescopeClimb, false));
+    mTelescopeClimb.setDefaultCommand(new ClimbSticks(mTelescopeClimb));
     // Subsystem Instances (Disabled)
     // mTurret = new Turret();
     // mTurret.setDefaultCommand(new StopTurret(mTurret));
@@ -150,7 +150,7 @@ public class RobotContainer {
 
     autoAimButton = new JoystickButton(controller1, 1);
     autoAimButton.whileHeld(new AutoLimeLightSpeed(mShooter, mDriveTrain, powerCellInterpolator));
-    autoAimButton.whenPressed(new AutoLimeLightHood(mAdjustabeHood, mDriveTrain, powerCellInterpolator));
+    autoAimButton.whileHeld(new AutoLimeLightHood(mAdjustabeHood, mDriveTrain, powerCellInterpolator));
     autoAimButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     increaseShooterSpeedButton = new JoystickButton(controller1, 6);
@@ -160,7 +160,7 @@ public class RobotContainer {
     decreaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, -100));
 
     lockSwerveDriveButton = new JoystickButton(controller1, 3);
-    lockSwerveDriveButton.whenPressed(new SetSwerveModuleAngles(mDriveTrain, 90, 135, 90, 135));
+    lockSwerveDriveButton.whenPressed(new SetSwerveModuleAngles(mDriveTrain, 45, 135, 135, 45));
     lockSwerveDriveButton.whenReleased(new DriveSticks(mDriveTrain));
 
     // Controller 2 Buttons
@@ -168,7 +168,7 @@ public class RobotContainer {
     
     //Climb mode switch
        toggleClimb = new JoystickButton(controller2, 8);
-       toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb));
+       toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb, mIntake));
 
       //Climb Buttons
       zone2Button = new DPadButton(controller2, Direction.UP);
@@ -192,11 +192,11 @@ public class RobotContainer {
     autoIntakeButton.whenPressed(new AutoIntake(mIntake, mSpindexer, mEjector));
 
     moveHoodUpButton = new JoystickButton(controller2, 6);
-    moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.05));
+    moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.10));
     moveHoodUpButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     moveHoodDownButton = new JoystickButton(controller2, 5);
-    moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, -0.05));
+    moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, -0.10));
     moveHoodDownButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     shooterToggleButton = new JoystickButton(controller2, 3);
@@ -259,10 +259,10 @@ public class RobotContainer {
   }
 
   private void initCamera() {
-    UsbCamera driveCamera = CameraServer.getInstance().startAutomaticCapture("Drive Camera", 0);
+    UsbCamera driveCamera = CameraServer.getInstance().startAutomaticCapture("Drive Camera", 1);
     driveCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     driveCamera.setFPS(30);
-    driveCamera.setResolution(240, 160);
+    driveCamera.setResolution(160, 90);
   }
 
   private void initInterpolator() {

@@ -32,7 +32,7 @@ public class MoveIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    mIntake.setIntakeSpeed(mIntakeSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,12 +44,12 @@ public class MoveIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mIntake.setIntakeSpeed(0.0);
+    //mIntake.setIntakeSpeed(0.0);
   }
   
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
