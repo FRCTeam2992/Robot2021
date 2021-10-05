@@ -29,7 +29,6 @@ public class Shooter extends SubsystemBase {
   // Shooter Dashboard Update Counter
   private int dashboardCounter = 0;
 
-  private boolean isShooterOn;
 
   public Shooter() {
     // Shooter Motors
@@ -50,20 +49,19 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
       SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
 
-      if (getShooterRPM() > 0){
-        isShooterOn = true;
+      if (shooterSetSpeed > 0){
+       
 
-        SmartDashboard.putBoolean("isShooterOn", true);
+        SmartDashboard.putBoolean("Shooter State", true);
       }
 
       else {
-        SmartDashboard.putBoolean("isShooterOn", false);
+        SmartDashboard.putBoolean("Shooter State", false);
       }
 
       dashboardCounter = 0;
     } else {
       dashboardCounter++;
-      isShooterOn = false;
     }
   }
 

@@ -61,7 +61,7 @@ public class AutoLimeLightHood extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
+    //mDriveTrain.limeLightCamera.setLedMode(LedMode.Off);
   }
 
   // Returns true when the command should end.
