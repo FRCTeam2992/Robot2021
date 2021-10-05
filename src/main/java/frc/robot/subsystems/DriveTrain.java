@@ -245,6 +245,11 @@ public class DriveTrain extends SubsystemBase {
     // SmartDashboard.putNumber("Rear Right Module Velocity",
     // rearRightModule.getWheelSpeedMeters());
 
+    SmartDashboard.putNumber("fl turn", frontLeftTurn.getEncoder().getPosition());
+    SmartDashboard.putNumber("rl turn", rearLeftTurn.getEncoder().getPosition());
+    SmartDashboard.putNumber("fr turn", frontRightTurn.getEncoder().getPosition());
+    SmartDashboard.putNumber("rr turn", rearRightTurn.getEncoder().getPosition());
+    
     // DriveTrain Dashboard Update
     if (dashboardCounter >= 5) {
       // Display LimeLight Distance to Target

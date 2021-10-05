@@ -87,7 +87,7 @@ public class RobotContainer {
 
     // Subsystem Instances
     mDriveTrain = new DriveTrain();
-    mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
+   // mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
 
     mIntake = new Intake();
     mIntake.setDefaultCommand(new StopIntake(mIntake));
@@ -150,7 +150,7 @@ public class RobotContainer {
 
     autoAimButton = new JoystickButton(controller1, 1);
     autoAimButton.whileHeld(new AutoLimeLightSpeed(mShooter, mDriveTrain, powerCellInterpolator));
-    autoAimButton.whileHeld(new AutoLimeLightHood(mAdjustabeHood, mDriveTrain, powerCellInterpolator));
+    autoAimButton.whenPressed(new AutoLimeLightHood(mAdjustabeHood, mDriveTrain, powerCellInterpolator));
     autoAimButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     increaseShooterSpeedButton = new JoystickButton(controller1, 6);
