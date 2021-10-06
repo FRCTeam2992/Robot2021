@@ -23,6 +23,7 @@ public class Intake extends SubsystemBase {
   private Solenoid intakeDeploySolenoid;
 
   private double intakeSpeed = 0.0;
+  public boolean intakeDeployed = false;
 
   public Intake() {
     // Intake Motors
@@ -47,6 +48,7 @@ public class Intake extends SubsystemBase {
 
   public void deployIntake(boolean toggle) {
     intakeDeploySolenoid.set(toggle);
+    intakeDeployed = toggle;
   }
 
   public boolean getIntakeSolenoid() {

@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -34,7 +35,7 @@ public class RobotContainer {
 
   // Subsystem Instances
   public final DriveTrain mDriveTrain;
-  private final Intake mIntake;
+  public final Intake mIntake;
   private final Spindexer mSpindexer;
   private final Shooter mShooter;
   public final AdjustabeHood mAdjustabeHood;
@@ -68,8 +69,8 @@ public class RobotContainer {
   private JoystickButton moveHoodDownButton;
   private JoystickButton moveHoodUpButton;
   private JoystickButton shooterToggleButton;
-  private TriggerButton moveSpindexerForwardButton;
-  private TriggerButton moveSpindexerReverseButton;
+  public TriggerButton moveSpindexerForwardButton;
+  public TriggerButton moveSpindexerReverseButton;
   private DPadButton zone1Button;
   private DPadButton zone2Button;
   private DPadButton zone3Button;
@@ -77,6 +78,12 @@ public class RobotContainer {
   private JoystickButton toggleIntakeButton;
   private JoystickButton toggleClimb;
   private JoystickButton reverseEjector;
+
+  // Cameras
+  public UsbCamera intakeCamera;
+  public UsbCamera shootCamera;
+  public UsbCamera wheelCamera;
+  public MjpegServer virtualCamera;
 
   // Power Cell Interpolator
   private PowerCellInterpolator powerCellInterpolator;
@@ -87,7 +94,7 @@ public class RobotContainer {
 
     // Subsystem Instances
     mDriveTrain = new DriveTrain();
-   // mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
+    mDriveTrain.setDefaultCommand(new DriveSticks(mDriveTrain));
 
     mIntake = new Intake();
     mIntake.setDefaultCommand(new StopIntake(mIntake));
@@ -259,10 +266,24 @@ public class RobotContainer {
   }
 
   private void initCamera() {
-    UsbCamera driveCamera = CameraServer.getInstance().startAutomaticCapture("Drive Camera", 1);
-    driveCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    driveCamera.setFPS(30);
-    driveCamera.setResolution(160, 90);
+    intakeCamera = CameraServer.getInstance().startAutomaticCapture("Intake Camera", 2);
+    intakeCamera.setConnectionStrategy(ConnectionStrategy.kAutoManage);
+    intakeCamera.setFPS(30);
+    intakeCamera.setResolution(160,90);
+    
+    shootCamera = CameraServer.getInstance().startAutomaticCapture("Shoot Camera", 1);
+    shootCamera.setConnectionStrategy(ConnectionStrategy.kAutoManage);
+    shootCamera.setFPS(30);
+    shootCamera.setResolution(160,90);
+    
+    wheelCamera = CameraServer.getInstance().startAutomaticCapture("Wheel Camera", 0);
+    wheelCamera.setConnectionStrategy(ConnectionStrategy.kAutoManage);
+    wheelCamera.setFPS(30);
+    wheelCamera.setResolution(160,90);
+    
+    virtualCamera = CameraServer.getInstance().addSwitchedCamera("Drive Camera");
+    virtualCamera.setSource(intakeCamera);
+
   }
 
   private void initInterpolator() {

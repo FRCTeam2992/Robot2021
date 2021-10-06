@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,6 +41,8 @@ public class Robot extends TimedRobot {
   //
   private int vibrateCounter = 0;
 
+  private Timer cameraTimer = new Timer();
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -48,6 +51,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     /// Initialize the Robot Container
     mRobotContainer = new RobotContainer();
+    cameraTimer.reset();
+    cameraTimer.start();
   }
 
   /**
@@ -57,6 +62,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // Run the Scheduler
     CommandScheduler.getInstance().run();
+    updateCameras();
   }
 
   /**
@@ -216,6 +222,18 @@ public class Robot extends TimedRobot {
       vibrateCounter = 0;
     } else {
       vibrateCounter++;
+    }
+  }
+
+  public void updateCameras() {
+    if (mRobotContainer.autoAimButton.get()) {
+      mRobotContainer.virtualCamera.setSource(mRobotContainer.shootCamera);
+    } else if (!mRobotContainer.mIntake.intakeDeployed && 
+              ( mRobotContainer.moveSpindexerForwardButton.get() || mRobotContainer.moveSpindexerReverseButton.get())) {
+      mRobotContainer.virtualCamera.setSource(mRobotContainer.wheelCamera);
+      cameraTimer.reset();
+    } else if (cameraTimer.get() > 3.0 || mRobotContainer.mIntake.intakeDeployed) {
+      mRobotContainer.virtualCamera.setSource(mRobotContainer.intakeCamera);
     }
   }
 }
