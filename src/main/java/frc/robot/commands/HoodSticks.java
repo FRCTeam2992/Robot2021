@@ -37,13 +37,13 @@ public class HoodSticks extends CommandBase {
     if(Math.abs(hoodY) <= Constants.joystickDeadband){
       hoodY = 0.0;
     } 
-    hoodY = Math.pow(hoodY, 3);
+    hoodY = Math.pow(hoodY, 3) / 8;
 
 
     if (mAdjustabeHood.isHomed) {
-      if ((mAdjustableShooterHoodSpeed < 0.0 && !mAdjustabeHood.getLimitState())
-          || (mAdjustableShooterHoodSpeed > 0.0 && mAdjustabeHood.getHoodPosition() < Constants.maxHoodRotations)) {
-        mAdjustabeHood.setAdjustableShooterHoodSpeed(mAdjustableShooterHoodSpeed);
+      if ((hoodY < 0.0 && !mAdjustabeHood.getLimitState())
+          || (hoodY > 0.0 && mAdjustabeHood.getHoodPosition() < Constants.maxHoodRotations)) {
+        mAdjustabeHood.setAdjustableShooterHoodSpeed(hoodY);
 
         if (mAdjustabeHood.getLimitState()) {
           mAdjustabeHood.zeroHoodMotor();
@@ -57,6 +57,7 @@ public class HoodSticks extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    mAdjustabeHood.setAdjustableShooterHoodSpeed(0.0);
   }
 
   // Returns true when the command should end.
