@@ -21,6 +21,7 @@ import frc.lib.game.year2021.PowerCellInterpolator;
 import frc.lib.oi.mhController;
 import frc.lib.oi.controller.DPadButton;
 import frc.lib.oi.controller.TriggerButton;
+import frc.lib.oi.controller.TriggerJoystickY;
 import frc.lib.oi.controller.DPadButton.Direction;
 import frc.robot.commands.*;
 import frc.robot.commands.autos.CenterShieldGeneratorAuto;
@@ -71,6 +72,7 @@ public class RobotContainer {
   private JoystickButton shooterToggleButton;
   public TriggerButton moveSpindexerForwardButton;
   public TriggerButton moveSpindexerReverseButton;
+  public TriggerJoystickY hoodJoystickTrigger;
   private DPadButton zone1Button;
   private DPadButton zone2Button;
   private DPadButton zone3Button;
@@ -106,7 +108,7 @@ public class RobotContainer {
     mShooter.setDefaultCommand(new StopShooter(mShooter));
 
     mAdjustabeHood = new AdjustabeHood();
-    mAdjustabeHood.setDefaultCommand(new HoodSticks(mAdjustabeHood));
+    // mAdjustabeHood.setDefaultCommand(new HoodSticks(mAdjustabeHood));
 
     mEjector = new Ejector();
     mEjector.setDefaultCommand(new StopEjector(mEjector));
@@ -158,7 +160,8 @@ public class RobotContainer {
     autoAimButton = new JoystickButton(controller1, 1);
     autoAimButton.whileHeld(new AutoLimeLightSpeed(mShooter, mDriveTrain, powerCellInterpolator));
     autoAimButton.whenPressed(new AutoLimeLightHood(mAdjustabeHood, mDriveTrain, powerCellInterpolator));
-    autoAimButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+    // autoAimButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+    autoAimButton.whenReleased(new HoldAdjustableHood(mAdjustabeHood));
 
     increaseShooterSpeedButton = new JoystickButton(controller1, 6);
     increaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, 100));
@@ -231,6 +234,10 @@ public class RobotContainer {
     reverseEjector = new JoystickButton(controller2, 10);
     reverseEjector.whenPressed(new MoveEjector(mEjector, -1.0));
     reverseEjector.whenReleased(new StopEjector(mEjector));
+
+    hoodJoystickTrigger = new TriggerJoystickY(controller2, Hand.kRight, Constants.joystickDeadband);
+    hoodJoystickTrigger.whenActive(new HoodSticks(mAdjustabeHood));
+    hoodJoystickTrigger.whenInactive(new HoldAdjustableHood(mAdjustabeHood));
   }
 
   private void setupAutoSelector() {
