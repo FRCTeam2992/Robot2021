@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
   private VictorSPX followShooter;
 
   // Shooter Set Speed
-  public int shooterSetSpeed = Constants.defaultShooterSpeed;
+  public  int shooterSetSpeed = Constants.defaultShooterSpeed;
 
   // Shooter Dashboard Update Counter
   private int dashboardCounter = 0;
@@ -49,9 +49,7 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
       SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
 
-      if (shooterSetSpeed > 0){
-       
-
+      if (getShooterRPM() > 3200) {
         SmartDashboard.putBoolean("Shooter State", true);
       }
 

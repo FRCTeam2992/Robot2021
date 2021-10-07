@@ -60,15 +60,15 @@ public class RobotContainer {
   public TriggerButton slowModeButton;
   public TriggerButton autoShootButton;
   public JoystickButton autoAimButton;
-  private JoystickButton increaseShooterSpeedButton;
-  private JoystickButton decreaseShooterSpeedButton;
+  private DPadButton increaseShooterSpeedButton;
+  private DPadButton decreaseShooterSpeedButton;
   private JoystickButton lockSwerveDriveButton;
 
   // Controller 2 Buttons
   private JoystickButton autoOverrideButton;
   private JoystickButton autoIntakeButton;
-  private JoystickButton moveHoodDownButton;
-  private JoystickButton moveHoodUpButton;
+  // private JoystickButton moveHoodDownButton;
+  // private JoystickButton moveHoodUpButton;
   private JoystickButton shooterToggleButton;
   public TriggerButton moveSpindexerForwardButton;
   public TriggerButton moveSpindexerReverseButton;
@@ -80,6 +80,7 @@ public class RobotContainer {
   private JoystickButton toggleIntakeButton;
   private JoystickButton toggleClimb;
   private JoystickButton reverseEjector;
+  private JoystickButton trenchModeButton;
 
   // Cameras
   public UsbCamera intakeCamera;
@@ -125,7 +126,6 @@ public class RobotContainer {
     // mColorWheel = new ColorWheel();
     // mColorWheel.setDefaultCommand(new StopColorWheel(mColorWheel));
 
-
     // Setup the Autonomous Selector
     setupAutoSelector();
 
@@ -163,32 +163,30 @@ public class RobotContainer {
     // autoAimButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
     autoAimButton.whenReleased(new HoldAdjustableHood(mAdjustabeHood));
 
-    increaseShooterSpeedButton = new JoystickButton(controller1, 6);
-    increaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, 100));
+    increaseShooterSpeedButton = new DPadButton(controller1, Direction.UP);
+    increaseShooterSpeedButton.whenActive(new ChangeShooterSpeed(mShooter, 100));
 
-    decreaseShooterSpeedButton = new JoystickButton(controller1, 5);
-    decreaseShooterSpeedButton.whenPressed(new ChangeShooterSpeed(mShooter, -100));
+    decreaseShooterSpeedButton = new DPadButton(controller1, Direction.DOWN);
+    decreaseShooterSpeedButton.whenActive(new ChangeShooterSpeed(mShooter, -100));
 
     lockSwerveDriveButton = new JoystickButton(controller1, 3);
     lockSwerveDriveButton.whenPressed(new SetSwerveModuleAngles(mDriveTrain, 45, 135, 135, 45));
     lockSwerveDriveButton.whenReleased(new DriveSticks(mDriveTrain));
 
     // Controller 2 Buttons
-    
-    
-    //Climb mode switch
-       toggleClimb = new JoystickButton(controller2, 8);
-       toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb, mIntake));
 
-      //Climb Buttons
-      zone2Button = new DPadButton(controller2, Direction.UP);
-      zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
-      zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
+    // Climb mode switch
+    toggleClimb = new JoystickButton(controller2, 8);
+    toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb, mIntake));
 
-      zone4Button = new DPadButton(controller2, Direction.DOWN);
-      zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
-      zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
-     
+    // Climb Buttons
+    zone2Button = new DPadButton(controller2, Direction.UP);
+    zone2Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, 0.5));
+    zone2Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
+
+    zone4Button = new DPadButton(controller2, Direction.DOWN);
+    zone4Button.whenActive(new MoveTelescopeClimb(mTelescopeClimb, -0.5));
+    zone4Button.whenInactive(new StopTelescopeClimb(mTelescopeClimb));
 
     // zone2Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 0.0));
 
@@ -201,13 +199,17 @@ public class RobotContainer {
     autoIntakeButton = new JoystickButton(controller2, 1);
     autoIntakeButton.whenPressed(new AutoIntake(mIntake, mSpindexer, mEjector));
 
-    moveHoodUpButton = new JoystickButton(controller2, 6);
-    moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.10));
-    moveHoodUpButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+    trenchModeButton = new JoystickButton(controller2, 4);
+    trenchModeButton.whenPressed(new TrenchMode(mIntake, mAdjustabeHood));
 
-    moveHoodDownButton = new JoystickButton(controller2, 5);
-    moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, -0.10));
-    moveHoodDownButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+    // moveHoodUpButton = new JoystickButton(controller2, 6);
+    // moveHoodUpButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood, 0.10));
+    // moveHoodUpButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
+
+    // moveHoodDownButton = new JoystickButton(controller2, 5);
+    // moveHoodDownButton.whenPressed(new MoveAdjustableHood(mAdjustabeHood,
+    // -0.10));
+    // moveHoodDownButton.whenReleased(new StopAdjustableHood(mAdjustabeHood));
 
     shooterToggleButton = new JoystickButton(controller2, 3);
     shooterToggleButton.toggleWhenPressed(new StartShooter(mShooter));
@@ -228,10 +230,10 @@ public class RobotContainer {
     zone3Button.whenActive(new SetAdjustableHoodPosition(mAdjustabeHood, 9.0));
     zone3Button.whenActive(new SetShooterSpeed(mShooter, 5300));
 
-    toggleIntakeButton = new JoystickButton(controller2, 4);
-    toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
+    // toggleIntakeButton = new JoystickButton(controller2, 4);
+    // toggleIntakeButton.whenPressed(new ToggleIntake(mIntake));
 
-    reverseEjector = new JoystickButton(controller2, 10);
+    reverseEjector = new JoystickButton(controller2, 5);
     reverseEjector.whenPressed(new MoveEjector(mEjector, -1.0));
     reverseEjector.whenReleased(new StopEjector(mEjector));
 
@@ -276,18 +278,18 @@ public class RobotContainer {
     intakeCamera = CameraServer.getInstance().startAutomaticCapture("Intake Camera", 2);
     intakeCamera.setConnectionStrategy(ConnectionStrategy.kAutoManage);
     intakeCamera.setFPS(30);
-    intakeCamera.setResolution(160,90);
-    
+    intakeCamera.setResolution(160, 90);
+
     shootCamera = CameraServer.getInstance().startAutomaticCapture("Shoot Camera", 1);
     shootCamera.setConnectionStrategy(ConnectionStrategy.kAutoManage);
     shootCamera.setFPS(30);
-    shootCamera.setResolution(160,90);
-    
+    shootCamera.setResolution(160, 90);
+
     wheelCamera = CameraServer.getInstance().startAutomaticCapture("Wheel Camera", 0);
     wheelCamera.setConnectionStrategy(ConnectionStrategy.kAutoManage);
     wheelCamera.setFPS(30);
-    wheelCamera.setResolution(160,90);
-    
+    wheelCamera.setResolution(160, 90);
+
     virtualCamera = CameraServer.getInstance().addSwitchedCamera("Drive Camera");
     virtualCamera.setSource(intakeCamera);
 
@@ -311,4 +313,3 @@ public class RobotContainer {
   }
 
 }
-
