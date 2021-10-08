@@ -69,7 +69,7 @@ public class CenterTrenchFiveAuto extends SequentialCommandGroup {
             )
           ),
           new AutoDriveRotate(driveTrain, 60, true, 1),
-          new AutoShoot(spindexer, ejector, intake).withTimeout(5)
+          new AutoShoot(spindexer, ejector, intake).withTimeout(8)
         )
       )
     );
