@@ -27,7 +27,7 @@ public class AdjustabeHood extends SubsystemBase {
   public boolean isHomed = false;
 
   // Adjustable Hood Dashboard Update Counter
-  private int dashboardCounter = 0;
+  private int dashboardCounter = 2;  // second to relay to dashboard
 
   // Hood Set Target
   public double hoodTarget = 0;
@@ -51,14 +51,15 @@ public class AdjustabeHood extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // increment tick count for dashboard relay
+    dashboardCounter++;
+
     // Display Hood Position and Limit Switch State
     if (dashboardCounter >= 5) {
       SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
       SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
 
       dashboardCounter = 0;
-    } else {
-      dashboardCounter++;
     }
   }
 

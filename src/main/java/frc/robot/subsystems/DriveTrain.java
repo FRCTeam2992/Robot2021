@@ -102,7 +102,7 @@ public class DriveTrain extends SubsystemBase {
   public final LimeLight limeLightCamera;
 
   // DriveTrain Dashboard Update Counter
-  private int dashboardCounter = 0;
+  private int dashboardCounter = 3;  // first to relay to dashboard
 
   public DriveTrain() {
     // Drive Motors
@@ -225,6 +225,9 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // increment tick count for dashboard relay
+    dashboardCounter++;
+
     // Display Module Angles
     SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
     SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
@@ -256,8 +259,6 @@ public class DriveTrain extends SubsystemBase {
       SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
       dashboardCounter = 0;
-    } else {
-      dashboardCounter++;
     }
     // Display Gyro Angle
     SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());

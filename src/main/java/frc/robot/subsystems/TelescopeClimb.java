@@ -33,7 +33,6 @@ public class TelescopeClimb extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Climb Mode", toggleClimbMode);
     //SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
-
   }
 
   public void setTelescopeSpeed(double speed) {

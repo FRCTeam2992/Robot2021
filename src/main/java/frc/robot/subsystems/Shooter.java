@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
   public  int shooterSetSpeed = Constants.defaultShooterSpeed;
 
   // Shooter Dashboard Update Counter
-  private int dashboardCounter = 0;
+  private int dashboardCounter = 1;  // third to relay to dashboard
 
 
   public Shooter() {
@@ -44,6 +44,9 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // increment tick count for dashboard
+    dashboardCounter++;
+
     // Display the Shooter Set Speed and Current RPM
     if (dashboardCounter >= 5) {
       SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
@@ -58,8 +61,6 @@ public class Shooter extends SubsystemBase {
       }
 
       dashboardCounter = 0;
-    } else {
-      dashboardCounter++;
     }
   }
 
