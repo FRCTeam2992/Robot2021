@@ -50,7 +50,7 @@ public class CenterTrenchThreeAuto extends SequentialCommandGroup {
           ),
           new AutoShoot(spindexer, ejector, intake).withTimeout(1.5),
           new SetHoodTarget(adjustabeHood, 9.0),
-          new SetShooterSpeed(shooter, 4500),
+          new SetShooterSpeed(shooter, 4800),
           new ParallelCommandGroup(
             new AutoFollowPath(driveTrain, new CenterTrenchThreePath(driveTrain).generateSwerveTrajectory()),
             new SequentialCommandGroup(

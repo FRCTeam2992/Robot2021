@@ -128,7 +128,7 @@ public class AutoDriveRotate extends CommandBase {
   @Override
   public boolean isFinished() {
     if(mUseLimeLight) {
-      if(Math.abs(mDriveTrain.limeLightCamera.getTargetXOffset()) < 1.0 & mDriveTrain.limeLightCamera.hasTarget()) {
+      if(Math.abs(mDriveTrain.limeLightCamera.getTargetXOffset()) < 1.0 && mDriveTrain.limeLightCamera.hasTarget()) {
         atSetpointCounter++;
       } else {
         atSetpointCounter = 0;

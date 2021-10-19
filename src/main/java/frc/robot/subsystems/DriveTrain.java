@@ -226,14 +226,10 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    SmartDashboard.putNumber("Front Left Module Angle",
-    frontLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Front Right Module Angle",
-    frontRightModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Left Module Angle",
-    rearLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Right Module Angle",
-    rearRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Left Module Velocity",
@@ -249,7 +245,7 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("rl turn", rearLeftTurn.getEncoder().getPosition());
     SmartDashboard.putNumber("fr turn", frontRightTurn.getEncoder().getPosition());
     SmartDashboard.putNumber("rr turn", rearRightTurn.getEncoder().getPosition());
-    
+
     // DriveTrain Dashboard Update
     if (dashboardCounter >= 5) {
       // Display LimeLight Distance to Target
@@ -372,6 +368,6 @@ public class DriveTrain extends SubsystemBase {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();
     }
-     
+
   }
 }
