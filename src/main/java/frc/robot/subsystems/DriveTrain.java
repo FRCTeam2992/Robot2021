@@ -226,10 +226,14 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    SmartDashboard.putNumber("Front Left Module Angle", frontLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Front Right Module Angle", frontRightModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Left Module Angle", rearLeftModule.getEncoderAngle());
-    SmartDashboard.putNumber("Rear Right Module Angle", rearRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Left Module Angle",
+    // frontLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Front Right Module Angle",
+    // frontRightModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Left Module Angle",
+    // rearLeftModule.getEncoderAngle());
+    // SmartDashboard.putNumber("Rear Right Module Angle",
+    // rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Left Module Velocity",
@@ -241,13 +245,16 @@ public class DriveTrain extends SubsystemBase {
     // SmartDashboard.putNumber("Rear Right Module Velocity",
     // rearRightModule.getWheelSpeedMeters());
 
-    SmartDashboard.putNumber("fl turn", frontLeftTurn.getEncoder().getPosition());
-    SmartDashboard.putNumber("rl turn", rearLeftTurn.getEncoder().getPosition());
-    SmartDashboard.putNumber("fr turn", frontRightTurn.getEncoder().getPosition());
-    SmartDashboard.putNumber("rr turn", rearRightTurn.getEncoder().getPosition());
+    // SmartDashboard.putNumber("fl turn",
+    // frontLeftTurn.getEncoder().getPosition());
+    // SmartDashboard.putNumber("rl turn", rearLeftTurn.getEncoder().getPosition());
+    // SmartDashboard.putNumber("fr turn",
+    // frontRightTurn.getEncoder().getPosition());
+    // SmartDashboard.putNumber("rr turn",
+    // rearRightTurn.getEncoder().getPosition());
 
     // DriveTrain Dashboard Update
-    if (dashboardCounter >= 5) {
+    if (++dashboardCounter >= 5) {
       // Display LimeLight Distance to Target
       SmartDashboard.putNumber("Limelight Distance",
           limeLightCamera.getDistanceToTarget(Constants.cameraAngle, Constants.cameraHeight, Constants.targetHeight));
@@ -256,9 +263,8 @@ public class DriveTrain extends SubsystemBase {
       SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 
       dashboardCounter = 0;
-    } else {
-      dashboardCounter++;
     }
+
     // Display Gyro Angle
     SmartDashboard.putNumber("Gyro Yaw", navx.getYaw());
 

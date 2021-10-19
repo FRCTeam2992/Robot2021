@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PowerCellInterpolator {
 
+    // varibles
+    private int dashboardSpeedCounter = 0;
+    private int dashboardHoodCounter = 0;
+
     // Saved Lists
     private List<PowerCellDataPoint> dataPointList;
 
@@ -53,22 +57,23 @@ public class PowerCellInterpolator {
                 tempShooterSpeed = lerp(lowerDataPoint.getGoodShooterSpeed(), lowerDataPoint.getBadShooterSpeed(),
                         damagePercentage);
             } else {
-                int upperShooterSpeed = lerp(upperDataPoint.getGoodShooterSpeed(),
-                        upperDataPoint.getBadShooterSpeed(), damagePercentage);
-                int lowerShooterSpeed = lerp(lowerDataPoint.getGoodShooterSpeed(),
-                        lowerDataPoint.getBadShooterSpeed(), damagePercentage);
+                int upperShooterSpeed = lerp(upperDataPoint.getGoodShooterSpeed(), upperDataPoint.getBadShooterSpeed(),
+                        damagePercentage);
+                int lowerShooterSpeed = lerp(lowerDataPoint.getGoodShooterSpeed(), lowerDataPoint.getBadShooterSpeed(),
+                        damagePercentage);
 
                 tempShooterSpeed = lerp(lowerShooterSpeed, upperShooterSpeed, (distance - lowerDataPoint.getDistance())
                         / (upperDataPoint.getDistance() - lowerDataPoint.getDistance()));
             }
         }
 
-        SmartDashboard.putNumber("Shooter Speed", tempShooterSpeed);
+        if (++dashboardSpeedCounter >= 5) {
+            SmartDashboard.putNumber("Shooter Speed", tempShooterSpeed);
 
+            dashboardSpeedCounter = 0;
+        }
         return tempShooterSpeed;
     }
-
-    
 
     public double calculateHoodPosition(double distance, double damagePercentage) {
         double tempHoodPosition = 0.0;
@@ -106,11 +111,12 @@ public class PowerCellInterpolator {
                         / (upperDataPoint.getDistance() - lowerDataPoint.getDistance()));
             }
         }
+        if (++dashboardHoodCounter >= 5) {
+            SmartDashboard.putNumber("Distance", distance);
+            SmartDashboard.putNumber("Hood Position", tempHoodPosition);
 
-        SmartDashboard.putNumber("Distance", distance);
-        SmartDashboard.putNumber("Hood Position", tempHoodPosition);
-        
-
+            dashboardHoodCounter = 0;
+        }
         return tempHoodPosition;
     }
 

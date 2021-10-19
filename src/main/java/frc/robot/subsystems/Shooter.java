@@ -24,11 +24,10 @@ public class Shooter extends SubsystemBase {
   private VictorSPX followShooter;
 
   // Shooter Set Speed
-  public  int shooterSetSpeed = Constants.defaultShooterSpeed;
+  public int shooterSetSpeed = Constants.defaultShooterSpeed;
 
   // Shooter Dashboard Update Counter
   private int dashboardCounter = 0;
-
 
   public Shooter() {
     // Shooter Motors
@@ -45,7 +44,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // Display the Shooter Set Speed and Current RPM
-    if (dashboardCounter >= 5) {
+    if (++dashboardCounter >= 5) {
       SmartDashboard.putNumber("Shooter Set Speed", shooterSetSpeed);
       SmartDashboard.putNumber("Shooter Current RPM", getShooterRPM());
 
@@ -58,8 +57,6 @@ public class Shooter extends SubsystemBase {
       }
 
       dashboardCounter = 0;
-    } else {
-      dashboardCounter++;
     }
   }
 

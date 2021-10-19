@@ -18,6 +18,9 @@ public class AutoLimeLightHood extends CommandBase {
   private AdjustabeHood mAdjustabeHood;
   private DriveTrain mDriveTrain;
 
+  // Varibles
+  private int interpolatorCounter = 0;
+
   // Saved Variables
   private PowerCellInterpolator mInterpolator;
 
@@ -42,6 +45,7 @@ public class AutoLimeLightHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
     mDriveTrain.limeLightCamera.setLedMode(LedMode.On);
 
     if (mDriveTrain.limeLightCamera.hasTarget()) {
@@ -57,6 +61,7 @@ public class AutoLimeLightHood extends CommandBase {
       mAdjustabeHood.setHoodPosition(1.8);
     }
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
