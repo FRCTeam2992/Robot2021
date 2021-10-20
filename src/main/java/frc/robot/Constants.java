@@ -16,6 +16,7 @@ public final class Constants {
 
     // Telescope Climb Variables
     public static final int teleClimbLimit = 4000;
+    
 
     // Shooter Variables
     public static final int defaultShooterSpeed = 3500;

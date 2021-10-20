@@ -35,8 +35,7 @@ public class TelescopeClimb extends SubsystemBase {
   public void periodic() {
     if (++dashboardCounter >= 5)
       SmartDashboard.putBoolean("Climb Mode", toggleClimbMode);
-    // SmartDashboard.putNumber("Climb Encoder",
-    // teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
+    SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
 
     dashboardCounter = 0;
   }
