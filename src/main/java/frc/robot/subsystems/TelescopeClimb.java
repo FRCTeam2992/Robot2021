@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class TelescopeClimb extends SubsystemBase {
 
@@ -22,6 +23,7 @@ public class TelescopeClimb extends SubsystemBase {
   public boolean toggleClimbMode = false;
 
   private int dashboardCounter = 0;
+  private double encoderValue = 0;
 
   public TelescopeClimb() {
     // Telescope Climb Motors
@@ -33,17 +35,29 @@ public class TelescopeClimb extends SubsystemBase {
 
   @Override
   public void periodic() {
+      encoderValue = teleClimbMotor.getSensorCollection().getIntegratedSensorPosition();
     if (++dashboardCounter >= 5)
       SmartDashboard.putBoolean("Climb Mode", toggleClimbMode);
     SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
 
     dashboardCounter = 0;
+     
   }
 
   public void setTelescopeSpeed(double speed) {
-    if (toggleClimbMode) {
-      teleClimbMotor.set(ControlMode.PercentOutput, speed);
-    } else {
+    if (toggleClimbMode && encoderValue < Constants.topTeleClimbLimit && encoderValue > 0) {
+      if (encoderValue > Constants.topTeleCimbSlow && speed > 0) {
+        teleClimbMotor.set(ControlMode.PercentOutput, speed * Constants.teleClimbSlowModifier);
+      } 
+        else if (encoderValue < Constants.bottomTeleClimbSlow && speed < 0) {
+        teleClimbMotor.set(ControlMode.PercentOutput, speed * Constants.teleClimbSlowModifier);
+      }
+        else{
+          teleClimbMotor.set(ControlMode.PercentOutput, speed);
+        }
+      } 
+
+    else {
       teleClimbMotor.set(ControlMode.PercentOutput, 0);
     }
   }
