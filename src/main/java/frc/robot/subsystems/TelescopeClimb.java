@@ -36,13 +36,13 @@ public class TelescopeClimb extends SubsystemBase {
 
   @Override
   public void periodic() {
-      encoderValue = teleClimbMotor.getSensorCollection().getIntegratedSensorPosition();
+    encoderValue = teleClimbMotor.getSensorCollection().getIntegratedSensorPosition();
+    if (++dashboardCounter >= 5) {
 
-    if (++dashboardCounter >= 5){
       SmartDashboard.putBoolean("Climb Mode", toggleClimbMode);
-    SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
+      SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
 
-    dashboardCounter = 0;
+      dashboardCounter = 0;
     }
   }
 
@@ -54,14 +54,12 @@ public class TelescopeClimb extends SubsystemBase {
     else if (toggleClimbMode && encoderValue < Constants.topTeleClimbLimit && encoderValue > 0) {
       if (encoderValue > Constants.topTeleCimbSlow && speed > 0) {
         teleClimbMotor.set(ControlMode.PercentOutput, speed * Constants.teleClimbSlowModifier);
-      } 
-        else if (encoderValue < Constants.bottomTeleClimbSlow && speed < 0) {
+      } else if (encoderValue < Constants.bottomTeleClimbSlow && speed < 0) {
         teleClimbMotor.set(ControlMode.PercentOutput, speed * Constants.teleClimbSlowModifier);
+      } else {
+        teleClimbMotor.set(ControlMode.PercentOutput, speed);
       }
-        else{
-          teleClimbMotor.set(ControlMode.PercentOutput, speed);
-        }
-      } 
+    }
 
     else {
       teleClimbMotor.set(ControlMode.PercentOutput, 0);

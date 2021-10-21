@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //intakeMotor.set(intakeSpeed);
+    // intakeMotor.set(intakeSpeed);
   }
 
   public void setIntakeSpeed(double speed) {
