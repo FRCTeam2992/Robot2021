@@ -21,6 +21,7 @@ public class TelescopeClimb extends SubsystemBase {
   private TalonFX teleClimbMotor;
 
   public boolean toggleClimbMode = false;
+  public boolean climbOverride = false;
 
   private int dashboardCounter = 0;
   private double encoderValue = 0;
@@ -36,16 +37,21 @@ public class TelescopeClimb extends SubsystemBase {
   @Override
   public void periodic() {
       encoderValue = teleClimbMotor.getSensorCollection().getIntegratedSensorPosition();
-    if (++dashboardCounter >= 5)
+
+    if (++dashboardCounter >= 5){
       SmartDashboard.putBoolean("Climb Mode", toggleClimbMode);
     SmartDashboard.putNumber("Climb Encoder", teleClimbMotor.getSensorCollection().getIntegratedSensorPosition());
 
     dashboardCounter = 0;
-     
+    }
   }
 
-  public void setTelescopeSpeed(double speed) {
-    if (toggleClimbMode && encoderValue < Constants.topTeleClimbLimit && encoderValue > 0) {
+  public void setTelescopeSpeed(double speed){ 
+    if (climbOverride && toggleClimbMode){
+        teleClimbMotor.set(ControlMode.PercentOutput, speed);
+      }
+
+    else if (toggleClimbMode && encoderValue < Constants.topTeleClimbLimit && encoderValue > 0) {
       if (encoderValue > Constants.topTeleCimbSlow && speed > 0) {
         teleClimbMotor.set(ControlMode.PercentOutput, speed * Constants.teleClimbSlowModifier);
       } 

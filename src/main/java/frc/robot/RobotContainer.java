@@ -81,6 +81,7 @@ public class RobotContainer {
   private DPadButton zone4Button;
   private JoystickButton toggleIntakeButton;
   private JoystickButton toggleClimb;
+  private JoystickButton climbOverride;
   private JoystickButton reverseEjector;
   private JoystickButton trenchModeButton;
 
@@ -180,6 +181,10 @@ public class RobotContainer {
     // Climb mode switch
     toggleClimb = new JoystickButton(controller2, 8);
     toggleClimb.whenPressed(new ClimbModeOn(mTelescopeClimb, mIntake));
+
+    climbOverride = new JoystickButton(controller2, 6);
+    climbOverride.whenPressed(new ClimbOverrideOn(mTelescopeClimb));
+    climbOverride.whenReleased(new ClimbOverrideOff(mTelescopeClimb));
 
     // Climb Buttons
     zone2Button = new DPadButton(controller2, Direction.UP);
