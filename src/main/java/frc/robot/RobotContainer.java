@@ -28,6 +28,7 @@ import frc.robot.commands.autos.CenterShieldGeneratorAuto;
 import frc.robot.commands.autos.CenterTrenchFiveAuto;
 import frc.robot.commands.autos.CenterTrenchThreeAuto;
 import frc.robot.commands.autos.DriveStraightAuto;
+import frc.robot.commands.autos.LeftTrenchTwoAuto;
 import frc.robot.commands.autos.RightTrenchFiveAuto;
 import frc.robot.commands.autos.RightTrenchThreeAuto;
 import frc.robot.commands.groups.*;
@@ -264,6 +265,7 @@ public class RobotContainer {
     Command driveStraightNoShootAuto = new AutoFollowPath(mDriveTrain, new StraightPath().generateSwerveTrajectory());
     Command driveStraightAuto = new DriveStraightAuto(mShooter, mAdjustabeHood, mDriveTrain, mSpindexer, mEjector,
         mIntake);
+    Command leftTrenchTwoAuto = new LeftTrenchTwoAuto(mShooter, mAdjustabeHood, mDriveTrain, mSpindexer, mEjector, mIntake);
     // Auto Chooser
     autoChooser = new SendableChooser<>();
 
@@ -276,6 +278,7 @@ public class RobotContainer {
     autoChooser.addOption("Center Shield Generator", centerShieldGeneratorAuto);
     autoChooser.addOption("Drive Straight (No Shoot)", driveStraightNoShootAuto);
     autoChooser.addOption("Drive Straight", driveStraightAuto);
+    autoChooser.addOption("Left Trench (2 Power Cells)", leftTrenchTwoAuto);
 
     // Display the Chooser on Dashboard
     SmartDashboard.putData("Auto Selector", autoChooser);

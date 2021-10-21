@@ -97,6 +97,7 @@ public class DriveTrain extends SubsystemBase {
   public Trajectory CenterTrenchThreeTrajectory;
   public Trajectory RightTrenchThreeTrajectory;
   public Trajectory CenterShieldGeneratorTrajectory;
+  public Trajectory leftTrenchTwoTrajectory;
 
   // Limelight Camera
   public final LimeLight limeLightCamera;
@@ -226,14 +227,14 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // Display Module Angles
-    // SmartDashboard.putNumber("Front Left Module Angle",
-    // frontLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Front Right Module Angle",
-    // frontRightModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Left Module Angle",
-    // rearLeftModule.getEncoderAngle());
-    // SmartDashboard.putNumber("Rear Right Module Angle",
-    // rearRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Left Module Angle",
+    frontLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Front Right Module Angle",
+    frontRightModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Left Module Angle",
+    rearLeftModule.getEncoderAngle());
+    SmartDashboard.putNumber("Rear Right Module Angle",
+    rearRightModule.getEncoderAngle());
 
     // Display Wheel Velocities
     // SmartDashboard.putNumber("Front Left Module Velocity",
@@ -353,6 +354,7 @@ public class DriveTrain extends SubsystemBase {
     Path rightTrenchThreePath = Filesystem.getDeployDirectory().toPath().resolve("output/RightTrenchThree.wpilib.json");
     Path centerShieldGeneratorPath = Filesystem.getDeployDirectory().toPath()
         .resolve("output/CenterShieldGenerator.wpilib.json");
+    Path leftTrenchTwoPath = Filesystem.getDeployDirectory().toPath().resolve("output/LeftTrenchTwo.wpilib.json");
 
     try {
       SlalomTrajectory = TrajectoryUtil.fromPathweaverJson(slalomPath);
@@ -370,6 +372,7 @@ public class DriveTrain extends SubsystemBase {
       CenterTrenchThreeTrajectory = TrajectoryUtil.fromPathweaverJson(centerTrenchThreePath);
       RightTrenchThreeTrajectory = TrajectoryUtil.fromPathweaverJson(rightTrenchThreePath);
       CenterShieldGeneratorTrajectory = TrajectoryUtil.fromPathweaverJson(centerShieldGeneratorPath);
+      leftTrenchTwoTrajectory = TrajectoryUtil.fromPathweaverJson(leftTrenchTwoPath);
     } catch (IOException e) {
       DriverStation.reportError("Unable to load motion trajectories!", e.getStackTrace());
       e.printStackTrace();
