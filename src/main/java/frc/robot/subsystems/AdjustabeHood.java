@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,6 +38,9 @@ public class AdjustabeHood extends SubsystemBase {
     hoodMotor = new CANSparkMax(14, MotorType.kBrushless);
     hoodMotor.setInverted(false);
     hoodMotor.setIdleMode(IdleMode.kBrake);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 255);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+
 
     // Set the Hood PID Controllers
     CANPIDController hoodController = hoodMotor.getPIDController();
@@ -53,7 +57,7 @@ public class AdjustabeHood extends SubsystemBase {
   public void periodic() {
     // Display Hood Position and Limit Switch State
     if (dashboardCounter >= 5) {
-      SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
+      // SmartDashboard.putNumber("Current Hood Position", hoodMotor.getEncoder().getPosition());
       SmartDashboard.putBoolean("Hood Limit Switch", limitSwitch.get());
 
       dashboardCounter = 0;

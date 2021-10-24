@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -14,6 +15,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -110,34 +112,82 @@ public class DriveTrain extends SubsystemBase {
     frontLeftDrive = new TalonFX(1);
     frontLeftDrive.setInverted(false);
     frontLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
+    frontLeftDrive.setControlFramePeriod(1, 255);
+    frontLeftDrive.setControlFramePeriod(4, 255);
+    frontLeftDrive.setControlFramePeriod(8, 255);
+    frontLeftDrive.setControlFramePeriod(10, 255);
+    frontLeftDrive.setControlFramePeriod(12, 255);
+    frontLeftDrive.setControlFramePeriod(13, 255);
+    frontLeftDrive.setControlFramePeriod(14, 255);
+    frontLeftDrive.setControlFramePeriod(22, 255);
+
 
     frontLeftTurn = new CANSparkMax(2, MotorType.kBrushless);
     frontLeftTurn.setInverted(false);
     frontLeftTurn.setSmartCurrentLimit(30);
+    frontLeftTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 255);
+    frontLeftTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    frontLeftTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
 
     frontRightDrive = new TalonFX(3);
     frontRightDrive.setInverted(false);
     frontRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
+    frontRightDrive.setControlFramePeriod(1, 255);
+    frontRightDrive.setControlFramePeriod(4, 255);
+    frontRightDrive.setControlFramePeriod(8, 255);
+    frontRightDrive.setControlFramePeriod(10, 255);
+    frontRightDrive.setControlFramePeriod(12, 255);
+    frontRightDrive.setControlFramePeriod(13, 255);
+    frontRightDrive.setControlFramePeriod(14, 255);
+    frontRightDrive.setControlFramePeriod(22, 255);
+
 
     frontRightTurn = new CANSparkMax(4, MotorType.kBrushless);
     frontRightTurn.setInverted(false);
     frontRightTurn.setSmartCurrentLimit(30);
+    frontRightTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 255);
+    frontRightTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    frontRightTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
 
     rearLeftDrive = new TalonFX(5);
     rearLeftDrive.setInverted(false);
     rearLeftDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
+    rearLeftDrive.setControlFramePeriod(1, 255);
+    rearLeftDrive.setControlFramePeriod(4, 255);
+    rearLeftDrive.setControlFramePeriod(8, 255);
+    rearLeftDrive.setControlFramePeriod(10, 255);
+    rearLeftDrive.setControlFramePeriod(12, 255);
+    rearLeftDrive.setControlFramePeriod(13, 255);
+    rearLeftDrive.setControlFramePeriod(14, 255);
+    rearLeftDrive.setControlFramePeriod(22, 255);
+
 
     rearLeftTurn = new CANSparkMax(6, MotorType.kBrushless);
     rearLeftTurn.setInverted(false);
     rearLeftTurn.setSmartCurrentLimit(30);
+    rearLeftTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 255);
+    rearLeftTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    rearLeftTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
 
     rearRightDrive = new TalonFX(7);
     rearRightDrive.setInverted(false);
     rearRightDrive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 40, 0.25));
+    rearRightDrive.setControlFramePeriod(1, 255);
+    rearRightDrive.setControlFramePeriod(4, 255);
+    rearRightDrive.setControlFramePeriod(8, 255);
+    rearRightDrive.setControlFramePeriod(10, 255);
+    rearRightDrive.setControlFramePeriod(12, 255);
+    rearRightDrive.setControlFramePeriod(13, 255);
+    rearRightDrive.setControlFramePeriod(14, 255);
+    rearRightDrive.setControlFramePeriod(22, 255);
+
 
     rearRightTurn = new CANSparkMax(8, MotorType.kBrushless);
     rearRightTurn.setInverted(false);
     rearRightTurn.setSmartCurrentLimit(30);
+    rearRightTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 255);
+    rearRightTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    rearRightTurn.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
 
     // Config the Drive Motors
     setDriveNeutralMode(NeutralMode.Coast);

@@ -32,6 +32,15 @@ public class TelescopeClimb extends SubsystemBase {
     teleClimbMotor.setNeutralMode(NeutralMode.Brake);
     teleClimbMotor.setInverted(false);
     teleClimbMotor.getSensorCollection().setIntegratedSensorPosition(0.0, 100);
+    teleClimbMotor.setControlFramePeriod(1, 255);
+    teleClimbMotor.setControlFramePeriod(4, 255);
+    teleClimbMotor.setControlFramePeriod(8, 255);
+    teleClimbMotor.setControlFramePeriod(10, 255);
+    teleClimbMotor.setControlFramePeriod(12, 255);
+    teleClimbMotor.setControlFramePeriod(13, 255);
+    teleClimbMotor.setControlFramePeriod(14, 255);
+    teleClimbMotor.setControlFramePeriod(22, 255);
+
   }
 
   @Override

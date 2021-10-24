@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,6 +31,9 @@ public class Intake extends SubsystemBase {
     intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
     intakeMotor.setInverted(false);
     intakeMotor.setIdleMode(IdleMode.kCoast);
+    intakeMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 255);
+    intakeMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    intakeMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
 
     // Intake Solenoids
     intakeDeploySolenoid = new Solenoid(0);

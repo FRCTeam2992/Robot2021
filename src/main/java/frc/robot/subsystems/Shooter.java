@@ -35,10 +35,26 @@ public class Shooter extends SubsystemBase {
     leadShooter.setInverted(true);
     leadShooter.setNeutralMode(NeutralMode.Coast);
     leadShooter.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 60, 60, 0));
+    leadShooter.setControlFramePeriod(4, 255);
+    leadShooter.setControlFramePeriod(8, 255);
+    leadShooter.setControlFramePeriod(10, 255);
+    leadShooter.setControlFramePeriod(12, 255);
+    leadShooter.setControlFramePeriod(13, 255);
+    leadShooter.setControlFramePeriod(14, 255);
 
     followShooter = new VictorSPX(13);
     followShooter.setInverted(true);
     followShooter.follow(leadShooter);
+    followShooter.setControlFramePeriod(1, 255);
+    followShooter.setControlFramePeriod(2, 255);
+    followShooter.setControlFramePeriod(3, 255);
+    followShooter.setControlFramePeriod(4, 255);
+    followShooter.setControlFramePeriod(8, 255);
+    followShooter.setControlFramePeriod(10, 255);
+    followShooter.setControlFramePeriod(12, 255);
+    followShooter.setControlFramePeriod(13, 255);
+    followShooter.setControlFramePeriod(14, 255);
+
   }
 
   @Override

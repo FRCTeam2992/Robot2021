@@ -23,6 +23,16 @@ public class Spindexer extends SubsystemBase {
     spinnerMotor = new VictorSPX(10);
     spinnerMotor.setInverted(false);
     spinnerMotor.setNeutralMode(NeutralMode.Coast);
+    spinnerMotor.setControlFramePeriod(1, 255);
+    spinnerMotor.setControlFramePeriod(2, 255);    
+    spinnerMotor.setControlFramePeriod(3, 255);
+    spinnerMotor.setControlFramePeriod(4, 255);
+    spinnerMotor.setControlFramePeriod(8, 255);
+    spinnerMotor.setControlFramePeriod(10, 255);
+    spinnerMotor.setControlFramePeriod(12, 255);
+    spinnerMotor.setControlFramePeriod(13, 255);
+    spinnerMotor.setControlFramePeriod(14, 255);
+
   }
 
   @Override

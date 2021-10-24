@@ -80,7 +80,7 @@ public final class Constants {
     // Analog Encoder Offsets (Degrees) - Opposite of Raw Reading - Bevel Gear to Right
     public static final double frontLeftOffset = +68.1;
     public static final double frontRightOffset = -79.2;
-    public static final double rearLeftOffset = -164.4;
+    public static final double rearLeftOffset = 105.1;
     public static final double rearRightOffset = -115.2;
 
     // Swerve Gyro Correction

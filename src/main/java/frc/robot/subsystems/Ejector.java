@@ -20,6 +20,15 @@ public class Ejector extends SubsystemBase {
     ejectorMotor = new VictorSPX(11);
     ejectorMotor.setInverted(true);
     ejectorMotor.setNeutralMode(NeutralMode.Coast);
+    ejectorMotor.setControlFramePeriod(1, 255);
+    ejectorMotor.setControlFramePeriod(2, 255);
+    ejectorMotor.setControlFramePeriod(3, 255);
+    ejectorMotor.setControlFramePeriod(4, 255);
+    ejectorMotor.setControlFramePeriod(8, 255);
+    ejectorMotor.setControlFramePeriod(10, 255);
+    ejectorMotor.setControlFramePeriod(12, 255);
+    ejectorMotor.setControlFramePeriod(13, 255);
+    ejectorMotor.setControlFramePeriod(14, 255);
   }
 
   @Override
