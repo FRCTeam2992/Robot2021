@@ -70,6 +70,7 @@ public class TelescopeClimb extends SubsystemBase {
     if (climbOverride){
         // Climb mode is on and override button pressed to let climber move no matter what
         teleClimbMotor.set(ControlMode.PercentOutput, speed);
+        teleClimbMotor.setSelectedSensorPosition(0.0);
         return;
       }
 

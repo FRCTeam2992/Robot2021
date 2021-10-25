@@ -15,10 +15,12 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
 
     // Telescope Climb Variables
+    // public static final double topTeleClimbLimit = 390000;
     public static final double topTeleClimbLimit = 390000;
-    public static final double topTeleCimbSlow = 370000;
-    public static final double bottomTeleClimbSlow = 20000;
-    public static final double teleClimbSlowModifier = 0.5;
+
+    public static final double topTeleCimbSlow = 355000;
+    public static final double bottomTeleClimbSlow = 100000;
+    public static final double teleClimbSlowModifier = 0.35;
 
     // Shooter Variables
     public static final int defaultShooterSpeed = 3500;
