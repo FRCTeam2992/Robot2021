@@ -32,9 +32,9 @@ public class LeftTrenchTwoAuto extends SequentialCommandGroup {
   public LeftTrenchTwoAuto(Shooter shooter, AdjustabeHood adjustabeHood, DriveTrain driveTrain, Spindexer spindexer,
       Ejector ejector, Intake intake) {
     addCommands(
-      new SetShooterSpeed(shooter, 4250),
+      new SetShooterSpeed(shooter, 3900),
       
-      new SetHoodTarget(adjustabeHood, 5.75),
+      new SetHoodTarget(adjustabeHood, 5.00),
       
       new ParallelRaceGroup(
         new ParallelCommandGroup(

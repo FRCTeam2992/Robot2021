@@ -18,6 +18,8 @@ public class HoodSticks extends CommandBase {
   private double mAdjustableShooterHoodSpeed;
 
   public HoodSticks(AdjustabeHood subsystem) {
+
+    
     mAdjustabeHood = subsystem;
 
     addRequirements(mAdjustabeHood);
