@@ -30,7 +30,7 @@ public class RightTrenchThreeAuto extends SequentialCommandGroup {
 
   public RightTrenchThreeAuto(Shooter shooter, AdjustabeHood adjustabeHood, DriveTrain driveTrain, Spindexer spindexer, Ejector ejector, Intake intake) {
     addCommands(
-      new SetShooterSpeed(shooter, 4500),
+      new SetShooterSpeed(shooter, 4600),
       
       new SetHoodTarget(adjustabeHood, 9.0),
       

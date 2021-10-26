@@ -31,7 +31,7 @@ public class RightTrenchFiveAuto extends SequentialCommandGroup {
   public RightTrenchFiveAuto(Shooter shooter, AdjustabeHood adjustabeHood, DriveTrain driveTrain, Spindexer spindexer, Ejector ejector, Intake intake) {
     
     addCommands(
-      new SetShooterSpeed(shooter, 4500),
+      new SetShooterSpeed(shooter, 4600),
       
       new SetHoodTarget(adjustabeHood, 9.0),
       
@@ -58,7 +58,7 @@ public class RightTrenchFiveAuto extends SequentialCommandGroup {
               new AutoOverride(intake, spindexer, ejector).withTimeout(1.25),
               new ParallelCommandGroup(
                 new SetHoodTarget(adjustabeHood, 9.0),
-                new SetShooterSpeed(shooter, 4500)
+                new SetShooterSpeed(shooter, 4800)
               )
             )
           ),

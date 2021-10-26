@@ -7,13 +7,12 @@ public class LeftTrenchTwoPath extends SwerveTrajectoryGenerator {
 
     public LeftTrenchTwoPath(DriveTrain subsystem) {
         // Setup
-        super(subsystem.RightTrenchThreeTrajectory);
+        super(subsystem.leftTrenchTwoTrajectory);
 
         // Set the Start Rotation
         setStartRotation(0.0);
-
         addHeadingWaypoint(0.1, 0.0);
-        addTimedHeadingWaypoint(1, 2, 10);
-        addTimedHeadingWaypoint(4.0, 4.9, 37.0);
+        addTimedHeadingWaypoint(1, 2, 25);
+        addTimedHeadingWaypoint(4.0, 4.9, 45.0);
     }
 }
