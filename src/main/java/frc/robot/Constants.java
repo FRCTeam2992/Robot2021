@@ -80,10 +80,10 @@ public final class Constants {
     public static final double driveWheelDiameter = 0.1016;
 
     // Analog Encoder Offsets (Degrees) - Opposite of Raw Reading - Bevel Gear to Right
-    public static final double frontLeftOffset = +68.1;
+    public static final double frontLeftOffset = 68.1;
     public static final double frontRightOffset = -79.2;
     public static final double rearLeftOffset = 105.1;
-    public static final double rearRightOffset = -115.2;
+    public static final double rearRightOffset = -25.2;
 
     // Swerve Gyro Correction
     public static final double driveGyroP = 0.005;
