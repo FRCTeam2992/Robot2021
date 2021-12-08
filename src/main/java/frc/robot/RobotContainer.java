@@ -158,8 +158,9 @@ public class RobotContainer {
     slowModeButton = new TriggerButton(controller1, Hand.kLeft, 0.2);
 
     autoShootButton = new TriggerButton(controller1, Hand.kRight, 0.2);
+    //autoShootButton.whileActiveContinuous(new AutoIntakeShoot(mSpindexer, mEjector, mIntake));
     autoShootButton.whileActiveContinuous(new AutoShoot(mSpindexer, mEjector, mIntake));
-    autoShootButton.whenInactive(new StopAutoShoot(mSpindexer, mEjector));
+    autoShootButton.whenInactive(new StopAutoShoot(mSpindexer, mEjector, mIntake));
 
     autoAimButton = new JoystickButton(controller1, 1);
     autoAimButton.whileHeld(new AutoLimeLightSpeed(mShooter, mDriveTrain, powerCellInterpolator));
