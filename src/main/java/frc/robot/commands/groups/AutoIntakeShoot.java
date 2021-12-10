@@ -16,7 +16,7 @@ import frc.robot.subsystems.Spindexer;
 
 public class AutoIntakeShoot extends ParallelCommandGroup {
 
-  public AutoIntakeShoot(Spindexer mSpindexer, Ejector mEjector, Intake mIntake) {
+  public AutoIntakeShoot(Spindexer mSpindexer, Ejector mEjector, Intake mIntake) { 
     // Add Commands
     addCommands(
       new MoveEjector(mEjector, 1), new MoveSpindexer(mSpindexer, -.55), 
