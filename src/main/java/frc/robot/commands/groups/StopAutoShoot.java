@@ -6,14 +6,16 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.StopEjector;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopSpindexer;
 import frc.robot.subsystems.Ejector;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Spindexer;
 
 public class StopAutoShoot extends ParallelCommandGroup {
 
-  public StopAutoShoot(Spindexer mSpindexer, Ejector mEjector) {
+  public StopAutoShoot(Spindexer mSpindexer, Ejector mEjector, Intake mIntake) {
     // Add Commands
-    addCommands(new StopEjector(mEjector), new StopSpindexer(mSpindexer));
+    addCommands(new StopEjector(mEjector), new StopSpindexer(mSpindexer), new StopIntake(mIntake));
   }
 }
